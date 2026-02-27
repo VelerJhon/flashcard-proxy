@@ -122,11 +122,12 @@ display: flex; align-items: flex-start; gap: 10px;
 .word-edit-ja { font-size: 0.75rem; color: var(–text-muted); margin-top: 2px; }
 .word-edit-btns { display: flex; gap: 6px; flex-shrink: 0; margin-top: 2px; }
 .btn-all {
-width: 100%; background: linear-gradient(135deg, var(–accent2), var(–accent));
-color: #fff; border: none; border-radius: 14px; padding: 16px;
+width: 100%; background: var(–accent2) !important;
+color: #fff !important; border: none; border-radius: 14px; padding: 16px;
 font-size: 1rem; font-weight: 700; cursor: pointer; margin-bottom: 20px;
 touch-action: manipulation; -webkit-appearance: none; appearance: none;
 font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+box-shadow: 0 4px 16px rgba(99,102,241,0.3);
 }
 .btn-all:active { opacity: 0.85; }
 
@@ -290,13 +291,14 @@ font-size: 0.82rem; font-weight: 700; cursor: pointer;
 touch-action: manipulation; -webkit-appearance: none; appearance: none;
 font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
 -webkit-transition: all 0.15s; transition: all 0.15s;
-background: #fff; color: var(–text-muted);
+background: #e8eaf6; color: #64748b;
 border: 1.5px solid rgba(99,102,241,0.15);
 }
 .tab-btn.active {
-background: linear-gradient(135deg, var(–accent2), var(–accent));
-color: #fff; border-color: transparent;
-box-shadow: 0 3px 12px rgba(99,102,241,0.3);
+background: var(–accent2) !important;
+color: #fff !important;
+border-color: transparent !important;
+box-shadow: 0 3px 12px rgba(99,102,241,0.4);
 }
 
 /* リスニング画面 */
