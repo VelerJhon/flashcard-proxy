@@ -676,16 +676,50 @@ function renderSectionList() {
     const div = document.createElement('div');
     div.className = 'section-card';
     div.innerHTML = `
-      <div class="section-card-info" onclick="startSection(${idx})">
+      <div class="section-card-info">
         <div class="section-name">${sec.name}</div>
         <div class="section-meta">${sec.cards.length}語</div>
         ${weakCount > 0 ? `<div class="section-weak">😓 苦手 ${weakCount}語</div>` : ''}
       </div>
       <div class="section-card-right">
-        <button class="sec-icon-btn" type="button" onclick="openEditSectionModal(${idx})">✏️</button>
-        <button class="sec-icon-btn sec-icon-btn-del" type="button" onclick="openDeleteSectionModal(${idx})">🗑️</button>
+        <button class="sec-icon-btn" type="button" data-saction="edit">✏️</button>
+        <button class="sec-icon-btn sec-icon-btn-del" type="button" data-saction="del">🗑️</button>
         <span class="section-arrow">›</span>
       </div>`;
+
+    // info area: iOS Safari対応（touchend + click 二重発火防止）
+    const infoEl = div.querySelector('.section-card-info');
+    var _infoTouching = false;
+    infoEl.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      _infoTouching = true;
+      startSection(idx);
+      setTimeout(function() { _infoTouching = false; }, 300);
+    }, { passive: false });
+    infoEl.addEventListener('click', function() {
+      if (_infoTouching) return;
+      startSection(idx);
+    });
+
+    // 編集・削除ボタン: iOS Safari対応
+    div.querySelectorAll('[data-saction]').forEach(function(btn) {
+      var _btnTouching = false;
+      btn.addEventListener('touchend', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        _btnTouching = true;
+        if (btn.getAttribute('data-saction') === 'edit') openEditSectionModal(idx);
+        else openDeleteSectionModal(idx);
+        setTimeout(function() { _btnTouching = false; }, 300);
+      }, { passive: false });
+      btn.addEventListener('click', function(e) {
+        if (_btnTouching) return;
+        e.stopPropagation();
+        if (btn.getAttribute('data-saction') === 'edit') openEditSectionModal(idx);
+        else openDeleteSectionModal(idx);
+      });
+    });
+
     list.appendChild(div);
   });
 }
