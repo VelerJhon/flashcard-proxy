@@ -396,9 +396,6 @@ background: #fff; color: var(–accent2);
 <!-- セクション一覧 -->
 
 <div id="sectionScreen">
-  <div id="sectionList" class="section-list"></div>
-  <button class="btn-all" onclick="startAll()">📖 全セクションまとめて学習</button>
-  <button onclick="openNewSectionModal()" style="width:100%;background:#fff;border:1.5px dashed rgba(99,102,241,0.3);color:var(--accent2);border-radius:14px;padding:14px;font-size:0.9rem;font-weight:700;cursor:pointer;margin-bottom:16px;touch-action:manipulation;font-family:'Noto Sans JP',-apple-system,sans-serif;">＋ 新しいセクションを作る</button>
   <div class="paste-section">
     <details>
       <summary>単語リストを追加する</summary>
@@ -411,6 +408,9 @@ background: #fff; color: var(–accent2);
       <div id="appendMsg" style="font-size:0.75rem;color:var(--correct);margin-top:6px;display:none;"></div>
     </details>
   </div>
+  <div id="sectionList" class="section-list"></div>
+  <button class="btn-all" onclick="startAll()">📖 全セクションまとめて学習</button>
+  <button onclick="openNewSectionModal()" style="width:100%;background:#fff;border:1.5px dashed rgba(99,102,241,0.3);color:var(--accent2);border-radius:14px;padding:14px;font-size:0.9rem;font-weight:700;cursor:pointer;margin-bottom:16px;touch-action:manipulation;font-family:'Noto Sans JP',-apple-system,sans-serif;">＋ 新しいセクションを作る</button>
 </div>
 
 <!-- 学習画面 -->
@@ -618,6 +618,23 @@ function appendFromText() {
 }
 
 // セクション一覧表示
+// iOSタッチ対応ヘルパー
+function addTap(el, fn) {
+  let moved = false;
+  el.addEventListener('touchstart', () => { moved = false; }, { passive: true });
+  el.addEventListener('touchmove', () => { moved = true; }, { passive: true });
+  el.addEventListener('touchend', (e) => {
+    if (moved) return;
+    e.preventDefault();
+    e.stopPropagation();
+    fn();
+  }, { passive: false });
+  el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    fn();
+  });
+}
+
 function renderSectionList() {
   const list = document.getElementById('sectionList');
   list.innerHTML = '';
@@ -641,7 +658,7 @@ function renderSectionList() {
         ${weakCount > 0 ? `<div class="section-weak">😓 苦手 ${weakCount}語</div>` : ''}
       </div>
       <div class="section-arrow">›</div>`;
-    top.addEventListener('click', () => startSection(idx));
+    addTap(top, () => startSection(idx));
 
     const actions = document.createElement('div');
     actions.className = 'section-actions';
@@ -649,12 +666,12 @@ function renderSectionList() {
     const editBtn = document.createElement('button');
     editBtn.className = 'sec-btn sec-btn-edit';
     editBtn.textContent = '✏️ 編集';
-    editBtn.addEventListener('click', (e) => { e.stopPropagation(); openEditSectionModal(idx); });
+    addTap(editBtn, () => openEditSectionModal(idx));
 
     const delBtn = document.createElement('button');
     delBtn.className = 'sec-btn sec-btn-del';
     delBtn.textContent = '🗑️ 削除';
-    delBtn.addEventListener('click', (e) => { e.stopPropagation(); openDeleteSectionModal(idx); });
+    addTap(delBtn, () => openDeleteSectionModal(idx));
 
     actions.appendChild(editBtn);
     actions.appendChild(delBtn);
@@ -1752,18 +1769,22 @@ function openEditSectionModal(idx) {
 
   // addEventListener登録
   document.getElementById('btnSaveSecName').addEventListener('click', () => saveSecName(idx));
+  addTap(document.getElementById('btnSaveSecName'), () => saveSecName(idx));
   document.getElementById('btnCloseEdit').addEventListener('click', () => {
     document.getElementById('modalOverlay').style.display = 'none';
   });
+  addTap(document.getElementById('btnCloseEdit'), () => {
+    document.getElementById('modalOverlay').style.display = 'none';
+  });
   const addBtn = document.getElementById('btnAddWord');
-  if (addBtn) addBtn.addEventListener('click', () => openAddWordModal(idx));
+  if (addBtn) addTap(addBtn, () => openAddWordModal(idx));
 
   document.getElementById('wordEditList').querySelectorAll('button[data-action]').forEach(btn => {
     const ci = parseInt(btn.dataset.ci);
     if (btn.dataset.action === 'edit') {
-      btn.addEventListener('click', () => openEditWordModal(idx, ci));
+      addTap(btn, () => openEditWordModal(idx, ci));
     } else {
-      btn.addEventListener('click', () => openDeleteWordModal(idx, ci));
+      addTap(btn, () => openDeleteWordModal(idx, ci));
     }
   });
 }
