@@ -1883,14 +1883,10 @@ function openEditWordModal(secIdx, cardIdx) {
      <input class="modal-input" id="ew-pos" placeholder="品詞（例：名詞）" value="${c.pos}">
      <input class="modal-input" id="ew-meaning" placeholder="意味" value="${c.meaning}">
      <textarea class="modal-textarea" id="ew-example" placeholder="例文">${c.example}</textarea>
-
-```
- <textarea class="modal-textarea" id="ew-trans" placeholder="訳">${c.trans}</textarea>`,
-`<button class="modal-btn modal-btn-cancel" data-maction="backedit" data-i="${secIdx}">戻る</button>
- <button class="modal-btn modal-btn-ok" data-maction="saveword" data-i="${secIdx}" data-j="${cardIdx}">保存</button>`
-```
-
-);
+     <textarea class="modal-textarea" id="ew-trans" placeholder="訳">${c.trans}</textarea>`,
+    `<button class="modal-btn modal-btn-cancel" data-maction="backedit" data-i="${secIdx}">戻る</button>
+     <button class="modal-btn modal-btn-ok" data-maction="saveword" data-i="${secIdx}" data-j="${cardIdx}">保存</button>`
+  );
 }
 function saveWord(secIdx, cardIdx) {
 sections[secIdx].cards[cardIdx] = {
