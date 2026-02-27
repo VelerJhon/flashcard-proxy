@@ -948,7 +948,7 @@ function playNext() {
   document.getElementById('listeningCurTrans').textContent = c.trans || '';
   const seq = [];
   seq.push({ text: c.word, lang: 'en-US', rate: 0.8 });
-  seq.push({ text: c.meaning, lang: 'ja-JP', rate: 0.9 });
+  seq.push({ text: c.reading || c.meaning, lang: 'ja-JP', rate: 0.9 });
   if (listenMode === 'all') seq.push({ text: c.example, lang: 'en-US', rate: 0.85 });
   playSequence(seq, 0, session, () => {
     if (playSession !== session) return;
@@ -1384,13 +1384,15 @@ function showEditWordForm(secIdx, cardIdx) {
   c.innerHTML = '<div class="edit-form"><div class="edit-form-label">単語</div><input class="edit-form-input" id="ef-word" type="text" value="' + card.word + '">'
     + '<div class="edit-form-label">品詞</div><input class="edit-form-input" id="ef-pos" type="text" value="' + card.pos + '">'
     + '<div class="edit-form-label">意味</div><input class="edit-form-input" id="ef-meaning" type="text" value="' + card.meaning + '">'
+    + '<div class="edit-form-label">読み（ひらがな）</div><input class="edit-form-input" id="ef-reading" type="text" placeholder="例：きんこう（任意）" value="' + (card.reading || '') + '">'
     + '<div class="edit-form-label">例文</div><textarea class="edit-form-textarea" id="ef-example">' + card.example + '</textarea>'
     + '<div class="edit-form-label">訳</div><textarea class="edit-form-textarea" id="ef-trans">' + card.trans + '</textarea>'
     + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">保存</button><button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button></div>';
   document.getElementById('ef-ok').addEventListener('click', function() {
     sections[secIdx].cards[cardIdx] = {
       word: document.getElementById('ef-word').value.trim(), pos: document.getElementById('ef-pos').value.trim(),
-      meaning: document.getElementById('ef-meaning').value.trim(), example: document.getElementById('ef-example').value.trim(), trans: document.getElementById('ef-trans').value.trim()
+      meaning: document.getElementById('ef-meaning').value.trim(), reading: document.getElementById('ef-reading').value.trim(),
+      example: document.getElementById('ef-example').value.trim(), trans: document.getElementById('ef-trans').value.trim()
     };
     saveSections(); renderEditWords(secIdx);
   });
@@ -1403,6 +1405,7 @@ function showAddWordForm(secIdx) {
   c.innerHTML = '<div class="edit-form"><div class="edit-form-label">単語</div><input class="edit-form-input" id="ef-word" type="text" placeholder="単語">'
     + '<div class="edit-form-label">品詞</div><input class="edit-form-input" id="ef-pos" type="text" placeholder="例: 名詞">'
     + '<div class="edit-form-label">意味</div><input class="edit-form-input" id="ef-meaning" type="text" placeholder="意味">'
+    + '<div class="edit-form-label">読み（ひらがな）</div><input class="edit-form-input" id="ef-reading" type="text" placeholder="例：きんこう（任意）">'
     + '<div class="edit-form-label">例文</div><textarea class="edit-form-textarea" id="ef-example" placeholder="例文"></textarea>'
     + '<div class="edit-form-label">訳</div><textarea class="edit-form-textarea" id="ef-trans" placeholder="訳"></textarea>'
     + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">追加</button><button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button></div>';
@@ -1410,6 +1413,7 @@ function showAddWordForm(secIdx) {
     var word = document.getElementById('ef-word').value.trim(); if (!word) return;
     sections[secIdx].cards.push({
       word: word, pos: document.getElementById('ef-pos').value.trim(), meaning: document.getElementById('ef-meaning').value.trim(),
+      reading: document.getElementById('ef-reading').value.trim(),
       example: document.getElementById('ef-example').value.trim(), trans: document.getElementById('ef-trans').value.trim()
     });
     saveSections(); renderEditWords(secIdx);
