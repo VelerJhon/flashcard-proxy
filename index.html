@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -49,278 +50,332 @@
     margin-bottom: 24px; text-align: center; position: relative; z-index: 1;
   }
 
-  /* セクション一覧 */
-  #sectionScreen { width: 100%; max-width: 420px; position: relative; z-index: 1; }
-  .section-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
-  .section-card {
-    background: #fff; border-radius: 16px; padding: 16px 20px;
-    border: 1.5px solid rgba(99,102,241,0.12);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    display: flex; align-items: center; justify-content: space-between;
-    cursor: pointer; touch-action: manipulation;
-    -webkit-user-select: none; user-select: none;
-    -webkit-transition: transform 0.12s; transition: transform 0.12s;
-  }
-  .section-card:active { -webkit-transform: scale(0.98); transform: scale(0.98); }
-  .section-name { font-size: 1rem; font-weight: 700; color: var(--text); }
-  .section-meta { font-size: 0.75rem; color: var(--text-muted); margin-top: 3px; }
-  .section-weak { font-size: 0.7rem; color: var(--wrong); margin-top: 3px; }
-  .section-arrow { color: var(--accent2); font-size: 1.2rem; }
-  .btn-all {
-    width: 100%; background: linear-gradient(135deg, var(--accent2), var(--accent));
-    color: #fff; border: none; border-radius: 14px; padding: 16px;
-    font-size: 1rem; font-weight: 700; cursor: pointer; margin-bottom: 20px;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-  }
-  .btn-all:active { opacity: 0.85; }
+/* セクション一覧 */
+#sectionScreen { width: 100%; max-width: 420px; position: relative; z-index: 1; }
+.section-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.section-card {
+background: #fff; border-radius: 16px; padding: 16px 20px;
+border: 1.5px solid rgba(99,102,241,0.12);
+box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+display: flex; align-items: center; justify-content: space-between;
+cursor: pointer; touch-action: manipulation;
+-webkit-user-select: none; user-select: none;
+-webkit-transition: transform 0.12s; transition: transform 0.12s;
+}
+.section-card:active { -webkit-transform: scale(0.98); transform: scale(0.98); }
+.section-name { font-size: 1rem; font-weight: 700; color: var(–text); }
+.section-meta { font-size: 0.75rem; color: var(–text-muted); margin-top: 3px; }
+.section-weak { font-size: 0.7rem; color: var(–wrong); margin-top: 3px; }
+.section-arrow { color: var(–accent2); font-size: 1.2rem; }
+.section-actions { display: flex; gap: 6px; margin-top: 8px; }
+.sec-btn {
+padding: 5px 12px; border-radius: 8px; font-size: 0.72rem; font-weight: 700;
+border: none; cursor: pointer; touch-action: manipulation;
+-webkit-appearance: none; appearance: none;
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+}
+.sec-btn-edit { background: rgba(99,102,241,0.1); color: var(–accent2); }
+.sec-btn-del  { background: rgba(220,38,38,0.1);  color: var(–wrong); }
 
-  /* 追記エリア */
-  .paste-section { width: 100%; max-width: 420px; margin-bottom: 24px; position: relative; z-index: 1; }
-  .paste-section details summary {
-    font-size: 0.78rem; color: var(--text-muted); cursor: pointer;
-    -webkit-user-select: none; user-select: none; padding: 8px 0;
-    list-style: none; display: flex; align-items: center; gap: 6px;
-  }
-  .paste-section details summary::-webkit-details-marker { display: none; }
-  .paste-section details summary::before { content: '＋'; color: var(--accent2); font-size: 1rem; }
-  .paste-section details[open] summary::before { content: '－'; }
-  .paste-textarea {
-    width: 100%; background: #fff; border: 1.5px solid rgba(99,102,241,0.2);
-    border-radius: 12px; color: var(--text);
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    font-size: 16px; padding: 12px; resize: vertical; min-height: 120px;
-    margin-top: 8px; outline: none; -webkit-appearance: none; appearance: none;
-  }
-  .paste-textarea:focus { border-color: var(--accent2); }
-  .btn-load {
-    margin-top: 10px; color: #fff; border: none; border-radius: 10px;
-    padding: 10px 24px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-  }
+/* モーダル */
+.modal-overlay {
+position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+display: flex; align-items: center; justify-content: center;
+z-index: 1000; padding: 24px;
+}
+.modal-box {
+background: #fff; border-radius: 20px; padding: 24px;
+width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+.modal-title { font-size: 1rem; font-weight: 700; color: var(–text); margin-bottom: 16px; }
+.modal-input {
+width: 100%; border: 1.5px solid rgba(99,102,241,0.3); border-radius: 10px;
+padding: 10px 12px; font-size: 0.9rem; font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+color: var(–text); outline: none; -webkit-appearance: none; margin-bottom: 12px;
+}
+.modal-input:focus { border-color: var(–accent2); }
+.modal-textarea {
+width: 100%; border: 1.5px solid rgba(99,102,241,0.3); border-radius: 10px;
+padding: 10px 12px; font-size: 0.85rem; font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+color: var(–text); outline: none; -webkit-appearance: none; margin-bottom: 12px;
+resize: vertical; min-height: 80px; line-height: 1.6;
+}
+.modal-textarea:focus { border-color: var(–accent2); }
+.modal-btns { display: flex; gap: 10px; }
+.modal-btn {
+flex: 1; padding: 12px; border-radius: 12px; font-size: 0.88rem; font-weight: 700;
+border: none; cursor: pointer; touch-action: manipulation;
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+}
+.modal-btn-ok     { background: linear-gradient(135deg, var(–accent2), var(–accent)); color: #fff; }
+.modal-btn-cancel { background: #f1f5f9; color: var(–text-muted); }
+.modal-btn-del    { background: linear-gradient(135deg, #7b2d38, #e05a6a); color: #fff; }
 
-  /* 学習画面 */
-  #studyScreen { display: none; width: 100%; }
-  .study-header {
-    width: 100%; max-width: 420px; display: flex; align-items: center; gap: 12px;
-    margin-bottom: 16px; position: relative; z-index: 1;
-  }
-  .btn-back {
-    background: #fff; border: 1.5px solid rgba(99,102,241,0.2);
-    border-radius: 10px; padding: 8px 14px; font-size: 0.82rem; font-weight: 700;
-    color: var(--accent2); cursor: pointer; touch-action: manipulation;
-    -webkit-appearance: none; appearance: none;
-  }
-  .study-title { font-size: 0.9rem; font-weight: 700; color: var(--text); flex: 1; text-align: center; }
-  .progress-wrap { width: 100%; max-width: 420px; margin-bottom: 16px; position: relative; z-index: 1; }
-  .progress-info { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
-  .progress-bar-bg { background: #e2e8f0; border-radius: 99px; height: 8px; overflow: hidden; }
-  .progress-bar {
-    height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent));
-    border-radius: 99px; -webkit-transition: width 0.4s ease; transition: width 0.4s ease;
-  }
-  .score-row { display: flex; gap: 12px; margin-bottom: 20px; position: relative; z-index: 1; }
-  .badge {
-    display: flex; align-items: center; gap: 5px; background: #fff;
-    border-radius: 99px; padding: 5px 14px; font-size: 0.8rem; font-weight: 700;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  }
-  .badge.ok { color: var(--correct); border: 1px solid rgba(22,163,74,0.25); }
-  .badge.ng { color: var(--wrong); border: 1px solid rgba(220,38,38,0.25); }
+/* 単語編集リスト */
+.word-edit-item {
+background: #f8faff; border-radius: 12px; padding: 12px 14px;
+border: 1.5px solid rgba(99,102,241,0.08); margin-bottom: 8px;
+display: flex; align-items: flex-start; gap: 10px;
+}
+.word-edit-info { flex: 1; }
+.word-edit-en { font-size: 0.9rem; font-weight: 700; color: var(–text); }
+.word-edit-ja { font-size: 0.75rem; color: var(–text-muted); margin-top: 2px; }
+.word-edit-btns { display: flex; gap: 6px; flex-shrink: 0; margin-top: 2px; }
+.btn-all {
+width: 100%; background: linear-gradient(135deg, var(–accent2), var(–accent));
+color: #fff; border: none; border-radius: 14px; padding: 16px;
+font-size: 1rem; font-weight: 700; cursor: pointer; margin-bottom: 20px;
+touch-action: manipulation; -webkit-appearance: none; appearance: none;
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+}
+.btn-all:active { opacity: 0.85; }
 
-  /* カード */
-  .card-area {
-    -webkit-perspective: 1200px; perspective: 1200px;
-    width: 100%; max-width: 420px; height: 280px; cursor: pointer;
-    margin-bottom: 20px; position: relative; z-index: 1; touch-action: manipulation;
-    -webkit-animation: fadeUp 0.4s ease forwards; animation: fadeUp 0.4s ease forwards;
-  }
-  .card-inner {
-    position: relative; width: 100%; height: 100%;
-    -webkit-transform-style: preserve-3d; transform-style: preserve-3d;
-    -webkit-transition: -webkit-transform 0.55s cubic-bezier(0.4,0,0.2,1);
-    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
-    -webkit-transform: translateZ(0) rotateY(0deg); transform: translateZ(0) rotateY(0deg);
-  }
-  .card-inner.flipped { -webkit-transform: translateZ(0) rotateY(180deg); transform: translateZ(0) rotateY(180deg); }
-  .card-face {
-    position: absolute; top:0; left:0; right:0; bottom:0; border-radius: 20px; padding: 28px 24px;
-    -webkit-backface-visibility: hidden; backface-visibility: hidden;
-    display: flex; flex-direction: column; justify-content: center;
-    -webkit-transform: translateZ(0); transform: translateZ(0);
-  }
-  .card-front {
-    background: linear-gradient(135deg, #fff 0%, #f8faff 100%);
-    border: 1.5px solid rgba(99,102,241,0.15);
-    box-shadow: 0 8px 32px rgba(99,102,241,0.1), 0 2px 8px rgba(0,0,0,0.06);
-    align-items: center; text-align: center;
-  }
-  .card-back {
-    background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
-    border: 1.5px solid rgba(59,130,246,0.2);
-    box-shadow: 0 8px 32px rgba(59,130,246,0.1), 0 2px 8px rgba(0,0,0,0.06);
-    -webkit-transform: translateZ(0) rotateY(180deg); transform: translateZ(0) rotateY(180deg);
-  }
-  .card-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; font-weight: 600; }
-  .card-word { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2rem, 8vw, 3rem); color: var(--text); line-height: 1.1; margin-bottom: 8px; }
-  .card-pos { display: inline-block; background: rgba(99,102,241,0.1); color: var(--accent2); border-radius: 99px; padding: 3px 12px; font-size: 0.72rem; font-weight: 700; }
-  .tap-hint { position: absolute; bottom: 18px; right: 20px; font-size: 0.68rem; color: rgba(100,116,139,0.6); display: flex; align-items: center; gap: 4px; -webkit-transform: translateZ(1px); transform: translateZ(1px); }
-  .back-meaning { font-size: 1.1rem; color: #1e40af; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
-  .back-example { font-size: 0.78rem; color: #334155; line-height: 1.7; border-left: 3px solid #3b82f6; padding-left: 10px; margin-bottom: 6px; }
-  .back-trans { font-size: 0.74rem; color: #64748b; line-height: 1.6; padding-left: 13px; }
+/* 追記エリア */
+.paste-section { width: 100%; max-width: 420px; margin-bottom: 24px; position: relative; z-index: 1; }
+.paste-section details summary {
+font-size: 0.78rem; color: var(–text-muted); cursor: pointer;
+-webkit-user-select: none; user-select: none; padding: 8px 0;
+list-style: none; display: flex; align-items: center; gap: 6px;
+}
+.paste-section details summary::-webkit-details-marker { display: none; }
+.paste-section details summary::before { content: ‘＋’; color: var(–accent2); font-size: 1rem; }
+.paste-section details[open] summary::before { content: ‘－’; }
+.paste-textarea {
+width: 100%; background: #fff; border: 1.5px solid rgba(99,102,241,0.2);
+border-radius: 12px; color: var(–text);
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+font-size: 16px; padding: 12px; resize: vertical; min-height: 120px;
+margin-top: 8px; outline: none; -webkit-appearance: none; appearance: none;
+}
+.paste-textarea:focus { border-color: var(–accent2); }
+.btn-load {
+margin-top: 10px; color: #fff; border: none; border-radius: 10px;
+padding: 10px 24px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+touch-action: manipulation; -webkit-appearance: none; appearance: none;
+}
 
-  /* ボタン */
-  .btn-row { display: flex; gap: 14px; width: 100%; max-width: 420px; margin-bottom: 10px; position: relative; z-index: 1; }
-  .btn {
-    flex: 1; border: none; border-radius: 14px; padding: 16px 10px;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    font-size: 0.9rem; font-weight: 700; cursor: pointer;
-    -webkit-transition: transform 0.15s, opacity 0.15s; transition: transform 0.15s, opacity 0.15s;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    -webkit-user-select: none; user-select: none;
-  }
-  .btn:active { -webkit-transform: scale(0.96); transform: scale(0.96); }
-  .btn:disabled { opacity: 0.35; cursor: default; }
-  .btn-ok { background: linear-gradient(135deg, #2d6a4f, #4caf82); color: #fff; box-shadow: 0 4px 20px rgba(76,175,130,0.3); }
-  .btn-ng { background: linear-gradient(135deg, #7b2d38, #e05a6a); color: #fff; box-shadow: 0 4px 20px rgba(224,90,106,0.3); }
-  .btn-flip { background: #fff; color: var(--accent2); border: 1.5px solid rgba(99,102,241,0.3); box-shadow: 0 2px 8px rgba(0,0,0,0.06); flex: 0.6; }
+/* 学習画面 */
+#studyScreen { display: none; width: 100%; }
+.study-header {
+width: 100%; max-width: 420px; display: flex; align-items: center; gap: 12px;
+margin-bottom: 16px; position: relative; z-index: 1;
+}
+.btn-back {
+background: #fff; border: 1.5px solid rgba(99,102,241,0.2);
+border-radius: 10px; padding: 8px 14px; font-size: 0.82rem; font-weight: 700;
+color: var(–accent2); cursor: pointer; touch-action: manipulation;
+-webkit-appearance: none; appearance: none;
+}
+.study-title { font-size: 0.9rem; font-weight: 700; color: var(–text); flex: 1; text-align: center; }
+.progress-wrap { width: 100%; max-width: 420px; margin-bottom: 16px; position: relative; z-index: 1; }
+.progress-info { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(–text-muted); margin-bottom: 6px; }
+.progress-bar-bg { background: #e2e8f0; border-radius: 99px; height: 8px; overflow: hidden; }
+.progress-bar {
+height: 100%; background: linear-gradient(90deg, var(–accent2), var(–accent));
+border-radius: 99px; -webkit-transition: width 0.4s ease; transition: width 0.4s ease;
+}
+.score-row { display: flex; gap: 12px; margin-bottom: 20px; position: relative; z-index: 1; }
+.badge {
+display: flex; align-items: center; gap: 5px; background: #fff;
+border-radius: 99px; padding: 5px 14px; font-size: 0.8rem; font-weight: 700;
+box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.badge.ok { color: var(–correct); border: 1px solid rgba(22,163,74,0.25); }
+.badge.ng { color: var(–wrong); border: 1px solid rgba(220,38,38,0.25); }
 
-  /* 完了画面 */
-  .finish-screen {
-    display: none; flex-direction: column; align-items: center; text-align: center;
-    width: 100%; max-width: 420px;
-    -webkit-animation: fadeUp 0.5s ease forwards; animation: fadeUp 0.5s ease forwards;
-    position: relative; z-index: 1;
-  }
-  .finish-screen.show { display: flex; }
-  .finish-title { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; color: var(--accent2); margin-bottom: 10px; }
-  .finish-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin: 20px 0; }
-  .stat-card { background: #fff; border-radius: 16px; padding: 18px; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-  .stat-num { font-size: 2.2rem; font-weight: 700; font-family: 'Playfair Display', Georgia, serif; }
-  .stat-num.ok { color: var(--correct); } .stat-num.ng { color: var(--wrong); }
-  .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
-  .btn-restart {
-    background: linear-gradient(135deg, var(--accent2), #a48af7); color: #fff; border: none;
-    border-radius: 14px; padding: 16px 40px; font-size: 1rem; font-weight: 700;
-    cursor: pointer; margin-top: 8px; margin-bottom: 12px;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-  }
-  .btn-back-home {
-    background: #fff; border: 1.5px solid rgba(99,102,241,0.2); color: var(--accent2);
-    border-radius: 14px; padding: 12px 32px; font-size: 0.9rem; font-weight: 700;
-    cursor: pointer; touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-  }
+/* カード */
+.card-area {
+-webkit-perspective: 1200px; perspective: 1200px;
+width: 100%; max-width: 420px; height: 280px; cursor: pointer;
+margin-bottom: 20px; position: relative; z-index: 1; touch-action: manipulation;
+-webkit-animation: fadeUp 0.4s ease forwards; animation: fadeUp 0.4s ease forwards;
+}
+.card-inner {
+position: relative; width: 100%; height: 100%;
+-webkit-transform-style: preserve-3d; transform-style: preserve-3d;
+-webkit-transition: -webkit-transform 0.55s cubic-bezier(0.4,0,0.2,1);
+transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+-webkit-transform: translateZ(0) rotateY(0deg); transform: translateZ(0) rotateY(0deg);
+}
+.card-inner.flipped { -webkit-transform: translateZ(0) rotateY(180deg); transform: translateZ(0) rotateY(180deg); }
+.card-face {
+position: absolute; top:0; left:0; right:0; bottom:0; border-radius: 20px; padding: 28px 24px;
+-webkit-backface-visibility: hidden; backface-visibility: hidden;
+display: flex; flex-direction: column; justify-content: center;
+-webkit-transform: translateZ(0); transform: translateZ(0);
+}
+.card-front {
+background: linear-gradient(135deg, #fff 0%, #f8faff 100%);
+border: 1.5px solid rgba(99,102,241,0.15);
+box-shadow: 0 8px 32px rgba(99,102,241,0.1), 0 2px 8px rgba(0,0,0,0.06);
+align-items: center; text-align: center;
+}
+.card-back {
+background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
+border: 1.5px solid rgba(59,130,246,0.2);
+box-shadow: 0 8px 32px rgba(59,130,246,0.1), 0 2px 8px rgba(0,0,0,0.06);
+-webkit-transform: translateZ(0) rotateY(180deg); transform: translateZ(0) rotateY(180deg);
+}
+.card-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(–text-muted); margin-bottom: 10px; font-weight: 600; }
+.card-word { font-family: ‘Playfair Display’, Georgia, serif; font-size: clamp(2rem, 8vw, 3rem); color: var(–text); line-height: 1.1; margin-bottom: 8px; }
+.card-pos { display: inline-block; background: rgba(99,102,241,0.1); color: var(–accent2); border-radius: 99px; padding: 3px 12px; font-size: 0.72rem; font-weight: 700; }
+.tap-hint { position: absolute; bottom: 18px; right: 20px; font-size: 0.68rem; color: rgba(100,116,139,0.6); display: flex; align-items: center; gap: 4px; -webkit-transform: translateZ(1px); transform: translateZ(1px); }
+.back-meaning { font-size: 1.1rem; color: #1e40af; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
+.back-example { font-size: 0.78rem; color: #334155; line-height: 1.7; border-left: 3px solid #3b82f6; padding-left: 10px; margin-bottom: 6px; }
+.back-trans { font-size: 0.74rem; color: #64748b; line-height: 1.6; padding-left: 13px; }
 
-  @-webkit-keyframes fadeUp {
-    from { opacity: 0; -webkit-transform: translateY(20px); transform: translateY(20px); }
-    to { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+/* ボタン */
+.btn-row { display: flex; gap: 14px; width: 100%; max-width: 420px; margin-bottom: 10px; position: relative; z-index: 1; }
+.btn {
+flex: 1; border: none; border-radius: 14px; padding: 16px 10px;
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+font-size: 0.9rem; font-weight: 700; cursor: pointer;
+-webkit-transition: transform 0.15s, opacity 0.15s; transition: transform 0.15s, opacity 0.15s;
+display: flex; align-items: center; justify-content: center; gap: 6px;
+touch-action: manipulation; -webkit-appearance: none; appearance: none;
+-webkit-user-select: none; user-select: none;
+}
+.btn:active { -webkit-transform: scale(0.96); transform: scale(0.96); }
+.btn:disabled { opacity: 0.35; cursor: default; }
+.btn-ok { background: linear-gradient(135deg, #2d6a4f, #4caf82); color: #fff; box-shadow: 0 4px 20px rgba(76,175,130,0.3); }
+.btn-ng { background: linear-gradient(135deg, #7b2d38, #e05a6a); color: #fff; box-shadow: 0 4px 20px rgba(224,90,106,0.3); }
+.btn-flip { background: #fff; color: var(–accent2); border: 1.5px solid rgba(99,102,241,0.3); box-shadow: 0 2px 8px rgba(0,0,0,0.06); flex: 0.6; }
 
-  /* タブナビ */
-  .tab-nav {
-    display: flex; gap: 8px; width: 100%; max-width: 420px;
-    margin-bottom: 20px; position: relative; z-index: 1;
-  }
-  .tab-btn {
-    flex: 1; padding: 10px 8px; border: none; border-radius: 12px;
-    font-size: 0.82rem; font-weight: 700; cursor: pointer;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    -webkit-transition: all 0.15s; transition: all 0.15s;
-    background: #fff; color: var(--text-muted);
-    border: 1.5px solid rgba(99,102,241,0.15);
-  }
-  .tab-btn.active {
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    color: #fff; border-color: transparent;
-    box-shadow: 0 3px 12px rgba(99,102,241,0.3);
-  }
+/* 完了画面 */
+.finish-screen {
+display: none; flex-direction: column; align-items: center; text-align: center;
+width: 100%; max-width: 420px;
+-webkit-animation: fadeUp 0.5s ease forwards; animation: fadeUp 0.5s ease forwards;
+position: relative; z-index: 1;
+}
+.finish-screen.show { display: flex; }
+.finish-title { font-family: ‘Playfair Display’, Georgia, serif; font-size: 2rem; color: var(–accent2); margin-bottom: 10px; }
+.finish-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin: 20px 0; }
+.stat-card { background: #fff; border-radius: 16px; padding: 18px; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.stat-num { font-size: 2.2rem; font-weight: 700; font-family: ‘Playfair Display’, Georgia, serif; }
+.stat-num.ok { color: var(–correct); } .stat-num.ng { color: var(–wrong); }
+.stat-label { font-size: 0.75rem; color: var(–text-muted); margin-top: 4px; }
+.btn-restart {
+background: linear-gradient(135deg, var(–accent2), #a48af7); color: #fff; border: none;
+border-radius: 14px; padding: 16px 40px; font-size: 1rem; font-weight: 700;
+cursor: pointer; margin-top: 8px; margin-bottom: 12px;
+touch-action: manipulation; -webkit-appearance: none; appearance: none;
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+}
+.btn-back-home {
+background: #fff; border: 1.5px solid rgba(99,102,241,0.2); color: var(–accent2);
+border-radius: 14px; padding: 12px 32px; font-size: 0.9rem; font-weight: 700;
+cursor: pointer; touch-action: manipulation; -webkit-appearance: none; appearance: none;
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+}
 
-  /* リスニング画面 */
-  #listeningScreen { display: none; width: 100%; max-width: 420px; position: relative; z-index: 1; }
+@-webkit-keyframes fadeUp {
+from { opacity: 0; -webkit-transform: translateY(20px); transform: translateY(20px); }
+to { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+}
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
 
-  .listening-controls {
-    background: #fff; border-radius: 16px; padding: 16px;
-    border: 1.5px solid rgba(99,102,241,0.12);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px;
-  }
-  .ctrl-row { display: flex; gap: 8px; align-items: center; }
-  .ctrl-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; width: 56px; flex-shrink: 0; }
-  .toggle-group { display: flex; gap: 6px; flex: 1; }
-  .toggle-btn {
-    flex: 1; padding: 7px 6px; border: 1.5px solid rgba(99,102,241,0.2);
-    border-radius: 8px; font-size: 0.72rem; font-weight: 700; cursor: pointer;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    background: #f8faff; color: var(--text-muted);
-    -webkit-transition: all 0.12s; transition: all 0.12s;
-  }
-  .toggle-btn.active {
-    background: var(--accent2); color: #fff; border-color: var(--accent2);
-  }
+/* タブナビ */
+.tab-nav {
+display: flex; gap: 8px; width: 100%; max-width: 420px;
+margin-bottom: 20px; position: relative; z-index: 1;
+}
+.tab-btn {
+flex: 1; padding: 10px 8px; border: none; border-radius: 12px;
+font-size: 0.82rem; font-weight: 700; cursor: pointer;
+touch-action: manipulation; -webkit-appearance: none; appearance: none;
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+-webkit-transition: all 0.15s; transition: all 0.15s;
+background: #fff; color: var(–text-muted);
+border: 1.5px solid rgba(99,102,241,0.15);
+}
+.tab-btn.active {
+background: linear-gradient(135deg, var(–accent2), var(–accent));
+color: #fff; border-color: transparent;
+box-shadow: 0 3px 12px rgba(99,102,241,0.3);
+}
 
-  .listening-play-btn {
-    width: 100%; padding: 14px; border: none; border-radius: 14px;
-    background: linear-gradient(135deg, #16a34a, #4caf82);
-    color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    box-shadow: 0 4px 16px rgba(22,163,74,0.3);
-    margin-bottom: 14px;
-  }
-  .listening-play-btn.playing {
-    background: linear-gradient(135deg, #dc2626, #e05a6a);
-    box-shadow: 0 4px 16px rgba(220,38,38,0.3);
-  }
+/* リスニング画面 */
+#listeningScreen { display: none; width: 100%; max-width: 420px; position: relative; z-index: 1; }
 
-  .listening-progress {
-    background: #fff; border-radius: 12px; padding: 10px 14px;
-    border: 1.5px solid rgba(99,102,241,0.1);
-    font-size: 0.78rem; color: var(--text-muted);
-    text-align: center; margin-bottom: 14px; display: none;
-  }
-  .listening-progress .cur-word {
-    font-size: 1rem; font-weight: 700; color: var(--text); margin-top: 4px;
-  }
+.listening-controls {
+background: #fff; border-radius: 16px; padding: 16px;
+border: 1.5px solid rgba(99,102,241,0.12);
+box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px;
+}
+.ctrl-row { display: flex; gap: 8px; align-items: center; }
+.ctrl-label { font-size: 0.75rem; color: var(–text-muted); font-weight: 600; width: 56px; flex-shrink: 0; }
+.toggle-group { display: flex; gap: 6px; flex: 1; }
+.toggle-btn {
+flex: 1; padding: 7px 6px; border: 1.5px solid rgba(99,102,241,0.2);
+border-radius: 8px; font-size: 0.72rem; font-weight: 700; cursor: pointer;
+touch-action: manipulation; -webkit-appearance: none; appearance: none;
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+background: #f8faff; color: var(–text-muted);
+-webkit-transition: all 0.12s; transition: all 0.12s;
+}
+.toggle-btn.active {
+background: var(–accent2); color: #fff; border-color: var(–accent2);
+}
 
-  .word-list { display: flex; flex-direction: column; gap: 6px; }
-  .word-list-item {
-    background: #fff; border-radius: 12px; padding: 12px 14px;
-    border: 1.5px solid rgba(99,102,241,0.08);
-    display: flex; align-items: center; gap: 12px;
-    -webkit-transition: border-color 0.2s; transition: border-color 0.2s;
-  }
-  .word-list-item.playing-now {
-    border-color: var(--accent2);
-    background: rgba(99,102,241,0.04);
-  }
-  .word-list-item input[type="checkbox"] {
-    width: 18px; height: 18px; flex-shrink: 0; cursor: pointer;
-    accent-color: var(--accent2);
-  }
-  .word-list-text { flex: 1; }
-  .word-list-en { font-size: 0.88rem; font-weight: 700; color: var(--text); }
-  .word-list-ja { font-size: 0.74rem; color: var(--text-muted); margin-top: 2px; }
+.listening-play-btn {
+width: 100%; padding: 14px; border: none; border-radius: 14px;
+background: linear-gradient(135deg, #16a34a, #4caf82);
+color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer;
+touch-action: manipulation; -webkit-appearance: none; appearance: none;
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+box-shadow: 0 4px 16px rgba(22,163,74,0.3);
+margin-bottom: 14px;
+}
+.listening-play-btn.playing {
+background: linear-gradient(135deg, #dc2626, #e05a6a);
+box-shadow: 0 4px 16px rgba(220,38,38,0.3);
+}
 
-  .check-actions {
-    display: flex; gap: 8px; margin-bottom: 10px;
-  }
-  .check-action-btn {
-    flex: 1; padding: 8px; border: 1.5px solid rgba(99,102,241,0.2);
-    border-radius: 10px; font-size: 0.72rem; font-weight: 700; cursor: pointer;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    background: #fff; color: var(--accent2);
-  }
+.listening-progress {
+background: #fff; border-radius: 12px; padding: 10px 14px;
+border: 1.5px solid rgba(99,102,241,0.1);
+font-size: 0.78rem; color: var(–text-muted);
+text-align: center; margin-bottom: 14px; display: none;
+}
+.listening-progress .cur-word {
+font-size: 1rem; font-weight: 700; color: var(–text); margin-top: 4px;
+}
+
+.word-list { display: flex; flex-direction: column; gap: 6px; }
+.word-list-item {
+background: #fff; border-radius: 12px; padding: 12px 14px;
+border: 1.5px solid rgba(99,102,241,0.08);
+display: flex; align-items: center; gap: 12px;
+-webkit-transition: border-color 0.2s; transition: border-color 0.2s;
+}
+.word-list-item.playing-now {
+border-color: var(–accent2);
+background: rgba(99,102,241,0.04);
+}
+.word-list-item input[type=“checkbox”] {
+width: 18px; height: 18px; flex-shrink: 0; cursor: pointer;
+accent-color: var(–accent2);
+}
+.word-list-text { flex: 1; }
+.word-list-en { font-size: 0.88rem; font-weight: 700; color: var(–text); }
+.word-list-ja { font-size: 0.74rem; color: var(–text-muted); margin-top: 2px; }
+
+.check-actions {
+display: flex; gap: 8px; margin-bottom: 10px;
+}
+.check-action-btn {
+flex: 1; padding: 8px; border: 1.5px solid rgba(99,102,241,0.2);
+border-radius: 10px; font-size: 0.72rem; font-weight: 700; cursor: pointer;
+touch-action: manipulation; -webkit-appearance: none; appearance: none;
+font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+background: #fff; color: var(–accent2);
+}
 
 </style>
 </head>
@@ -330,15 +385,18 @@
 <p class="subtitle" id="mainSubtitle">セクションを選んで学習しよう</p>
 
 <!-- タブナビ -->
+
 <div class="tab-nav" id="tabNav">
   <button class="tab-btn active" onclick="switchTab('flash')">📇 フラッシュ</button>
   <button class="tab-btn" onclick="switchTab('listen')">🎧 リスニング</button>
 </div>
 
 <!-- セクション一覧 -->
+
 <div id="sectionScreen">
   <div id="sectionList" class="section-list"></div>
   <button class="btn-all" onclick="startAll()">📖 全セクションまとめて学習</button>
+  <button onclick="openNewSectionModal()" style="width:100%;background:#fff;border:1.5px dashed rgba(99,102,241,0.3);color:var(--accent2);border-radius:14px;padding:14px;font-size:0.9rem;font-weight:700;cursor:pointer;margin-bottom:16px;touch-action:manipulation;font-family:'Noto Sans JP',-apple-system,sans-serif;">＋ 新しいセクションを作る</button>
   <div class="paste-section">
     <details>
       <summary>単語リストを追加する</summary>
@@ -354,6 +412,7 @@
 </div>
 
 <!-- 学習画面 -->
+
 <div id="studyScreen">
   <div class="study-header">
     <button class="btn-back" onclick="goHome()">← 戻る</button>
@@ -411,6 +470,7 @@
 </div>
 
 <!-- リスニング画面 -->
+
 <div id="listeningScreen">
   <!-- コントロール -->
   <div class="listening-controls">
@@ -432,21 +492,25 @@
   </div>
 
   <!-- 再生ボタン -->
-  <button class="listening-play-btn" id="btnListenPlay" onclick="toggleListening()">▶ 再生開始</button>
+
+<button class="listening-play-btn" id="btnListenPlay" onclick="toggleListening()">▶ 再生開始</button>
 
   <!-- 現在再生中 -->
+
   <div class="listening-progress" id="listeningProgress">
     <div style="font-size:0.72rem;">再生中</div>
     <div class="cur-word" id="listeningCurWord">-</div>
   </div>
 
   <!-- チェック操作 -->
+
   <div class="check-actions">
     <button class="check-action-btn" onclick="checkAll()">全てチェック</button>
     <button class="check-action-btn" onclick="uncheckAll()">全て外す</button>
   </div>
 
   <!-- 単語一覧 -->
+
   <div class="word-list" id="wordList"></div>
 </div>
 
@@ -563,14 +627,21 @@ function renderSectionList() {
     const weakCount = sec.cards.filter(c => getWeakScore(c.word) >= 0.5).length;
     const div = document.createElement('div');
     div.className = 'section-card';
+    div.style.flexDirection = 'column';
+    div.style.alignItems = 'flex-start';
     div.innerHTML = `
-      <div>
-        <div class="section-name">${sec.name}</div>
-        <div class="section-meta">${sec.cards.length}語</div>
-        ${weakCount > 0 ? `<div class="section-weak">😓 苦手 ${weakCount}語</div>` : ''}
+      <div style="display:flex;align-items:center;justify-content:space-between;width:100%;" onclick="startSection(${idx})">
+        <div>
+          <div class="section-name">${sec.name}</div>
+          <div class="section-meta">${sec.cards.length}語</div>
+          ${weakCount > 0 ? `<div class="section-weak">😓 苦手 ${weakCount}語</div>` : ''}
+        </div>
+        <div class="section-arrow">›</div>
       </div>
-      <div class="section-arrow">›</div>`;
-    div.addEventListener('click', () => startSection(idx));
+      <div class="section-actions">
+        <button class="sec-btn sec-btn-edit" onclick="event.stopPropagation();openEditSectionModal(${idx})">✏️ 編集</button>
+        <button class="sec-btn sec-btn-del"  onclick="event.stopPropagation();openDeleteSectionModal(${idx})">🗑️ 削除</button>
+      </div>`;
     list.appendChild(div);
   });
 }
@@ -1564,12 +1635,188 @@ if (saved) {
 }
 renderSectionList();
 </script>
+
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
-  });
+</script>
+
+<!-- モーダル -->
+
+<div id="modalOverlay" class="modal-overlay" style="display:none;" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-title" id="modalTitle">セクション編集</div>
+    <div id="modalBody"></div>
+    <div class="modal-btns" id="modalBtns"></div>
+  </div>
+</div>
+
+<script>
+// ===== 管理機能 =====
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').style.display = 'none';
+}
+function openModal(title, bodyHTML, btnsHTML) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').innerHTML = bodyHTML;
+  document.getElementById('modalBtns').innerHTML = btnsHTML;
+  document.getElementById('modalOverlay').style.display = 'flex';
+}
+
+// 新規セクション作成
+function openNewSectionModal() {
+  openModal(
+    '新しいセクションを作る',
+    `<input class="modal-input" id="newSecName" placeholder="セクション名" value="セクション${sections.length + 1}">`,
+    `<button class="modal-btn modal-btn-cancel" onclick="document.getElementById('modalOverlay').style.display='none'">キャンセル</button>
+     <button class="modal-btn modal-btn-ok" onclick="createNewSection()">作成</button>`
+  );
+  setTimeout(() => document.getElementById('newSecName').focus(), 100);
+}
+function createNewSection() {
+  const name = document.getElementById('newSecName').value.trim();
+  if (!name) return;
+  sections.push({ name, cards: [] });
+  saveSections();
+  renderSectionList();
+  document.getElementById('modalOverlay').style.display = 'none';
+}
+
+// セクション削除
+function openDeleteSectionModal(idx) {
+  openModal(
+    'セクションを削除',
+    `<p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">「${sections[idx].name}」（${sections[idx].cards.length}語）を削除します。<br>この操作は取り消せません。</p>`,
+    `<button class="modal-btn modal-btn-cancel" onclick="document.getElementById('modalOverlay').style.display='none'">キャンセル</button>
+     <button class="modal-btn modal-btn-del" onclick="deleteSection(${idx})">削除する</button>`
+  );
+}
+function deleteSection(idx) {
+  sections.splice(idx, 1);
+  saveSections();
+  renderSectionList();
+  document.getElementById('modalOverlay').style.display = 'none';
+}
+
+// セクション編集（名前変更＋単語管理）
+function openEditSectionModal(idx) {
+  const sec = sections[idx];
+  let wordsHTML = sec.cards.map((c, ci) => `
+    <div class="word-edit-item" id="wei-${ci}">
+      <div class="word-edit-info">
+        <div class="word-edit-en">${c.word} <span style="font-size:0.7rem;color:var(--text-muted);font-weight:400;">${c.pos}</span></div>
+        <div class="word-edit-ja">${c.meaning}</div>
+      </div>
+      <div class="word-edit-btns">
+        <button class="sec-btn sec-btn-edit" onclick="openEditWordModal(${idx},${ci})">✏️</button>
+        <button class="sec-btn sec-btn-del" onclick="openDeleteWordModal(${idx},${ci})">🗑️</button>
+      </div>
+    </div>`).join('');
+
+  openModal(
+    'セクション編集',
+    `<div style="margin-bottom:14px;">
+      <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;margin-bottom:6px;">セクション名</div>
+      <input class="modal-input" id="editSecName" value="${sec.name}">
+      <button class="modal-btn modal-btn-ok" style="width:100%;margin-bottom:16px;" onclick="saveSecName(${idx})">名前を保存</button>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">単語一覧（${sec.cards.length}語）</div>
+      ${sec.cards.length < 50 ? `<button class="sec-btn sec-btn-edit" onclick="openAddWordModal(${idx})">＋ 単語を追加</button>` : ''}
+    </div>
+    <div style="max-height:320px;overflow-y:auto;">${wordsHTML}</div>`,
+    `<button class="modal-btn modal-btn-cancel" style="width:100%;" onclick="document.getElementById('modalOverlay').style.display='none'">閉じる</button>`
+  );
+}
+
+function saveSecName(idx) {
+  const name = document.getElementById('editSecName').value.trim();
+  if (!name) return;
+  sections[idx].name = name;
+  saveSections();
+  renderSectionList();
+  // フィードバック
+  const btn = document.querySelector('#modalBox .modal-btn-ok');
+  if (btn) { btn.textContent = '✓ 保存しました'; setTimeout(() => { btn.textContent = '名前を保存'; }, 1500); }
+}
+
+// 単語削除
+function openDeleteWordModal(secIdx, cardIdx) {
+  const c = sections[secIdx].cards[cardIdx];
+  openModal(
+    '単語を削除',
+    `<p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">「${c.word}」を削除します。<br>この操作は取り消せません。</p>`,
+    `<button class="modal-btn modal-btn-cancel" onclick="openEditSectionModal(${secIdx})">戻る</button>
+     <button class="modal-btn modal-btn-del" onclick="deleteWord(${secIdx},${cardIdx})">削除する</button>`
+  );
+}
+function deleteWord(secIdx, cardIdx) {
+  sections[secIdx].cards.splice(cardIdx, 1);
+  saveSections();
+  renderSectionList();
+  openEditSectionModal(secIdx);
+}
+
+// 単語編集
+function openEditWordModal(secIdx, cardIdx) {
+  const c = sections[secIdx].cards[cardIdx];
+  openModal(
+    '単語を編集',
+    `<input class="modal-input" id="ew-word" placeholder="単語" value="${c.word}">
+     <input class="modal-input" id="ew-pos" placeholder="品詞（例：名詞）" value="${c.pos}">
+     <input class="modal-input" id="ew-meaning" placeholder="意味" value="${c.meaning}">
+     <textarea class="modal-textarea" id="ew-example" placeholder="例文">${c.example}</textarea>
+
+```
+ <textarea class="modal-textarea" id="ew-trans" placeholder="訳">${c.trans}</textarea>`,
+`<button class="modal-btn modal-btn-cancel" onclick="openEditSectionModal(${secIdx})">戻る</button>
+ <button class="modal-btn modal-btn-ok" onclick="saveWord(${secIdx},${cardIdx})">保存</button>`
+```
+
+);
+}
+function saveWord(secIdx, cardIdx) {
+sections[secIdx].cards[cardIdx] = {
+word:    document.getElementById(‘ew-word’).value.trim(),
+pos:     document.getElementById(‘ew-pos’).value.trim(),
+meaning: document.getElementById(‘ew-meaning’).value.trim(),
+example: document.getElementById(‘ew-example’).value.trim(),
+trans:   document.getElementById(‘ew-trans’).value.trim(),
+};
+saveSections();
+renderSectionList();
+openEditSectionModal(secIdx);
+}
+
+// 単語追加
+function openAddWordModal(secIdx) {
+openModal(
+‘単語を追加’,
+`<input class="modal-input" id="ew-word" placeholder="単語"> <input class="modal-input" id="ew-pos" placeholder="品詞（例：名詞）"> <input class="modal-input" id="ew-meaning" placeholder="意味"> <textarea class="modal-textarea" id="ew-example" placeholder="例文"></textarea> <textarea class="modal-textarea" id="ew-trans" placeholder="訳"></textarea>`,
+`<button class="modal-btn modal-btn-cancel" onclick="openEditSectionModal(${secIdx})">戻る</button> <button class="modal-btn modal-btn-ok" onclick="addWord(${secIdx})">追加</button>`
+);
+}
+function addWord(secIdx) {
+const word = document.getElementById(‘ew-word’).value.trim();
+if (!word) return;
+sections[secIdx].cards.push({
+word,
+pos:     document.getElementById(‘ew-pos’).value.trim(),
+meaning: document.getElementById(‘ew-meaning’).value.trim(),
+example: document.getElementById(‘ew-example’).value.trim(),
+trans:   document.getElementById(‘ew-trans’).value.trim(),
+});
+saveSections();
+renderSectionList();
+openEditSectionModal(secIdx);
+}
+
+if (‘serviceWorker’ in navigator) {
+window.addEventListener(‘load’, () => {
+navigator.serviceWorker.register(’/sw.js’).catch(() => {});
+});
 }
 </script>
+
 </body>
 </html>
