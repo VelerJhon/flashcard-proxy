@@ -484,7 +484,7 @@ background: #fff; color: var(–accent2);
 <div class="bg-glow"></div>
 <h1>📚 Flash Cards</h1>
 <p class="subtitle" id="mainSubtitle">セクションを選んで学習しよう</p>
-<button class="btn-edit-mode" id="btnEditMode" type="button">✏️ 編集</button>
+<button class="btn-edit-mode" id="btnEditMode" onclick="openEditMode()">✏️ 編集</button>
 
 <!-- タブナビ -->
 
@@ -1928,7 +1928,6 @@ openEditSectionModal(secIdx);
 }
 
 // ===== 編集モード =====
-document.getElementById('btnEditMode').addEventListener('click', openEditMode);
 
 function openEditMode() {
   document.getElementById('sectionScreen').style.display = 'none';
