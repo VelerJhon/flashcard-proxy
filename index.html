@@ -384,13 +384,43 @@
     font-size: 0.73rem; color: var(--text-muted); line-height: 1.7; margin-top: 8px;
   }
   .help-tip strong { color: var(--accent2); }
+  /* AI生成ボタン */
+  .ef-ai-btn {
+    background: linear-gradient(135deg, #7c3aed, #a78bfa);
+    color: #fff; border: none; border-radius: 10px;
+    padding: 0 14px; font-size: 0.73rem; font-weight: 700;
+    cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif;
+    -webkit-tap-highlight-color: transparent; height: 44px;
+    box-shadow: 0 2px 8px rgba(124,58,237,0.3);
+  }
+  .ef-ai-btn:disabled { opacity: 0.5; cursor: default; }
+  /* AI設定モーダル */
+  #aiModal {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.45); z-index: 300;
+    display: none; align-items: flex-end; justify-content: center;
+  }
+  #aiModalBox {
+    background: #fff; border-radius: 24px 24px 0 0;
+    width: 100%; max-width: 480px;
+    padding: 20px 20px calc(28px + env(safe-area-inset-bottom));
+  }
+  .ai-key-note {
+    font-size: 0.7rem; color: var(--text-muted); line-height: 1.7;
+    margin-top: 8px; background: #f8faff; border-radius: 10px; padding: 10px 12px;
+  }
 </style>
 </head>
 <body>
 <div class="bg-glow"></div>
 <h1>📚 Flash Cards</h1>
 <p class="subtitle" id="mainSubtitle">セクションを選んで学習しよう</p>
-<button class="btn-edit-mode" id="btnEditMode" onclick="openEditMode()" data-action="editmode">✏️ 編集</button>
+<div id="editModeControls" style="display:flex;gap:8px;justify-content:flex-end;width:100%;max-width:420px;position:relative;z-index:1;margin-bottom:20px;">
+  <button class="btn-edit-mode" id="btnAISetting" onclick="openAIModal()" style="margin-bottom:0;color:#7c3aed;background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.25);">✨ AI設定</button>
+  <button class="btn-edit-mode" id="btnEditMode" onclick="openEditMode()" data-action="editmode" style="margin-bottom:0;">✏️ 編集</button>
+</div>
 
 <div class="tab-nav" id="tabNav">
   <button class="tab-btn active" onclick="switchTab('flash')">📇 フラッシュ</button>
@@ -647,15 +677,92 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'flashcards_sections_v1';
-const STATS_KEY   = 'flashcards_stats_v1';
-const SECTION_MAX = 50;
+const STORAGE_KEY   = 'flashcards_sections_v1';
+const STATS_KEY     = 'flashcards_stats_v1';
+const AI_KEY_STORAGE = 'flashcards_gemini_key';
+const SECTION_MAX   = 50;
 let sections = [];
 let studyCards = [];
 let queue = [];
 let current = 0, okCount = 0, ngCount = 0;
 let isFlipped = false, isTouching = false;
 let reverseMode = false;
+
+// ===== Gemini AI =====
+function getGeminiKey() { return localStorage.getItem(AI_KEY_STORAGE) || ''; }
+function saveGeminiKey(key) {
+  if (key) localStorage.setItem(AI_KEY_STORAGE, key);
+  else localStorage.removeItem(AI_KEY_STORAGE);
+}
+function openAIModal() {
+  document.getElementById('aiModal').style.display = 'flex';
+  const key = getGeminiKey();
+  document.getElementById('ai-key-input').value = key;
+  const st = document.getElementById('ai-key-status');
+  st.textContent = key ? '✓ APIキーが設定済みです' : '';
+  st.style.display = key ? 'block' : 'none';
+}
+function closeAIModal(e) {
+  if (!e || e.target === document.getElementById('aiModal'))
+    document.getElementById('aiModal').style.display = 'none';
+}
+function saveAIKeyFromModal() {
+  const val = document.getElementById('ai-key-input').value.trim();
+  saveGeminiKey(val);
+  const btn = document.getElementById('ai-save-btn');
+  btn.textContent = val ? '✓ 保存しました' : '✓ 削除しました';
+  setTimeout(() => {
+    document.getElementById('aiModal').style.display = 'none';
+    btn.textContent = '保存';
+  }, 700);
+}
+async function generateWithAI() {
+  const key = getGeminiKey();
+  if (!key) {
+    alert('Gemini APIキーが設定されていません。\n「✨ AI設定」ボタンからキーを入力してください。');
+    return;
+  }
+  const wordEl = document.getElementById('ef-word');
+  const word = (wordEl ? wordEl.value : '').trim();
+  if (!word) { alert('先に「単語」を入力してください。'); return; }
+  const pos = (document.getElementById('ef-pos') ? document.getElementById('ef-pos').value : '').trim();
+  const btn = document.getElementById('ef-ai-btn');
+  const orig = btn.textContent;
+  btn.textContent = '生成中...'; btn.disabled = true;
+  const prompt = `英単語「${word}」（品詞：${pos || '不明'}）について、次のJSON形式のみで返してください。説明・コードブロック・余分な文字は不要です。\n{"meaning":"日本語の意味（簡潔に）","example":"自然な英語例文1文","trans":"例文の日本語訳"}`;
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0.7, maxOutputTokens: 300 }
+        })
+      }
+    );
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || 'HTTPエラー ' + res.status);
+    }
+    const data = await res.json();
+    const raw = (data.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
+    const m = raw.match(/\{[\s\S]*?\}/);
+    if (!m) throw new Error('レスポンスからJSONを取得できませんでした');
+    const result = JSON.parse(m[0]);
+    if (result.meaning) document.getElementById('ef-meaning').value = result.meaning;
+    if (result.example) document.getElementById('ef-example').value = result.example;
+    if (result.trans)   document.getElementById('ef-trans').value   = result.trans;
+    btn.textContent = '✓ 完了';
+    setTimeout(() => { if (btn) btn.textContent = orig; }, 2000);
+  } catch (e) {
+    alert('AI生成に失敗しました。\n' + e.message);
+    btn.textContent = orig;
+  } finally {
+    btn.disabled = false;
+  }
+}
 
 // 苦手統計
 function loadStats() { try { const s = localStorage.getItem(STATS_KEY); return s ? JSON.parse(s) : {}; } catch(e) { return {}; } }
@@ -1425,7 +1532,7 @@ function openEditMode() {
   document.getElementById('listeningScreen').style.display = 'none';
   document.getElementById('tabNav').style.display = 'none';
   document.getElementById('mainSubtitle').style.display = 'none';
-  document.getElementById('btnEditMode').style.display = 'none';
+  document.getElementById('editModeControls').style.display = 'none';
   document.getElementById('editScreen').style.display = '';
   renderEditSections();
 }
@@ -1434,7 +1541,7 @@ function closeEditMode() {
   document.getElementById('sectionScreen').style.display = 'block';
   document.getElementById('tabNav').style.display = 'flex';
   document.getElementById('mainSubtitle').style.display = 'block';
-  document.getElementById('btnEditMode').style.display = 'block';
+  document.getElementById('editModeControls').style.display = 'flex';
   renderSectionList();
 }
 function _editReg(el) {
@@ -1540,7 +1647,10 @@ function showEditWordForm(secIdx, cardIdx) {
   document.getElementById('editTitle').textContent = '単語を編集';
   document.getElementById('editBackBtn').onclick = function() { renderEditWords(secIdx); };
   var c = document.getElementById('editContent');
-  c.innerHTML = '<div class="edit-form"><div class="edit-form-label">単語</div><input class="edit-form-input" id="ef-word" type="text" value="' + card.word + '">'
+  c.innerHTML = '<div class="edit-form"><div class="edit-form-label">単語</div>'
+    + '<div style="display:flex;gap:8px;align-items:stretch;">'
+    + '<input class="edit-form-input" id="ef-word" type="text" value="' + card.word + '" style="flex:1;min-width:0;">'
+    + '<button class="ef-ai-btn" id="ef-ai-btn" type="button" onclick="generateWithAI()">AI生成 ✨</button></div>'
     + '<div class="edit-form-label">品詞</div><input class="edit-form-input" id="ef-pos" type="text" value="' + card.pos + '">'
     + '<div class="edit-form-label">意味</div><input class="edit-form-input" id="ef-meaning" type="text" value="' + card.meaning + '">'
     + '<div class="edit-form-label">読み（ひらがな）</div><input class="edit-form-input" id="ef-reading" type="text" placeholder="例：きんこう（任意）" value="' + (card.reading || '') + '">'
@@ -1561,7 +1671,10 @@ function showAddWordForm(secIdx) {
   document.getElementById('editTitle').textContent = '単語を追加';
   document.getElementById('editBackBtn').onclick = function() { renderEditWords(secIdx); };
   var c = document.getElementById('editContent');
-  c.innerHTML = '<div class="edit-form"><div class="edit-form-label">単語</div><input class="edit-form-input" id="ef-word" type="text" placeholder="単語">'
+  c.innerHTML = '<div class="edit-form"><div class="edit-form-label">単語</div>'
+    + '<div style="display:flex;gap:8px;align-items:stretch;">'
+    + '<input class="edit-form-input" id="ef-word" type="text" placeholder="単語" style="flex:1;min-width:0;">'
+    + '<button class="ef-ai-btn" id="ef-ai-btn" type="button" onclick="generateWithAI()">AI生成 ✨</button></div>'
     + '<div class="edit-form-label">品詞</div><input class="edit-form-input" id="ef-pos" type="text" placeholder="例: 名詞">'
     + '<div class="edit-form-label">意味</div><input class="edit-form-input" id="ef-meaning" type="text" placeholder="意味">'
     + '<div class="edit-form-label">読み（ひらがな）</div><input class="edit-form-input" id="ef-reading" type="text" placeholder="例：きんこう（任意）">'
@@ -1646,6 +1759,25 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(() => {}); });
 }
 </script>
+
+<!-- AI設定モーダル -->
+<div id="aiModal" onclick="closeAIModal(event)">
+  <div id="aiModalBox">
+    <div class="modal-drag-bar"></div>
+    <div style="font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:4px;text-align:center;">✨ AI設定</div>
+    <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:16px;text-align:center;">Gemini APIキーを設定します</div>
+    <div class="edit-form-label">Gemini API キー</div>
+    <input class="edit-form-input" id="ai-key-input" type="password" placeholder="AIzaSy..." autocomplete="off">
+    <div class="ai-key-note">
+      ・キーは <strong>Google AI Studio</strong>（aistudio.google.com）で無料取得できます<br>
+      ・キーはこの端末のブラウザ内にのみ保存されます<br>
+      ・外部サーバーへの送信は Gemini API のみです
+    </div>
+    <div id="ai-key-status" style="font-size:0.73rem;color:var(--correct);margin-top:8px;display:none;font-weight:600;"></div>
+    <button class="edit-form-btn edit-form-btn-ok" id="ai-save-btn" type="button" onclick="saveAIKeyFromModal()" style="margin-top:16px;">保存</button>
+    <button class="edit-form-btn edit-form-btn-cancel" type="button" onclick="document.getElementById('aiModal').style.display='none'">キャンセル</button>
+  </div>
+</div>
 </body>
 </html>
 
