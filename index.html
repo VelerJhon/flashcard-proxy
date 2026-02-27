@@ -822,6 +822,7 @@ let listenFilter  = 'all'; // 'all' | 'checked' | 'unchecked'
 let listenSection = 'all'; // 'all' | section index (number)
 let isListening   = false;
 let listenIndex   = 0;
+let playSession   = 0; // 再生セッションID。切り替え時にインクリメントして古いコールバックを無効化
 let listenList    = [];
 
 function loadChecks() { try { const s = localStorage.getItem(CHECK_KEY); return s ? JSON.parse(s) : {}; } catch(e) { return {}; } }
@@ -902,6 +903,7 @@ function startListening() {
   listenList = getListenList();
   if (listenList.length === 0) { alert('再生する単語がありません。フィルター設定を確認してください。'); return; }
   isListening = true; listenIndex = 0;
+  playSession++;
   document.getElementById('btnListenPlay').textContent = '⏹ 停止';
   document.getElementById('btnListenPlay').classList.add('playing');
   document.getElementById('listeningProgress').style.display = 'block';
@@ -912,19 +914,19 @@ function startFromWord(word) {
   if (listenList.length === 0) { alert('再生する単語がありません。フィルター設定を確認してください。'); return; }
   const idx = listenList.findIndex(c => c.word === word);
   listenIndex = idx !== -1 ? idx : 0;
-  if (isListening) {
-    window.speechSynthesis && window.speechSynthesis.cancel();
-    playNext();
-  } else {
+  playSession++; // 古いコールバックチェーンを無効化
+  window.speechSynthesis && window.speechSynthesis.cancel();
+  if (!isListening) {
     isListening = true;
     document.getElementById('btnListenPlay').textContent = '⏹ 停止';
     document.getElementById('btnListenPlay').classList.add('playing');
     document.getElementById('listeningProgress').style.display = 'block';
-    playNext();
   }
+  playNext();
 }
 function stopListening() {
   isListening = false;
+  playSession++;
   window.speechSynthesis && window.speechSynthesis.cancel();
   document.getElementById('btnListenPlay').textContent = '▶ 再生開始';
   document.getElementById('btnListenPlay').classList.remove('playing');
@@ -935,6 +937,7 @@ function stopListening() {
   document.querySelectorAll('.word-list-item.playing-now').forEach(el => el.classList.remove('playing-now'));
 }
 function playNext() {
+  const session = playSession;
   if (!isListening || listenIndex >= listenList.length) { stopListening(); return; }
   const c = listenList[listenIndex];
   document.querySelectorAll('.word-list-item.playing-now').forEach(el => el.classList.remove('playing-now'));
@@ -947,17 +950,24 @@ function playNext() {
   seq.push({ text: c.word, lang: 'en-US', rate: 0.8 });
   seq.push({ text: c.meaning, lang: 'ja-JP', rate: 0.9 });
   if (listenMode === 'all') seq.push({ text: c.example, lang: 'en-US', rate: 0.85 });
-  playSequence(seq, 0, () => { listenIndex++; setTimeout(() => { playNext(); }, 150); });
+  playSequence(seq, 0, session, () => {
+    if (playSession !== session) return;
+    listenIndex++;
+    setTimeout(() => { if (playSession === session) playNext(); }, 150);
+  });
 }
-function playSequence(seq, idx, onDone) {
-  if (!isListening || idx >= seq.length) { onDone(); return; }
+function playSequence(seq, idx, session, onDone) {
+  if (playSession !== session || !isListening || idx >= seq.length) {
+    if (playSession === session) onDone();
+    return;
+  }
   const item = seq[idx];
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(item.text);
   u.lang = item.lang; u.rate = item.rate;
-  u.onend = () => { setTimeout(() => { playSequence(seq, idx + 1, onDone); }, 200); };
-  u.onerror = () => { setTimeout(() => { playSequence(seq, idx + 1, onDone); }, 200); };
-  setTimeout(() => { if (isListening) window.speechSynthesis.speak(u); }, 50);
+  u.onend  = () => { setTimeout(() => { if (playSession === session) playSequence(seq, idx + 1, session, onDone); }, 200); };
+  u.onerror = () => { setTimeout(() => { if (playSession === session) playSequence(seq, idx + 1, session, onDone); }, 200); };
+  setTimeout(() => { if (isListening && playSession === session) window.speechSynthesis.speak(u); }, 50);
 }
 
 // タブ切替
