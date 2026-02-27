@@ -629,19 +629,35 @@ function renderSectionList() {
     div.className = 'section-card';
     div.style.flexDirection = 'column';
     div.style.alignItems = 'flex-start';
-    div.innerHTML = `
-      <div style="display:flex;align-items:center;justify-content:space-between;width:100%;" onclick="startSection(${idx})">
-        <div>
-          <div class="section-name">${sec.name}</div>
-          <div class="section-meta">${sec.cards.length}語</div>
-          ${weakCount > 0 ? `<div class="section-weak">😓 苦手 ${weakCount}語</div>` : ''}
-        </div>
-        <div class="section-arrow">›</div>
+
+    const top = document.createElement('div');
+    top.style.cssText = 'display:flex;align-items:center;justify-content:space-between;width:100%;cursor:pointer;';
+    top.innerHTML = `
+      <div>
+        <div class="section-name">${sec.name}</div>
+        <div class="section-meta">${sec.cards.length}語</div>
+        ${weakCount > 0 ? `<div class="section-weak">😓 苦手 ${weakCount}語</div>` : ''}
       </div>
-      <div class="section-actions">
-        <button class="sec-btn sec-btn-edit" onclick="event.stopPropagation();openEditSectionModal(${idx})">✏️ 編集</button>
-        <button class="sec-btn sec-btn-del"  onclick="event.stopPropagation();openDeleteSectionModal(${idx})">🗑️ 削除</button>
-      </div>`;
+      <div class="section-arrow">›</div>`;
+    top.addEventListener('click', () => startSection(idx));
+
+    const actions = document.createElement('div');
+    actions.className = 'section-actions';
+
+    const editBtn = document.createElement('button');
+    editBtn.className = 'sec-btn sec-btn-edit';
+    editBtn.textContent = '✏️ 編集';
+    editBtn.addEventListener('click', (e) => { e.stopPropagation(); openEditSectionModal(idx); });
+
+    const delBtn = document.createElement('button');
+    delBtn.className = 'sec-btn sec-btn-del';
+    delBtn.textContent = '🗑️ 削除';
+    delBtn.addEventListener('click', (e) => { e.stopPropagation(); openDeleteSectionModal(idx); });
+
+    actions.appendChild(editBtn);
+    actions.appendChild(delBtn);
+    div.appendChild(top);
+    div.appendChild(actions);
     list.appendChild(div);
   });
 }
@@ -1668,9 +1684,11 @@ function openNewSectionModal() {
   openModal(
     '新しいセクションを作る',
     `<input class="modal-input" id="newSecName" placeholder="セクション名" value="セクション${sections.length + 1}">`,
-    `<button class="modal-btn modal-btn-cancel" onclick="document.getElementById('modalOverlay').style.display='none'">キャンセル</button>
-     <button class="modal-btn modal-btn-ok" onclick="createNewSection()">作成</button>`
+    `<button class="modal-btn modal-btn-cancel" id="btnNewSecCancel">キャンセル</button>
+     <button class="modal-btn modal-btn-ok" id="btnNewSecOk">作成</button>`
   );
+  document.getElementById('btnNewSecCancel').addEventListener('click', () => { document.getElementById('modalOverlay').style.display = 'none'; });
+  document.getElementById('btnNewSecOk').addEventListener('click', createNewSection);
   setTimeout(() => document.getElementById('newSecName').focus(), 100);
 }
 function createNewSection() {
@@ -1687,9 +1705,11 @@ function openDeleteSectionModal(idx) {
   openModal(
     'セクションを削除',
     `<p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">「${sections[idx].name}」（${sections[idx].cards.length}語）を削除します。<br>この操作は取り消せません。</p>`,
-    `<button class="modal-btn modal-btn-cancel" onclick="document.getElementById('modalOverlay').style.display='none'">キャンセル</button>
-     <button class="modal-btn modal-btn-del" onclick="deleteSection(${idx})">削除する</button>`
+    `<button class="modal-btn modal-btn-cancel" id="btnDelSecCancel">キャンセル</button>
+     <button class="modal-btn modal-btn-del" id="btnDelSecOk">削除する</button>`
   );
+  document.getElementById('btnDelSecCancel').addEventListener('click', () => { document.getElementById('modalOverlay').style.display = 'none'; });
+  document.getElementById('btnDelSecOk').addEventListener('click', () => deleteSection(idx));
 }
 function deleteSection(idx) {
   sections.splice(idx, 1);
@@ -1702,14 +1722,14 @@ function deleteSection(idx) {
 function openEditSectionModal(idx) {
   const sec = sections[idx];
   let wordsHTML = sec.cards.map((c, ci) => `
-    <div class="word-edit-item" id="wei-${ci}">
+    <div class="word-edit-item">
       <div class="word-edit-info">
         <div class="word-edit-en">${c.word} <span style="font-size:0.7rem;color:var(--text-muted);font-weight:400;">${c.pos}</span></div>
         <div class="word-edit-ja">${c.meaning}</div>
       </div>
       <div class="word-edit-btns">
-        <button class="sec-btn sec-btn-edit" onclick="openEditWordModal(${idx},${ci})">✏️</button>
-        <button class="sec-btn sec-btn-del" onclick="openDeleteWordModal(${idx},${ci})">🗑️</button>
+        <button class="sec-btn sec-btn-edit" data-action="edit" data-ci="${ci}">✏️</button>
+        <button class="sec-btn sec-btn-del"  data-action="del"  data-ci="${ci}">🗑️</button>
       </div>
     </div>`).join('');
 
@@ -1718,15 +1738,32 @@ function openEditSectionModal(idx) {
     `<div style="margin-bottom:14px;">
       <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;margin-bottom:6px;">セクション名</div>
       <input class="modal-input" id="editSecName" value="${sec.name}">
-      <button class="modal-btn modal-btn-ok" style="width:100%;margin-bottom:16px;" onclick="saveSecName(${idx})">名前を保存</button>
+      <button class="modal-btn modal-btn-ok" id="btnSaveSecName" style="width:100%;margin-bottom:16px;">名前を保存</button>
     </div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
       <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">単語一覧（${sec.cards.length}語）</div>
-      ${sec.cards.length < 50 ? `<button class="sec-btn sec-btn-edit" onclick="openAddWordModal(${idx})">＋ 単語を追加</button>` : ''}
+      ${sec.cards.length < 50 ? `<button class="sec-btn sec-btn-edit" id="btnAddWord">＋ 単語を追加</button>` : ''}
     </div>
-    <div style="max-height:320px;overflow-y:auto;">${wordsHTML}</div>`,
-    `<button class="modal-btn modal-btn-cancel" style="width:100%;" onclick="document.getElementById('modalOverlay').style.display='none'">閉じる</button>`
+    <div style="max-height:320px;overflow-y:auto;" id="wordEditList">${wordsHTML}</div>`,
+    `<button class="modal-btn modal-btn-cancel" id="btnCloseEdit" style="width:100%;">閉じる</button>`
   );
+
+  // addEventListener登録
+  document.getElementById('btnSaveSecName').addEventListener('click', () => saveSecName(idx));
+  document.getElementById('btnCloseEdit').addEventListener('click', () => {
+    document.getElementById('modalOverlay').style.display = 'none';
+  });
+  const addBtn = document.getElementById('btnAddWord');
+  if (addBtn) addBtn.addEventListener('click', () => openAddWordModal(idx));
+
+  document.getElementById('wordEditList').querySelectorAll('button[data-action]').forEach(btn => {
+    const ci = parseInt(btn.dataset.ci);
+    if (btn.dataset.action === 'edit') {
+      btn.addEventListener('click', () => openEditWordModal(idx, ci));
+    } else {
+      btn.addEventListener('click', () => openDeleteWordModal(idx, ci));
+    }
+  });
 }
 
 function saveSecName(idx) {
@@ -1746,9 +1783,11 @@ function openDeleteWordModal(secIdx, cardIdx) {
   openModal(
     '単語を削除',
     `<p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">「${c.word}」を削除します。<br>この操作は取り消せません。</p>`,
-    `<button class="modal-btn modal-btn-cancel" onclick="openEditSectionModal(${secIdx})">戻る</button>
-     <button class="modal-btn modal-btn-del" onclick="deleteWord(${secIdx},${cardIdx})">削除する</button>`
+    `<button class="modal-btn modal-btn-cancel" id="btnDelWordBack">戻る</button>
+     <button class="modal-btn modal-btn-del" id="btnDelWordOk">削除する</button>`
   );
+  document.getElementById('btnDelWordBack').addEventListener('click', () => openEditSectionModal(secIdx));
+  document.getElementById('btnDelWordOk').addEventListener('click', () => deleteWord(secIdx, cardIdx));
 }
 function deleteWord(secIdx, cardIdx) {
   sections[secIdx].cards.splice(cardIdx, 1);
@@ -1769,11 +1808,13 @@ function openEditWordModal(secIdx, cardIdx) {
 
 ```
  <textarea class="modal-textarea" id="ew-trans" placeholder="訳">${c.trans}</textarea>`,
-`<button class="modal-btn modal-btn-cancel" onclick="openEditSectionModal(${secIdx})">戻る</button>
- <button class="modal-btn modal-btn-ok" onclick="saveWord(${secIdx},${cardIdx})">保存</button>`
+`<button class="modal-btn modal-btn-cancel" id="btnEditWordBack">戻る</button>
+ <button class="modal-btn modal-btn-ok" id="btnEditWordOk">保存</button>`
 ```
 
 );
+document.getElementById(‘btnEditWordBack’).addEventListener(‘click’, () => openEditSectionModal(secIdx));
+document.getElementById(‘btnEditWordOk’).addEventListener(‘click’, () => saveWord(secIdx, cardIdx));
 }
 function saveWord(secIdx, cardIdx) {
 sections[secIdx].cards[cardIdx] = {
@@ -1793,8 +1834,10 @@ function openAddWordModal(secIdx) {
 openModal(
 ‘単語を追加’,
 `<input class="modal-input" id="ew-word" placeholder="単語"> <input class="modal-input" id="ew-pos" placeholder="品詞（例：名詞）"> <input class="modal-input" id="ew-meaning" placeholder="意味"> <textarea class="modal-textarea" id="ew-example" placeholder="例文"></textarea> <textarea class="modal-textarea" id="ew-trans" placeholder="訳"></textarea>`,
-`<button class="modal-btn modal-btn-cancel" onclick="openEditSectionModal(${secIdx})">戻る</button> <button class="modal-btn modal-btn-ok" onclick="addWord(${secIdx})">追加</button>`
+`<button class="modal-btn modal-btn-cancel" id="btnAddWordBack">戻る</button> <button class="modal-btn modal-btn-ok" id="btnAddWordOk">追加</button>`
 );
+document.getElementById(‘btnAddWordBack’).addEventListener(‘click’, () => openEditSectionModal(secIdx));
+document.getElementById(‘btnAddWordOk’).addEventListener(‘click’, () => addWord(secIdx));
 }
 function addWord(secIdx) {
 const word = document.getElementById(‘ew-word’).value.trim();
