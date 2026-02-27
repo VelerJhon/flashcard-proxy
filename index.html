@@ -331,7 +331,8 @@
   }
   .word-list-item.playing-now { border-color: var(--accent2); background: rgba(99,102,241,0.04); }
   .word-list-item input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; cursor: pointer; accent-color: var(--accent2); }
-  .word-list-text { flex: 1; }
+  .word-list-text { flex: 1; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  .word-play-btn { font-size: 0.75rem; color: var(--accent2); opacity: 0.45; flex-shrink: 0; padding: 4px 2px; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
   .word-list-en { font-size: 0.88rem; font-weight: 700; color: var(--text); }
   .word-list-ja { font-size: 0.74rem; color: var(--text-muted); margin-top: 2px; }
   .check-actions { display: flex; gap: 8px; margin-bottom: 10px; }
@@ -844,7 +845,12 @@ function renderWordList() {
       <div class="word-list-text">
         <div class="word-list-en">${c.word} <span style="font-size:0.7rem;color:var(--text-muted);font-weight:400;">${c.pos}</span></div>
         <div class="word-list-ja">${c.meaning}</div>
-      </div>`;
+      </div>
+      <span class="word-play-btn">▶</span>`;
+    const playArea = div.querySelector('.word-list-text');
+    const playBtn  = div.querySelector('.word-play-btn');
+    playArea.addEventListener('click', () => startFromWord(c.word));
+    playBtn.addEventListener('click',  () => startFromWord(c.word));
     list.appendChild(div);
   });
 }
@@ -864,6 +870,22 @@ function startListening() {
   document.getElementById('btnListenPlay').classList.add('playing');
   document.getElementById('listeningProgress').style.display = 'block';
   playNext();
+}
+function startFromWord(word) {
+  listenList = getListenList();
+  if (listenList.length === 0) { alert('再生する単語がありません。フィルター設定を確認してください。'); return; }
+  const idx = listenList.findIndex(c => c.word === word);
+  listenIndex = idx !== -1 ? idx : 0;
+  if (isListening) {
+    window.speechSynthesis && window.speechSynthesis.cancel();
+    playNext();
+  } else {
+    isListening = true;
+    document.getElementById('btnListenPlay').textContent = '⏹ 停止';
+    document.getElementById('btnListenPlay').classList.add('playing');
+    document.getElementById('listeningProgress').style.display = 'block';
+    playNext();
+  }
 }
 function stopListening() {
   isListening = false;
