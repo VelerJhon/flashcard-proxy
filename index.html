@@ -54,18 +54,108 @@
 #sectionScreen { width: 100%; max-width: 420px; position: relative; z-index: 1; }
 .section-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
 .section-card {
-background: #fff; border-radius: 16px; padding: 16px 20px;
+background: #fff; border-radius: 16px; padding: 0;
 border: 1.5px solid rgba(99,102,241,0.12);
 box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 display: flex; align-items: center; justify-content: space-between;
-touch-action: manipulation;
+touch-action: manipulation; overflow: hidden;
 -webkit-transition: transform 0.12s; transition: transform 0.12s;
 }
 .section-card:active { -webkit-transform: scale(0.98); transform: scale(0.98); }
 .section-name { font-size: 1rem; font-weight: 700; color: var(–text); }
 .section-meta { font-size: 0.75rem; color: var(–text-muted); margin-top: 3px; }
 .section-weak { font-size: 0.7rem; color: var(–wrong); margin-top: 3px; }
-.section-arrow { color: var(–accent2); font-size: 1.2rem; }
+.section-arrow { color: var(--accent2); font-size: 1.2rem; }
+
+/* セクションカード内レイアウト */
+.section-card { padding: 0; overflow: hidden; }
+.section-card-info {
+  flex: 1; padding: 16px 20px; cursor: pointer; min-width: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.section-card-right {
+  display: -webkit-flex; display: flex; align-items: center; gap: 6px;
+  padding-right: 12px; flex-shrink: 0;
+}
+.sec-icon-btn {
+  background: rgba(99,102,241,0.08); border: 1.5px solid rgba(99,102,241,0.2);
+  border-radius: 8px; font-size: 1rem; width: 36px; height: 36px; padding: 0;
+  cursor: pointer; touch-action: manipulation; -webkit-appearance: none; appearance: none;
+  display: -webkit-flex; display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent; flex-shrink: 0;
+}
+.sec-icon-btn-del { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.2); }
+
+/* モーダル */
+#modalOverlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45); z-index: 200;
+  -webkit-box-align: end; -webkit-align-items: flex-end; align-items: flex-end;
+  -webkit-justify-content: center; justify-content: center;
+}
+#modalBox {
+  background: #fff; border-radius: 24px 24px 0 0; width: 100%; max-width: 480px;
+  padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
+  max-height: 80vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+.modal-drag-bar {
+  width: 40px; height: 4px; background: #e2e8f0; border-radius: 99px;
+  margin: 0 auto 16px;
+}
+#modalTitle {
+  font-size: 1rem; font-weight: 700; color: var(--text);
+  margin-bottom: 16px; text-align: center;
+}
+.modal-input {
+  width: 100%; background: #f8faff; border: 1.5px solid rgba(99,102,241,0.2);
+  border-radius: 10px; color: var(--text); padding: 10px 12px;
+  font-family: 'Noto Sans JP', -apple-system, sans-serif;
+  font-size: 16px; -webkit-appearance: none; appearance: none; outline: none;
+  display: block; margin-bottom: 10px; box-sizing: border-box;
+}
+.modal-textarea {
+  width: 100%; background: #f8faff; border: 1.5px solid rgba(99,102,241,0.2);
+  border-radius: 10px; color: var(--text); padding: 10px 12px;
+  font-family: 'Noto Sans JP', -apple-system, sans-serif;
+  font-size: 16px; -webkit-appearance: none; appearance: none; outline: none;
+  display: block; margin-bottom: 10px; box-sizing: border-box;
+  min-height: 72px; resize: vertical;
+}
+.modal-input:focus, .modal-textarea:focus { border-color: var(--accent2); }
+#modalBtns {
+  display: -webkit-flex; display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;
+}
+.modal-btn {
+  flex: 1; min-width: 100px; padding: 13px 10px; border: none; border-radius: 12px;
+  font-size: 0.9rem; font-weight: 700; cursor: pointer;
+  touch-action: manipulation; -webkit-appearance: none; appearance: none;
+  font-family: 'Noto Sans JP', -apple-system, sans-serif;
+}
+.modal-btn-ok { background: var(--accent2); color: #fff; }
+.modal-btn-cancel { background: #f1f5f9; color: var(--text); }
+.modal-btn-del { background: var(--wrong); color: #fff; }
+/* 単語編集一覧 */
+.word-edit-item {
+  display: -webkit-flex; display: flex; align-items: center; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.word-edit-item:last-child { border-bottom: none; }
+.word-edit-info { flex: 1; min-width: 0; }
+.word-edit-en {
+  font-size: 0.88rem; font-weight: 700; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.word-edit-ja { font-size: 0.74rem; color: var(--text-muted); margin-top: 2px; }
+.word-edit-btns { display: -webkit-flex; display: flex; gap: 6px; flex-shrink: 0; }
+.sec-btn {
+  background: #f1f5f9; border: 1.5px solid rgba(0,0,0,0.08); border-radius: 7px;
+  padding: 5px 10px; font-size: 0.8rem; cursor: pointer;
+  touch-action: manipulation; -webkit-appearance: none; appearance: none;
+  font-family: 'Noto Sans JP', -apple-system, sans-serif;
+}
+.sec-btn-edit { color: var(--accent2); border-color: rgba(99,102,241,0.2); background: rgba(99,102,241,0.06); }
+.sec-btn-del { color: var(--wrong); border-color: rgba(220,38,38,0.2); background: rgba(220,38,38,0.06); }
+
 .btn-all {
 width: 100%; background: var(–accent2) !important;
 color: #fff !important; border: none; border-radius: 14px; padding: 16px;
@@ -460,6 +550,16 @@ background: #fff; color: var(–accent2);
   <div class="word-list" id="wordList"></div>
 </div>
 
+<!-- モーダル -->
+<div id="modalOverlay" style="display:none;" onclick="closeModal(event)">
+  <div id="modalBox">
+    <div class="modal-drag-bar"></div>
+    <div id="modalTitle"></div>
+    <div id="modalBody"></div>
+    <div id="modalBtns"></div>
+  </div>
+</div>
+
 <script>
 const STORAGE_KEY = 'flashcards_sections_v1';
 const STATS_KEY   = 'flashcards_stats_v1';
@@ -576,13 +676,16 @@ function renderSectionList() {
     const div = document.createElement('div');
     div.className = 'section-card';
     div.innerHTML = `
-      <div>
+      <div class="section-card-info" onclick="startSection(${idx})">
         <div class="section-name">${sec.name}</div>
         <div class="section-meta">${sec.cards.length}語</div>
         ${weakCount > 0 ? `<div class="section-weak">😓 苦手 ${weakCount}語</div>` : ''}
       </div>
-      <div class="section-arrow">›</div>`;
-    div.addEventListener('click', () => startSection(idx));
+      <div class="section-card-right">
+        <button class="sec-icon-btn" type="button" onclick="openEditSectionModal(${idx})">✏️</button>
+        <button class="sec-icon-btn sec-icon-btn-del" type="button" onclick="openDeleteSectionModal(${idx})">🗑️</button>
+        <span class="section-arrow">›</span>
+      </div>`;
     list.appendChild(div);
   });
 }
@@ -1578,6 +1681,23 @@ if (saved) {
 renderSectionList();
 
 // セクション画面ボタンのタッチ登録
+(function() {
+  var map = { append: appendFromText, replace: loadFromText, startall: startAll };
+  ['btnAppend','btnReplace','btnStartAll'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var touching = false;
+    el.addEventListener('touchend', function(e) {
+      e.preventDefault(); touching = true;
+      var fn = map[this.dataset.action]; if (fn) fn();
+      setTimeout(function() { touching = false; }, 300);
+    }, { passive: false });
+    el.addEventListener('click', function() {
+      if (touching) return;
+      var fn = map[this.dataset.action]; if (fn) fn();
+    });
+  });
+})();
 </script>
 
 <script>
@@ -1734,6 +1854,51 @@ saveSections();
 renderSectionList();
 openEditSectionModal(secIdx);
 }
+
+// モーダルボタン イベント委譲（iOS Safari対応）
+(function() {
+  var modalBox = document.getElementById(‘modalBox’);
+  var overlay  = document.getElementById(‘modalOverlay’);
+  var _touching = false;
+
+  function dispatchModal(btn) {
+    var a = btn.dataset.maction;
+    var i = parseInt(btn.dataset.i);
+    var j = parseInt(btn.dataset.j);
+    if (a === ‘close’)       overlay.style.display = ‘none’;
+    else if (a === ‘create’)    createNewSection();
+    else if (a === ‘delsec’)    deleteSection(i);
+    else if (a === ‘savename’)  saveSecName(i);
+    else if (a === ‘addword’)   openAddWordModal(i);
+    else if (a === ‘editword’)  openEditWordModal(i, j);
+    else if (a === ‘delword’)   openDeleteWordModal(i, j);
+    else if (a === ‘backedit’)  openEditSectionModal(i);
+    else if (a === ‘dodelword’) deleteWord(i, j);
+    else if (a === ‘saveword’)  saveWord(i, j);
+    else if (a === ‘doaddword’) addWord(i);
+  }
+
+  modalBox.addEventListener(‘touchend’, function(e) {
+    var btn = e.target.closest(‘[data-maction]’);
+    if (!btn) return;
+    e.preventDefault();
+    _touching = true;
+    dispatchModal(btn);
+    setTimeout(function() { _touching = false; }, 300);
+  }, { passive: false });
+
+  modalBox.addEventListener(‘click’, function(e) {
+    if (_touching) return;
+    var btn = e.target.closest(‘[data-maction]’);
+    if (!btn) return;
+    dispatchModal(btn);
+  });
+
+  // オーバーレイタッチで閉じる（iOS）
+  overlay.addEventListener(‘touchend’, function(e) {
+    if (e.target === this) this.style.display = ‘none’;
+  }, { passive: true });
+})();
 
 if (‘serviceWorker’ in navigator) {
 window.addEventListener(‘load’, () => {
