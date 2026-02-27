@@ -621,19 +621,7 @@ function appendFromText() {
 // セクション一覧表示
 // iOSタッチ対応ヘルパー
 function addTap(el, fn) {
-  let moved = false;
-  el.addEventListener('touchstart', () => { moved = false; }, { passive: true });
-  el.addEventListener('touchmove', () => { moved = true; }, { passive: true });
-  el.addEventListener('touchend', (e) => {
-    if (moved) return;
-    e.preventDefault();
-    e.stopPropagation();
-    fn();
-  }, { passive: false });
-  el.addEventListener('click', (e) => {
-    e.stopPropagation();
-    fn();
-  });
+  el.addEventListener('click', fn);
 }
 
 function renderSectionList() {
