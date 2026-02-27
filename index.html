@@ -66,62 +66,6 @@ touch-action: manipulation;
 .section-meta { font-size: 0.75rem; color: var(–text-muted); margin-top: 3px; }
 .section-weak { font-size: 0.7rem; color: var(–wrong); margin-top: 3px; }
 .section-arrow { color: var(–accent2); font-size: 1.2rem; }
-.section-actions { display: flex; gap: 6px; margin-top: 8px; }
-.sec-btn {
-padding: 8px 16px; border-radius: 8px; font-size: 0.78rem; font-weight: 700;
-border: none; cursor: pointer; touch-action: manipulation;
--webkit-appearance: none; appearance: none;
-font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
--webkit-user-select: none; user-select: none;
-position: relative; z-index: 2;
-}
-.sec-btn-edit { background: rgba(99,102,241,0.15); color: var(–accent2); }
-.sec-btn-del  { background: rgba(220,38,38,0.15);  color: var(–wrong); }
-
-/* モーダル */
-.modal-overlay {
-position: fixed; inset: 0; background: rgba(0,0,0,0.45);
-display: flex; align-items: center; justify-content: center;
-z-index: 1000; padding: 24px;
-}
-.modal-box {
-background: #fff; border-radius: 20px; padding: 24px;
-width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-}
-.modal-title { font-size: 1rem; font-weight: 700; color: var(–text); margin-bottom: 16px; }
-.modal-input {
-width: 100%; border: 1.5px solid rgba(99,102,241,0.3); border-radius: 10px;
-padding: 10px 12px; font-size: 0.9rem; font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
-color: var(–text); outline: none; -webkit-appearance: none; margin-bottom: 12px;
-}
-.modal-input:focus { border-color: var(–accent2); }
-.modal-textarea {
-width: 100%; border: 1.5px solid rgba(99,102,241,0.3); border-radius: 10px;
-padding: 10px 12px; font-size: 0.85rem; font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
-color: var(–text); outline: none; -webkit-appearance: none; margin-bottom: 12px;
-resize: vertical; min-height: 80px; line-height: 1.6;
-}
-.modal-textarea:focus { border-color: var(–accent2); }
-.modal-btns { display: flex; gap: 10px; }
-.modal-btn {
-flex: 1; padding: 12px; border-radius: 12px; font-size: 0.88rem; font-weight: 700;
-border: none; cursor: pointer; touch-action: manipulation;
-font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
-}
-.modal-btn-ok     { background: linear-gradient(135deg, var(–accent2), var(–accent)); color: #fff; }
-.modal-btn-cancel { background: #f1f5f9; color: var(–text-muted); }
-.modal-btn-del    { background: linear-gradient(135deg, #7b2d38, #e05a6a); color: #fff; }
-
-/* 単語編集リスト */
-.word-edit-item {
-background: #f8faff; border-radius: 12px; padding: 12px 14px;
-border: 1.5px solid rgba(99,102,241,0.08); margin-bottom: 8px;
-display: flex; align-items: flex-start; gap: 10px;
-}
-.word-edit-info { flex: 1; }
-.word-edit-en { font-size: 0.9rem; font-weight: 700; color: var(–text); }
-.word-edit-ja { font-size: 0.75rem; color: var(–text-muted); margin-top: 2px; }
-.word-edit-btns { display: flex; gap: 6px; flex-shrink: 0; margin-top: 2px; }
 .btn-all {
 width: 100%; background: var(–accent2) !important;
 color: #fff !important; border: none; border-radius: 14px; padding: 16px;
@@ -411,7 +355,6 @@ background: #fff; color: var(–accent2);
   </div>
   <div id="sectionList" class="section-list"></div>
   <button class="btn-all" id="btnStartAll" data-action="startall">📖 全セクションまとめて学習</button>
-  <button id="btnNewSection" data-action="newsection" style="width:100%;background:#fff;border:1.5px dashed rgba(99,102,241,0.3);color:var(--accent2);border-radius:14px;padding:14px;font-size:0.9rem;font-weight:700;cursor:pointer;margin-bottom:16px;touch-action:manipulation;font-family:'Noto Sans JP',-apple-system,sans-serif;">＋ 新しいセクションを作る</button>
 </div>
 
 <!-- 学習画面 -->
@@ -619,10 +562,7 @@ function appendFromText() {
 }
 
 // セクション一覧表示
-// iOSタッチ対応ヘルパー
-function addTap(el, fn) {
-  el.addEventListener('click', fn);
-}
+
 
 function renderSectionList() {
   const list = document.getElementById('sectionList');
@@ -633,23 +573,16 @@ function renderSectionList() {
   }
   sections.forEach((sec, idx) => {
     const weakCount = sec.cards.filter(c => getWeakScore(c.word) >= 0.5).length;
-    const weakHTML = weakCount > 0 ? `<div class="section-weak">😓 苦手 ${weakCount}語</div>` : '';
     const div = document.createElement('div');
     div.className = 'section-card';
-    div.style.cssText = 'flex-direction:column;align-items:flex-start;';
     div.innerHTML = `
-      <div data-action="start" data-idx="${idx}" style="display:flex;align-items:center;justify-content:space-between;width:100%;cursor:pointer;padding-bottom:8px;">
-        <div style="pointer-events:none;">
-          <div class="section-name">${sec.name}</div>
-          <div class="section-meta">${sec.cards.length}語</div>
-          ${weakHTML}
-        </div>
-        <div class="section-arrow" style="pointer-events:none;">›</div>
+      <div>
+        <div class="section-name">${sec.name}</div>
+        <div class="section-meta">${sec.cards.length}語</div>
+        ${weakCount > 0 ? `<div class="section-weak">😓 苦手 ${weakCount}語</div>` : ''}
       </div>
-      <div style="display:flex;gap:8px;">
-        <button data-action="edit" data-idx="${idx}" class="sec-btn sec-btn-edit">✏️ 編集</button>
-        <button data-action="del"  data-idx="${idx}" class="sec-btn sec-btn-del">🗑️ 削除</button>
-      </div>`;
+      <div class="section-arrow">›</div>`;
+    div.addEventListener('click', () => startSection(idx));
     list.appendChild(div);
   });
 }
@@ -1648,20 +1581,6 @@ renderSectionList();
 </script>
 
 <script>
-</script>
-
-<!-- モーダル -->
-
-<div id="modalOverlay" class="modal-overlay" style="display:none;" >
-  <div class="modal-box" id="modalBox">
-    <div class="modal-title" id="modalTitle">セクション編集</div>
-    <div id="modalBody"></div>
-    <div class="modal-btns" id="modalBtns"></div>
-  </div>
-</div>
-
-<script>
-// ===== 管理機能 =====
 
 function closeModal(e) {
   if (e && e.target !== document.getElementById('modalOverlay')) return;
@@ -1815,48 +1734,6 @@ saveSections();
 renderSectionList();
 openEditSectionModal(secIdx);
 }
-
-// ===== イベント登録（DOM構築後） =====
-document.addEventListener(‘click’, function(e) {
-// モーダル背景クリックで閉じる
-if (e.target === document.getElementById(‘modalOverlay’)) {
-document.getElementById(‘modalOverlay’).style.display = ‘none’;
-return;
-}
-
-// data-action（セクション画面）
-const el = e.target.closest(’[data-action]’);
-if (el) {
-const a   = el.dataset.action;
-const idx = el.dataset.idx !== undefined ? parseInt(el.dataset.idx) : null;
-if (a === ‘startall’)   { startAll(); return; }
-if (a === ‘newsection’) { openNewSectionModal(); return; }
-if (a === ‘append’)     { appendFromText(); return; }
-if (a === ‘replace’)    { loadFromText(); return; }
-if (a === ‘start’)      { startSection(idx); return; }
-if (a === ‘edit’)       { openEditSectionModal(idx); return; }
-if (a === ‘del’)        { openDeleteSectionModal(idx); return; }
-}
-
-// data-maction（モーダル）
-const mel = e.target.closest(’[data-maction]’);
-if (mel) {
-const a = mel.dataset.maction;
-const i = mel.dataset.i !== undefined ? parseInt(mel.dataset.i) : null;
-const j = mel.dataset.j !== undefined ? parseInt(mel.dataset.j) : null;
-if (a === ‘close’)     { document.getElementById(‘modalOverlay’).style.display = ‘none’; return; }
-if (a === ‘create’)    { createNewSection(); return; }
-if (a === ‘delsec’)    { deleteSection(i); return; }
-if (a === ‘savename’)  { saveSecName(i); return; }
-if (a === ‘addword’)   { openAddWordModal(i); return; }
-if (a === ‘editword’)  { openEditWordModal(i, j); return; }
-if (a === ‘delword’)   { openDeleteWordModal(i, j); return; }
-if (a === ‘dodelword’) { deleteWord(i, j); return; }
-if (a === ‘saveword’)  { saveWord(i, j); return; }
-if (a === ‘doaddword’) { addWord(i); return; }
-if (a === ‘backedit’)  { openEditSectionModal(i); return; }
-}
-});
 
 if (‘serviceWorker’ in navigator) {
 window.addEventListener(‘load’, () => {
