@@ -41,9 +41,7 @@
   h1 {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: clamp(1.4rem, 5vw, 2rem); color: var(--accent2);
-    letter-spacing: 0.04em;
-    margin-bottom: 6px;
-    text-align: center; position: relative; z-index: 1;
+    letter-spacing: 0.04em; margin-bottom: 6px; text-align: center; position: relative; z-index: 1;
   }
   .subtitle {
     color: var(--text-muted); font-size: 0.82rem;
@@ -54,10 +52,9 @@
   .section-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
   .section-card {
     background: #fff; border-radius: 16px; padding: 16px 20px;
-    border: 1.5px solid rgba(99,102,241,0.12);box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1.5px solid rgba(99,102,241,0.12); box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     display: flex; align-items: center; justify-content: space-between;
-    touch-action: manipulation;-webkit-transition: transform 0.12s;
-    transition: transform 0.12s;
+    touch-action: manipulation; -webkit-transition: transform 0.12s; transition: transform 0.12s;
   }
   .section-card:active { -webkit-transform: scale(0.98); transform: scale(0.98); }
   .section-name { font-size: 1rem; font-weight: 700; color: var(--text); }
@@ -68,128 +65,93 @@
   .btn-edit-mode {
     background: rgba(99,102,241,0.1); border: 1.5px solid rgba(99,102,241,0.25);
     border-radius: 10px; padding: 7px 16px; font-size: 0.82rem;
-    font-weight: 700;  color: var(--accent2); cursor: pointer; touch-action: manipulation;
-    -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;  position: relative;
-    z-index: 1; margin-bottom: 20px;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-align-self: flex-end; align-self: flex-end;
+    font-weight: 700; color: var(--accent2); cursor: pointer; touch-action: manipulation;
+    -webkit-appearance: none; appearance: none; font-family: 'Noto Sans JP', -apple-system, sans-serif;
+    position: relative; z-index: 1; margin-bottom: 20px;
+    -webkit-tap-highlight-color: transparent; -webkit-align-self: flex-end; align-self: flex-end;
   }
   /* 編集画面 */
-  .edit-header {
-    width: 100%; display: -webkit-flex;
-    display: flex; align-items: center;
-    gap: 12px; margin-bottom: 20px;
-  }
-  .edit-title { -webkit-flex:1; flex:1; text-align:center; font-size:0.95rem; font-weight:700; color:var(--text); }
+  .edit-header { width: 100%; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .edit-title { flex: 1; text-align: center; font-size: 0.95rem; font-weight: 700; color: var(--text); }
   .edit-add-btn {
-    width:100%;
-    background:var(--accent2); color:#fff; border:none; border-radius:12px;
-    padding:13px; font-size:0.9rem; font-weight:700; cursor:pointer;
-    touch-action:manipulation; -webkit-appearance:none; appearance:none;
-    font-family:'Noto Sans JP',-apple-system,sans-serif; margin-bottom:14px; display:block;
-    -webkit-tap-highlight-color:transparent;
+    width: 100%; background: var(--accent2); color: #fff; border: none; border-radius: 12px;
+    padding: 13px; font-size: 0.9rem; font-weight: 700; cursor: pointer;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; margin-bottom: 14px; display: block;
+    -webkit-tap-highlight-color: transparent;
   }
-  .edit-list { display:-webkit-flex; display:flex; flex-direction:column; gap:8px; }
+  .edit-list { display: flex; flex-direction: column; gap: 8px; }
   .edit-list-item {
-    background:#fff; border-radius:14px; border:1.5px solid rgba(99,102,241,0.1);
-    box-shadow:0 2px 6px rgba(0,0,0,0.04);
-    display:-webkit-flex; display:flex; align-items:center; overflow:hidden;
+    background: #fff; border-radius: 14px; border: 1.5px solid rgba(99,102,241,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04); display: flex; align-items: center; overflow: hidden;
   }
   .edit-item-btn {
-    -webkit-flex:1; flex:1; padding:14px 16px; text-align:left; background:none; border:none;
-    cursor:pointer; touch-action:manipulation; -webkit-appearance:none; appearance:none;
-    font-family:'Noto Sans JP',-apple-system,sans-serif;
-    -webkit-tap-highlight-color:transparent; min-width:0; display:block;
+    flex: 1; padding: 14px 16px; text-align: left; background: none; border: none;
+    cursor: pointer; touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; min-width: 0; display: block;
   }
-  .edit-item-text { -webkit-flex:1; flex:1; padding:14px 16px; min-width:0; }
-  .edit-item-name { font-size:0.95rem; font-weight:700; color:var(--text); }
-  .edit-item-sub { font-size:0.75rem; color:var(--text-muted); margin-top:3px; }
-  .edit-item-pos { font-size:0.72rem; color:var(--text-muted); font-weight:400; margin-left:4px; }
-  .edit-item-actions { display:-webkit-flex; display:flex; gap:6px; padding-right:12px; flex-shrink:0; }
+  .edit-item-text { flex: 1; padding: 14px 16px; min-width: 0; }
+  .edit-item-name { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+  .edit-item-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 3px; }
+  .edit-item-pos { font-size: 0.72rem; color: var(--text-muted); font-weight: 400; margin-left: 4px; }
+  .edit-item-actions { display: flex; gap: 6px; padding-right: 12px; flex-shrink: 0; }
   .edit-icon-btn {
-    background:rgba(99,102,241,0.08); border:1.5px solid rgba(99,102,241,0.2);
-    border-radius:8px; font-size:1rem; width:36px;
-    height:36px; padding:0; cursor:pointer;
-    touch-action:manipulation; -webkit-appearance:none; appearance:none;
-    display:-webkit-flex; display:flex; align-items:center; justify-content:center;
-    -webkit-tap-highlight-color:transparent; flex-shrink:0;
+    background: rgba(99,102,241,0.08); border: 1.5px solid rgba(99,102,241,0.2);
+    border-radius: 8px; font-size: 1rem; width: 36px; height: 36px; padding: 0; cursor: pointer;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; flex-shrink: 0;
   }
-  .edit-icon-del { background:rgba(220,38,38,0.06); border-color:rgba(220,38,38,0.2); }
-  .edit-empty { color:var(--text-muted); font-size:0.85rem; text-align:center; padding:24px 0; }
+  .edit-icon-del { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.2); }
+  .edit-empty { color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 24px 0; }
   /* 編集フォーム */
-  .edit-form { display:-webkit-flex; display:flex; flex-direction:column; }
-  .edit-form-label { font-size:0.75rem; font-weight:600; color:var(--text-muted); margin-bottom:5px; margin-top:14px; }
-  .edit-form-input {
-    width:100%; background:#fff; border:1.5px solid rgba(99,102,241,0.2); border-radius:10px;
-    color:var(--text); padding:11px 12px; font-family:'Noto Sans JP',-apple-system,sans-serif;
-    font-size:16px; -webkit-appearance:none; appearance:none; outline:none; box-sizing:border-box;
+  .edit-form { display: flex; flex-direction: column; }
+  .edit-form-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-bottom: 5px; margin-top: 14px; }
+  .edit-form-input, .edit-form-textarea {
+    width: 100%; background: #fff; border: 1.5px solid rgba(99,102,241,0.2); border-radius: 10px;
+    color: var(--text); padding: 11px 12px; font-family: 'Noto Sans JP', -apple-system, sans-serif;
+    font-size: 16px; -webkit-appearance: none; appearance: none; outline: none; box-sizing: border-box;
   }
-  .edit-form-textarea {
-    width:100%; background:#fff; border:1.5px solid rgba(99,102,241,0.2); border-radius:10px;
-    color:var(--text); padding:11px 12px; font-family:'Noto Sans JP',-apple-system,sans-serif;
-    font-size:16px; -webkit-appearance:none; appearance:none; outline:none; box-sizing:border-box;
-    min-height:72px; resize:vertical;
-  }
-  .edit-form-input:focus, .edit-form-textarea:focus { border-color:var(--accent2); }
+  .edit-form-textarea { min-height: 72px; resize: vertical; }
+  .edit-form-input:focus, .edit-form-textarea:focus { border-color: var(--accent2); }
   .edit-form-btn {
-    width:100%; padding:13px; border:none; border-radius:12px; margin-top:12px;
-    font-size:0.9rem; font-weight:700; cursor:pointer;
-    touch-action:manipulation; -webkit-appearance:none; appearance:none;
-    font-family:'Noto Sans JP',-apple-system,sans-serif; -webkit-tap-highlight-color:transparent;
+    width: 100%; padding: 13px; border: none; border-radius: 12px; margin-top: 12px;
+    font-size: 0.9rem; font-weight: 700; cursor: pointer;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent;
   }
-  .edit-form-btn-ok { background:var(--accent2); color:#fff; }
-  .edit-form-btn-cancel { background:#f1f5f9; color:var(--text); }
-  .edit-form-btn-del { background:var(--wrong); color:#fff; }
-  .edit-confirm-msg { font-size:0.85rem; color:var(--text-muted); line-height:1.7; margin:8px 0 4px; }
+  .edit-form-btn-ok { background: var(--accent2); color: #fff; }
+  .edit-form-btn-cancel { background: #f1f5f9; color: var(--text); }
+  .edit-form-btn-del { background: var(--wrong); color: #fff; }
+  .edit-confirm-msg { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; margin: 8px 0 4px; }
   .edit-move-btn {
-    width:100%; background:#fff; border:1.5px solid rgba(99,102,241,0.15); border-radius:12px;
-    padding:14px 16px; text-align:left; margin-bottom:8px; cursor:pointer;
-    touch-action:manipulation; -webkit-appearance:none;
-    appearance:none; 
-    font-family:'Noto Sans JP',-apple-system,sans-serif; -webkit-tap-highlight-color:transparent;
-    font-size:0.9rem; font-weight:700; color:var(--text);
+    width: 100%; background: #fff; border: 1.5px solid rgba(99,102,241,0.15); border-radius: 12px;
+    padding: 14px 16px; text-align: left; margin-bottom: 8px; cursor: pointer;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent;
+    font-size: 0.9rem; font-weight: 700; color: var(--text);
   }
   /* モーダル */
   #modalOverlay {
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.45); z-index: 200;
-    -webkit-box-align: end; -webkit-align-items: flex-end; align-items: flex-end;
-    -webkit-justify-content: center; justify-content: center;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.45); z-index: 200;
+    align-items: flex-end; justify-content: center; display: none;
   }
   #modalBox {
     background: #fff; border-radius: 24px 24px 0 0; width: 100%; max-width: 480px;
     padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
     max-height: 80vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
   }
-  .modal-drag-bar {
-    width: 40px; height: 4px; background: #e2e8f0; border-radius: 99px;
-    margin: 0 auto 16px;
-  }
-  #modalTitle {
-    font-size: 1rem; font-weight: 700; color: var(--text);
-    margin-bottom: 16px; text-align: center;
-  }
-  .modal-input {
+  .modal-drag-bar { width: 40px; height: 4px; background: #e2e8f0; border-radius: 99px; margin: 0 auto 16px; }
+  #modalTitle { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 16px; text-align: center; }
+  .modal-input, .modal-textarea {
     width: 100%; background: #f8faff; border: 1.5px solid rgba(99,102,241,0.2);
     border-radius: 10px; color: var(--text); padding: 10px 12px;
     font-family: 'Noto Sans JP', -apple-system, sans-serif;
     font-size: 16px; -webkit-appearance: none; appearance: none; outline: none;
     display: block; margin-bottom: 10px; box-sizing: border-box;
   }
-  .modal-textarea {
-    width: 100%; background: #f8faff; border: 1.5px solid rgba(99,102,241,0.2);
-    border-radius: 10px; color: var(--text); padding: 10px 12px;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    font-size: 16px; -webkit-appearance: none; appearance: none; outline: none;
-    display: block; margin-bottom: 10px; box-sizing: border-box;
-    min-height: 72px; resize: vertical;
-  }
+  .modal-textarea { min-height: 72px; resize: vertical; }
   .modal-input:focus, .modal-textarea:focus { border-color: var(--accent2); }
-  #modalBtns {
-    display: -webkit-flex; display: flex; gap: 10px; margin-top: 16px;
-    flex-wrap: wrap;
-  }
+  #modalBtns { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
   .modal-btn {
     flex: 1; min-width: 100px; padding: 13px 10px; border: none; border-radius: 12px;
     font-size: 0.9rem; font-weight: 700; cursor: pointer;
@@ -200,23 +162,16 @@
   .modal-btn-cancel { background: #f1f5f9; color: var(--text); }
   .modal-btn-del { background: var(--wrong); color: #fff; }
   /* 単語編集一覧 */
-  .word-edit-item {
-    display: -webkit-flex; display: flex; align-items: center; gap: 10px;
-    padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
-  }
+  .word-edit-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
   .word-edit-item:last-child { border-bottom: none; }
   .word-edit-info { flex: 1; min-width: 0; }
-  .word-edit-en {
-    font-size: 0.88rem; font-weight: 700; color: var(--text);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
+  .word-edit-en { font-size: 0.88rem; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .word-edit-ja { font-size: 0.74rem; color: var(--text-muted); margin-top: 2px; }
-  .word-edit-btns { display: -webkit-flex; display: flex; gap: 6px; flex-shrink: 0; }
+  .word-edit-btns { display: flex; gap: 6px; flex-shrink: 0; }
   .sec-btn {
     background: #f1f5f9; border: 1.5px solid rgba(0,0,0,0.08); border-radius: 7px;
     padding: 5px 10px; font-size: 0.8rem; cursor: pointer;
-    touch-action: manipulation;
-    -webkit-appearance: none; appearance: none;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
     font-family: 'Noto Sans JP', -apple-system, sans-serif;
   }
   .sec-btn-edit { color: var(--accent2); border-color: rgba(99,102,241,0.2); background: rgba(99,102,241,0.06); }
@@ -240,10 +195,9 @@
   .paste-section details[open] summary::before { content: '－'; }
   .paste-textarea {
     width: 100%; background: #fff; border: 1.5px solid rgba(99,102,241,0.2);
-    border-radius: 12px; color: var(--text);
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    font-size: 16px; padding: 12px; resize: vertical; min-height: 120px;
-    margin-top: 8px; outline: none; -webkit-appearance: none; appearance: none;
+    border-radius: 12px; color: var(--text); font-family: 'Noto Sans JP', -apple-system, sans-serif;
+    font-size: 16px; padding: 12px; resize: vertical; min-height: 120px; margin-top: 8px;
+    outline: none; -webkit-appearance: none; appearance: none;
   }
   .paste-textarea:focus { border-color: var(--accent2); }
   .btn-load {
@@ -254,69 +208,48 @@
   }
   /* 学習画面 */
   #studyScreen { display: none; width: 100%; }
-  .study-header {
-    width: 100%; max-width: 420px; display: flex; align-items: center; gap: 12px;
-    margin-bottom: 16px; position: relative; z-index: 1;
-  }
+  .study-header { width: 100%; max-width: 420px; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; position: relative; z-index: 1; }
   .btn-back {
     background: #fff; border: 1.5px solid rgba(99,102,241,0.2);
-    border-radius: 10px; padding: 8px 14px; font-size: 0.82rem;
-    font-weight: 700;color: var(--accent2); cursor: pointer; touch-action: manipulation;
-    -webkit-appearance: none; appearance: none;
+    border-radius: 10px; padding: 8px 14px; font-size: 0.82rem; font-weight: 700;
+    color: var(--accent2); cursor: pointer; touch-action: manipulation; -webkit-appearance: none; appearance: none;
   }
   .study-title { font-size: 0.9rem; font-weight: 700; color: var(--text); flex: 1; text-align: center; }
   .progress-wrap { width: 100%; max-width: 420px; margin-bottom: 16px; position: relative; z-index: 1; }
   .progress-info { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
   .progress-bar-bg { background: #e2e8f0; border-radius: 99px; height: 8px; overflow: hidden; }
-  .progress-bar {
-    height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent));
-    border-radius: 99px; -webkit-transition: width 0.4s ease; transition: width 0.4s ease;
-  }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 99px; transition: width 0.4s ease; }
   .score-row { display: flex; gap: 12px; margin-bottom: 20px; position: relative; z-index: 1; }
-  .badge {
-    display: flex; align-items: center; gap: 5px;
-    background: #fff;border-radius: 99px; padding: 5px 14px; font-size: 0.8rem; font-weight: 700;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  }
+  .badge { display: flex; align-items: center; gap: 5px; background: #fff; border-radius: 99px; padding: 5px 14px; font-size: 0.8rem; font-weight: 700; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
   .badge.ok { color: var(--correct); border: 1px solid rgba(22,163,74,0.25); }
   .badge.ng { color: var(--wrong); border: 1px solid rgba(220,38,38,0.25); }
   /* カード */
   .card-area {
-    -webkit-perspective: 1200px; perspective: 1200px;
-    width: 100%; max-width: 420px; height: 280px; cursor: pointer;
+    perspective: 1200px; width: 100%; max-width: 420px; height: 280px; cursor: pointer;
     margin-bottom: 20px; position: relative; z-index: 1; touch-action: manipulation;
-    -webkit-animation: fadeUp 0.4s ease forwards; animation: fadeUp 0.4s ease forwards;
+    animation: fadeUp 0.4s ease forwards;
   }
   .card-inner {
-    position: relative; width: 100%; height: 100%;
-    -webkit-transform-style: preserve-3d; transform-style: preserve-3d;
-    -webkit-transition: -webkit-transform 0.55s cubic-bezier(0.4,0,0.2,1);
-    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
-    -webkit-transform: translateZ(0) rotateY(0deg); transform: translateZ(0) rotateY(0deg);
+    position: relative; width: 100%; height: 100%; transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1); transform: translateZ(0) rotateY(0deg);
   }
-  .card-inner.flipped { -webkit-transform: translateZ(0) rotateY(180deg); transform: translateZ(0) rotateY(180deg); }
+  .card-inner.flipped { transform: translateZ(0) rotateY(180deg); }
   .card-face {
     position: absolute; top:0; left:0; right:0; bottom:0; border-radius: 20px; padding: 28px 24px;
-    -webkit-backface-visibility: hidden; backface-visibility: hidden;
-    display: flex; flex-direction: column; justify-content: center;
-    -webkit-transform: translateZ(0); transform: translateZ(0);
+    backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; transform: translateZ(0);
   }
   .card-front {
-    background: linear-gradient(135deg, #fff 0%, #f8faff 100%);
-    border: 1.5px solid rgba(99,102,241,0.15);
-    box-shadow: 0 8px 32px rgba(99,102,241,0.1), 0 2px 8px rgba(0,0,0,0.06);
-    align-items: center; text-align: center;
+    background: linear-gradient(135deg, #fff 0%, #f8faff 100%); border: 1.5px solid rgba(99,102,241,0.15);
+    box-shadow: 0 8px 32px rgba(99,102,241,0.1), 0 2px 8px rgba(0,0,0,0.06); align-items: center; text-align: center;
   }
   .card-back {
-    background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
-    border: 1.5px solid rgba(59,130,246,0.2);
-    box-shadow: 0 8px 32px rgba(59,130,246,0.1), 0 2px 8px rgba(0,0,0,0.06);
-    -webkit-transform: translateZ(0) rotateY(180deg); transform: translateZ(0) rotateY(180deg);
+    background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%); border: 1.5px solid rgba(59,130,246,0.2);
+    box-shadow: 0 8px 32px rgba(59,130,246,0.1), 0 2px 8px rgba(0,0,0,0.06); transform: translateZ(0) rotateY(180deg);
   }
   .card-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; font-weight: 600; }
   .card-word { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2rem, 8vw, 3rem); color: var(--text); line-height: 1.1; margin-bottom: 8px; }
   .card-pos { display: inline-block; background: rgba(99,102,241,0.1); color: var(--accent2); border-radius: 99px; padding: 3px 12px; font-size: 0.72rem; font-weight: 700; }
-  .tap-hint { position: absolute; bottom: 18px; right: 20px; font-size: 0.68rem; color: rgba(100,116,139,0.6); display: flex; align-items: center; gap: 4px; -webkit-transform: translateZ(1px); transform: translateZ(1px); }
+  .tap-hint { position: absolute; bottom: 18px; right: 20px; font-size: 0.68rem; color: rgba(100,116,139,0.6); display: flex; align-items: center; gap: 4px; transform: translateZ(1px); }
   .back-meaning { font-size: 1.1rem; color: #1e40af; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
   .back-example { font-size: 0.78rem; color: #334155; line-height: 1.7; border-left: 3px solid #3b82f6; padding-left: 10px; margin-bottom: 6px; }
   .back-trans { font-size: 0.74rem; color: #64748b; line-height: 1.6; padding-left: 13px; }
@@ -324,24 +257,17 @@
   .btn-row { display: flex; gap: 14px; width: 100%; max-width: 420px; margin-bottom: 10px; position: relative; z-index: 1; }
   .btn {
     flex: 1; border: none; border-radius: 14px; padding: 16px 10px;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    font-size: 0.9rem; font-weight: 700; cursor: pointer;
-    -webkit-transition: transform 0.15s, opacity 0.15s; transition: transform 0.15s, opacity 0.15s;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    -webkit-user-select: none; user-select: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer;
+    transition: transform 0.15s, opacity 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none; user-select: none;
   }
-  .btn:active { -webkit-transform: scale(0.96); transform: scale(0.96); }
+  .btn:active { transform: scale(0.96); }
   .btn:disabled { opacity: 0.35; cursor: default; }
   .btn-ok { background: linear-gradient(135deg, #2d6a4f, #4caf82); color: #fff; box-shadow: 0 4px 20px rgba(76,175,130,0.3); }
   .btn-ng { background: linear-gradient(135deg, #7b2d38, #e05a6a); color: #fff; box-shadow: 0 4px 20px rgba(224,90,106,0.3); }
   .btn-flip { background: #fff; color: var(--accent2); border: 1.5px solid rgba(99,102,241,0.3); box-shadow: 0 2px 8px rgba(0,0,0,0.06); flex: 0.6; }
   /* 完了画面 */
-  .finish-screen {
-    display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; max-width: 420px;
-    -webkit-animation: fadeUp 0.5s ease forwards; animation: fadeUp 0.5s ease forwards;
-    position: relative; z-index: 1;
-  }
+  .finish-screen { display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; max-width: 420px; animation: fadeUp 0.5s ease forwards; position: relative; z-index: 1; }
   .finish-screen.show { display: flex; }
   .finish-title { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; color: var(--accent2); margin-bottom: 10px; }
   .finish-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin: 20px 0; }
@@ -351,9 +277,9 @@
   .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
   .btn-restart {
     background: linear-gradient(135deg, var(--accent2), #a48af7); color: #fff;
-    border: none;border-radius: 14px; padding: 16px 40px; font-size: 1rem; font-weight: 700;
-    cursor: pointer; margin-top: 8px; margin-bottom: 12px;touch-action: manipulation;
-    -webkit-appearance: none; appearance: none;font-family: 'Noto Sans JP', -apple-system, sans-serif;
+    border: none; border-radius: 14px; padding: 16px 40px; font-size: 1rem; font-weight: 700;
+    cursor: pointer; margin-top: 8px; margin-bottom: 12px; touch-action: manipulation;
+    -webkit-appearance: none; appearance: none; font-family: 'Noto Sans JP', -apple-system, sans-serif;
   }
   .btn-back-home {
     background: #fff; border: 1.5px solid rgba(99,102,241,0.2); color: var(--accent2);
@@ -361,27 +287,20 @@
     cursor: pointer; touch-action: manipulation; -webkit-appearance: none; appearance: none;
     font-family: 'Noto Sans JP', -apple-system, sans-serif;
   }
-  @-webkit-keyframes fadeUp {from { opacity: 0; -webkit-transform: translateY(20px); transform: translateY(20px); }to { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }}
   @keyframes fadeUp {from { opacity: 0; transform: translateY(20px); }to { opacity: 1; transform: translateY(0); }}
   /* タブナビ */
-  .tab-nav {
-    display: flex; gap: 8px; width: 100%; max-width: 420px;
-    margin-bottom: 20px; position: relative; z-index: 1;
-  }
+  .tab-nav { display: flex; gap: 8px; width: 100%; max-width: 420px; margin-bottom: 20px; position: relative; z-index: 1; }
   .tab-btn {
-    flex: 1; padding: 10px 8px; border: none; border-radius: 12px;
-    font-size: 0.82rem; font-weight: 700; cursor: pointer;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    -webkit-transition: all 0.15s; transition: all 0.15s;
-    background: #e8eaf6; color: #64748b; border: 1.5px solid rgba(99,102,241,0.15);
+    flex: 1; padding: 10px 8px; border: none; border-radius: 12px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none; font-family: 'Noto Sans JP', -apple-system, sans-serif;
+    transition: all 0.15s; background: #e8eaf6; color: #64748b; border: 1.5px solid rgba(99,102,241,0.15);
   }
   .tab-btn.active { background: var(--accent2) !important; color: #fff !important; border-color: transparent !important; box-shadow: 0 3px 12px rgba(99,102,241,0.4); }
   /* リスニング画面 */
   #listeningScreen { display: none; width: 100%; max-width: 420px; position: relative; z-index: 1; }
   .listening-controls {
     background: #fff; border-radius: 16px; padding: 16px;
-    border: 1.5px solid rgba(99,102,241,0.12);box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1.5px solid rgba(99,102,241,0.12); box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px;
   }
   .ctrl-row { display: flex; gap: 8px; align-items: center; }
@@ -389,30 +308,26 @@
   .toggle-group { display: flex; gap: 6px; flex: 1; }
   .toggle-btn {
     flex: 1; padding: 7px 6px; border: 1.5px solid rgba(99,102,241,0.2); border-radius: 8px;
-    font-size: 0.72rem; font-weight: 700; cursor: pointer;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif; background: #f8faff;
-    color: var(--text-muted); -webkit-transition: all 0.12s; transition: all 0.12s;
+    font-size: 0.72rem; font-weight: 700; cursor: pointer; touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; background: #f8faff; color: var(--text-muted); transition: all 0.12s;
   }
   .toggle-btn.active { background: var(--accent2); color: #fff; border-color: var(--accent2); }
   .listening-play-btn {
     width: 100%; padding: 14px; border: none; border-radius: 14px;
     background: linear-gradient(135deg, #16a34a, #4caf82); color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif; box-shadow: 0 4px 16px rgba(22,163,74,0.3); margin-bottom: 14px;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none; font-family: 'Noto Sans JP', -apple-system, sans-serif;
+    box-shadow: 0 4px 16px rgba(22,163,74,0.3); margin-bottom: 14px;
   }
   .listening-play-btn.playing { background: linear-gradient(135deg, #dc2626, #e05a6a); box-shadow: 0 4px 16px rgba(220,38,38,0.3); }
   .listening-progress {
-    background: #fff; border-radius: 12px; padding: 10px 14px;
-    border: 1.5px solid rgba(99,102,241,0.1); font-size: 0.78rem;
+    background: #fff; border-radius: 12px; padding: 10px 14px; border: 1.5px solid rgba(99,102,241,0.1); font-size: 0.78rem;
     color: var(--text-muted); text-align: center; margin-bottom: 14px; display: none;
   }
   .listening-progress .cur-word { font-size: 1rem; font-weight: 700; color: var(--text); margin-top: 4px; }
   .word-list { display: flex; flex-direction: column; gap: 6px; }
   .word-list-item {
-    background: #fff; border-radius: 12px; padding: 12px 14px;
-    border: 1.5px solid rgba(99,102,241,0.08); display: flex; align-items: center; gap: 12px;
-    -webkit-transition: border-color 0.2s; transition: border-color 0.2s;
+    background: #fff; border-radius: 12px; padding: 12px 14px; border: 1.5px solid rgba(99,102,241,0.08); display: flex; align-items: center; gap: 12px;
+    transition: border-color 0.2s;
   }
   .word-list-item.playing-now { border-color: var(--accent2); background: rgba(99,102,241,0.04); }
   .word-list-item input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; cursor: pointer; accent-color: var(--accent2); }
@@ -421,10 +336,9 @@
   .word-list-ja { font-size: 0.74rem; color: var(--text-muted); margin-top: 2px; }
   .check-actions { display: flex; gap: 8px; margin-bottom: 10px; }
   .check-action-btn {
-    flex: 1; padding: 8px; border: 1.5px solid rgba(99,102,241,0.2);
-    border-radius: 10px; font-size: 0.72rem; font-weight: 700; cursor: pointer;
-    touch-action: manipulation; -webkit-appearance: none; appearance: none;
-    font-family: 'Noto Sans JP', -apple-system, sans-serif; background: #fff; color: var(--accent2);
+    flex: 1; padding: 8px; border: 1.5px solid rgba(99,102,241,0.2); border-radius: 10px; font-size: 0.72rem; font-weight: 700; cursor: pointer;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none; font-family: 'Noto Sans JP', -apple-system, sans-serif;
+    background: #fff; color: var(--accent2);
   }
 </style>
 </head>
@@ -433,10 +347,12 @@
 <h1>📚 Flash Cards</h1>
 <p class="subtitle" id="mainSubtitle">セクションを選んで学習しよう</p>
 <button class="btn-edit-mode" id="btnEditMode" onclick="openEditMode()" data-action="editmode">✏️ 編集</button>
+
 <div class="tab-nav" id="tabNav">
   <button class="tab-btn active" onclick="switchTab('flash')">📇 フラッシュ</button>
   <button class="tab-btn" onclick="switchTab('listen')">🎧 リスニング</button>
 </div>
+
 <div id="sectionScreen">
   <div class="paste-section">
     <details>
@@ -453,6 +369,7 @@
   <div id="sectionList" class="section-list"></div>
   <button class="btn-all" id="btnStartAll" data-action="startall">📖 全セクションまとめて学習</button>
 </div>
+
 <div id="studyScreen">
   <div class="study-header">
     <button class="btn-back" onclick="goHome()">← 戻る</button>
@@ -478,15 +395,15 @@
         <span id="weakBadge" style="display:none;background:#fee2e2;color:#dc2626;border-radius:99px;padding:2px 10px;font-size:0.68rem;font-weight:700;margin-bottom:8px;">😓 苦手</span>
         <div class="card-word" id="wordText"></div>
         <div class="card-pos" id="posText"></div>
-        <button id="btnSpeakWord" onclick="event.stopPropagation();speakWord();" style="margin-top:12px;background:rgba(99,102,241,0.08);border:1.5px solid rgba(99,102,241,0.2);border-radius:99px;padding:5px 16px;font-size:0.8rem;color:var(--accent2);cursor:pointer;touch-action:manipulation;-webkit-transform:translateZ(2px);transform:translateZ(2px);">🔊 もう一度聞く</button>        
+        <button id="btnSpeakWord" onclick="event.stopPropagation();speakWord();" style="margin-top:12px;background:rgba(99,102,241,0.08);border:1.5px solid rgba(99,102,241,0.2);border-radius:99px;padding:5px 16px;font-size:0.8rem;color:var(--accent2);cursor:pointer;touch-action:manipulation;transform:translateZ(2px);">🔊 もう一度聞く</button>        
         <div class="tap-hint">👆 タップして答えを見る</div>
       </div>
       <div class="card-face card-back">
         <div class="card-label">意味・例文</div>
         <div class="back-meaning" id="meaningText"></div>
-        <button id="btnSpeakRevWord" onclick="event.stopPropagation();speakRevWord();" style="display:none;margin-top:6px;background:rgba(99,102,241,0.08);border:1.5px solid rgba(99,102,241,0.2);border-radius:99px;padding:4px 14px;font-size:0.75rem;color:var(--accent2);cursor:pointer;touch-action:manipulation;-webkit-transform:translateZ(2px);transform:translateZ(2px);">🔊 単語を聞く</button>
+        <button id="btnSpeakRevWord" onclick="event.stopPropagation();speakRevWord();" style="display:none;margin-top:6px;background:rgba(99,102,241,0.08);border:1.5px solid rgba(99,102,241,0.2);border-radius:99px;padding:4px 14px;font-size:0.75rem;color:var(--accent2);cursor:pointer;touch-action:manipulation;transform:translateZ(2px);">🔊 単語を聞く</button>
         <div class="back-example" id="exampleText"></div>
-        <button id="btnSpeakExample" onclick="event.stopPropagation();speakExample();" style="margin-top:6px;margin-bottom:4px;background:rgba(59,130,246,0.08);border:1.5px solid rgba(59,130,246,0.2);border-radius:99px;padding:5px 16px;font-size:0.75rem;color:#3b82f6;cursor:pointer;touch-action:manipulation;-webkit-transform:translateZ(2px);transform:translateZ(2px);">🔊 例文を聞く</button>
+        <button id="btnSpeakExample" onclick="event.stopPropagation();speakExample();" style="margin-top:6px;margin-bottom:4px;background:rgba(59,130,246,0.08);border:1.5px solid rgba(59,130,246,0.2);border-radius:99px;padding:5px 16px;font-size:0.75rem;color:#3b82f6;cursor:pointer;touch-action:manipulation;transform:translateZ(2px);">🔊 例文を聞く</button>
         <div class="back-trans" id="transText"></div>
       </div>
     </div>
@@ -507,6 +424,7 @@
     <button class="btn-back-home" onclick="goHome()">← セクション一覧へ</button>
   </div>
 </div>
+
 <div id="listeningScreen">
   <div class="listening-controls">
     <div class="ctrl-row">
@@ -536,6 +454,7 @@
   </div>
   <div class="word-list" id="wordList"></div>
 </div>
+
 <div id="editScreen" style="display:none;width:100%;max-width:420px;position:relative;z-index:1;padding-bottom:40px;">
   <div class="edit-header">
     <button class="btn-back" id="editBackBtn" type="button">← 戻る</button>
@@ -544,6 +463,7 @@
   </div>
   <div id="editContent"></div>
 </div>
+
 <div id="modalOverlay" style="display:none;" onclick="closeModal(event)">
   <div id="modalBox">
     <div class="modal-drag-bar"></div>
@@ -552,6 +472,7 @@
     <div id="modalBtns"></div>
   </div>
 </div>
+
 <script>
 const STORAGE_KEY = 'flashcards_sections_v1';
 const STATS_KEY   = 'flashcards_stats_v1';
@@ -562,6 +483,7 @@ let queue = [];
 let current = 0, okCount = 0, ngCount = 0;
 let isFlipped = false, isTouching = false;
 let reverseMode = false;
+
 // 苦手統計
 function loadStats() { try { const s = localStorage.getItem(STATS_KEY); return s ? JSON.parse(s) : {}; } catch(e) { return {}; } }
 function saveStats(stats) { try { localStorage.setItem(STATS_KEY, JSON.stringify(stats)); } catch(e) {} }
@@ -577,19 +499,24 @@ function getWeakScore(word) {
   const t = s.ok + s.ng;
   return t === 0 ? 0 : s.ng / t;
 }
+
 // localStorage
 function saveSections() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(sections)); } catch(e) {} }
 function loadSections() {
   try { const s = localStorage.getItem(STORAGE_KEY); if (s) { const p = JSON.parse(s); if (p && p.length > 0) return p; } } catch(e) {}
   return null;
 }
-// パース
+
+// パース（★ここが数字なしでも賢く読み取るように修正された部分です）
 function parseCards(text) {
   const cards = [], lines = text.split('\n');
   let i = 0;
+  // 数字. があってもなくても「単語（品詞）」の形を認識する正規表現
+  const wordRegex = /^(?:\d+[.\s\t]+)?(.+?)[（\(](.+?)[）\)]\s*$/;
+
   while (i < lines.length) {
     const line = lines[i].trim();
-    const m = line.match(/^\d+[.\s\t]+(.+?)（(.+?)）\s*$/) || line.match(/^\d+[.\s\t]+(.+?)\((.+?)\)\s*$/);
+    const m = line.match(wordRegex);
     if (m) {
       const word = m[1].trim(), pos = m[2].trim();
       let meaning = '', example = '', trans = '';
@@ -599,7 +526,8 @@ function parseCards(text) {
         if (l.startsWith('意味：')) meaning = l.replace('意味：','').trim();
         else if (l.startsWith('例文：')) example = l.replace('例文：','').trim();
         else if (l.startsWith('訳：')) trans = l.replace('訳：','').trim();
-        else if (l.match(/^\d+[.\s\t]+/)) break;
+        // 次の単語が来たらループを抜ける
+        else if (l.match(wordRegex)) break;
         i++;
       }
       if (word) cards.push({ word, pos, meaning, example, trans });
@@ -607,6 +535,7 @@ function parseCards(text) {
   }
   return cards;
 }
+
 // 50語ごとにセクション分割
 function addCardsToSections(newCards) {
   if (newCards.length === 0) return;
@@ -645,6 +574,7 @@ function appendFromText() {
   setTimeout(() => { msg.style.display = 'none'; }, 3000);
   renderSectionList();
 }
+
 // セクション一覧表示
 function renderSectionList() {
   const list = document.getElementById('sectionList');
@@ -668,6 +598,7 @@ function renderSectionList() {
     list.appendChild(div);
   });
 }
+
 // 学習開始
 function startSection(idx) {
   studyCards = sections[idx].cards;
@@ -703,55 +634,42 @@ function goHome() {
   document.getElementById('listeningScreen').style.display = 'none';
   document.getElementById('tabNav').style.display = 'flex';
   document.getElementById('mainSubtitle').style.display = 'block';
-  // タブをフラッシュに戻す
   document.querySelectorAll('.tab-btn')[0].classList.add('active');
   document.querySelectorAll('.tab-btn')[1].classList.remove('active');
   renderSectionList();
 }
+
 // 間隔反復キュー
 function buildQueue(cards) {
   return [...cards]
     .sort((a, b) => { const d = getWeakScore(b.word) - getWeakScore(a.word); return d !== 0 ? d : Math.random() - 0.5; })
     .map((card, i) => ({ card, dueAt: i }));
 }
+
 // 音声
 let speechEnabled = true;
 let _utter = null;
 function speak(text, lang, rate) {
   if (!speechEnabled || !window.speechSynthesis) return;
-  // 既存を止める
   window.speechSynthesis.cancel();
-  if (_utter) {
-    _utter.onend = null;
-    _utter.onerror = null;
-    _utter = null;
-  }
+  if (_utter) { _utter.onend = null; _utter.onerror = null; _utter = null; }
   _utter = new SpeechSynthesisUtterance(text);
   _utter.lang = lang || 'en-US';
   _utter.rate = rate || 0.9;
   _utter.volume = 1;
   const u = _utter;
-  // iOSはcancel直後にspeakすると無視されることがあるので少し待つ
-  setTimeout(() => {
-    if (u === _utter) window.speechSynthesis.speak(u);
-  }, 100);
+  setTimeout(() => { if (u === _utter) window.speechSynthesis.speak(u); }, 100);
 }
-function speakWord() {
-  speak(document.getElementById('wordText').textContent, 'en-US', 0.8);
-}
-function speakRevWord() {
-  speak(document.getElementById('meaningText').textContent, 'en-US', 0.8);
-}
-function speakExample() {
-  speak(document.getElementById('exampleText').textContent, 'en-US', 0.85);
-}
+function speakWord() { speak(document.getElementById('wordText').textContent, 'en-US', 0.8); }
+function speakRevWord() { speak(document.getElementById('meaningText').textContent, 'en-US', 0.8); }
+function speakExample() { speak(document.getElementById('exampleText').textContent, 'en-US', 0.85); }
+
 // 逆モード切替
 function toggleReverse() {
   reverseMode = !reverseMode;
   const btn = document.getElementById('btnReverse');
   btn.textContent = reverseMode ? 'JP→EN' : 'EN→JP';
   btn.style.background = reverseMode ? 'rgba(99,102,241,0.12)' : '#fff';
-  // 現在のカードを表示し直す
   const idx = queue.findIndex(q => q.dueAt <= current);
   if (idx !== -1) {
     const c = queue[idx].card;
@@ -762,6 +680,7 @@ function toggleReverse() {
     document.getElementById('btnNg').disabled = true;
   }
 }
+
 // カード表示
 function showCard() {
   const idx = queue.findIndex(q => q.dueAt <= current);
@@ -850,20 +769,20 @@ function restartStudy() {
   document.getElementById('finishScreen').classList.remove('show');
   showCard();
 }
+
 // 音声ボタン
 document.getElementById('btnSound').addEventListener('click', function() {
   speechEnabled = !speechEnabled;
   this.textContent = speechEnabled ? '🔊' : '🔇';
   if (!speechEnabled && window.speechSynthesis) window.speechSynthesis.cancel();
 });
+
 // iOS タッチ対応
 const cardArea = document.getElementById('cardArea');
 const btnFlip  = document.getElementById('btnFlip');
-function isSpeakButton(e) {
-  return e.target.closest('#btnSpeakWord, #btnSpeakExample, #btnSpeakRevWord');
-}
+function isSpeakButton(e) { return e.target.closest('#btnSpeakWord, #btnSpeakExample, #btnSpeakRevWord'); }
 cardArea.addEventListener('touchend', function(e) {
-  if (isSpeakButton(e)) return; // 音声ボタンはスルー
+  if (isSpeakButton(e)) return;
   e.preventDefault(); isTouching = true; flipCard();
   setTimeout(() => { isTouching = false; }, 300);
 }, { passive: false });
@@ -874,16 +793,11 @@ cardArea.addEventListener('click', function(e) {
 });
 btnFlip.addEventListener('touchend', function(e) { e.preventDefault(); isTouching = true; flipCard(); setTimeout(() => { isTouching = false; }, 300); }, { passive: false });
 btnFlip.addEventListener('click', function() { if (isTouching) return; flipCard(); });
-// 音声ボタンにtouchendを個別登録（iOSのpreventDefault問題を回避）
-document.getElementById('btnSpeakWord').addEventListener('touchend', function(e) {
-  e.stopPropagation(); speakWord();
-}, { passive: true });
-document.getElementById('btnSpeakRevWord').addEventListener('touchend', function(e) {
-  e.stopPropagation(); speakRevWord();
-}, { passive: true });
-document.getElementById('btnSpeakExample').addEventListener('touchend', function(e) {
-  e.stopPropagation(); speakExample();
-}, { passive: true });
+
+// 音声ボタン個別登録
+document.getElementById('btnSpeakWord').addEventListener('touchend', function(e) { e.stopPropagation(); speakWord(); }, { passive: true });
+document.getElementById('btnSpeakRevWord').addEventListener('touchend', function(e) { e.stopPropagation(); speakRevWord(); }, { passive: true });
+document.getElementById('btnSpeakExample').addEventListener('touchend', function(e) { e.stopPropagation(); speakExample(); }, { passive: true });
 
 // ===== リスニング機能 =====
 const CHECK_KEY = 'flashcards_checks_v1';
@@ -891,21 +805,12 @@ let listenMode   = 'word'; // 'word' | 'all'
 let listenFilter = 'all'; // 'all' | 'checked' | 'unchecked'
 let isListening  = false;
 let listenIndex  = 0;
-let listenList   = []; // 再生対象カードの配列
-function loadChecks() {
-  try { const s = localStorage.getItem(CHECK_KEY); return s ? JSON.parse(s) : {}; } catch(e) { return {}; }
-}
-function saveChecks(checks) {
-  try { localStorage.setItem(CHECK_KEY, JSON.stringify(checks)); } catch(e) {}
-}
-function setCheck(word, val) {
-  const checks = loadChecks();
-  checks[word] = val;
-  saveChecks(checks);
-}
-function isChecked(word) {
-  return !!loadChecks()[word];
-}
+let listenList   = [];
+
+function loadChecks() { try { const s = localStorage.getItem(CHECK_KEY); return s ? JSON.parse(s) : {}; } catch(e) { return {}; } }
+function saveChecks(checks) { try { localStorage.setItem(CHECK_KEY, JSON.stringify(checks)); } catch(e) {} }
+function setCheck(word, val) { const checks = loadChecks(); checks[word] = val; saveChecks(checks); }
+function isChecked(word) { return !!loadChecks()[word]; }
 function setListenMode(mode) {
   listenMode = mode;
   document.getElementById('btnModeWord').classList.toggle('active', mode === 'word');
@@ -917,9 +822,7 @@ function setListenFilter(filter) {
   document.getElementById('btnFilterChecked').classList.toggle('active',   filter === 'checked');
   document.getElementById('btnFilterUnchecked').classList.toggle('active', filter === 'unchecked');
 }
-function getAllCards() {
-  return sections.flatMap(s => s.cards);
-}
+function getAllCards() { return sections.flatMap(s => s.cards); }
 function getListenList() {
   const all = getAllCards();
   if (listenFilter === 'all')       return all;
@@ -937,8 +840,7 @@ function renderWordList() {
     div.className = 'word-list-item';
     div.id = `wli-${c.word}`;
     div.innerHTML = `
-      <input type="checkbox" id="chk-${c.word}" ${checks[c.word] ? 'checked' : ''}
-        onchange="onCheckChange('${c.word.replace(/'/g, "\\'")}', this.checked)">
+      <input type="checkbox" id="chk-${c.word}" ${checks[c.word] ? 'checked' : ''} onchange="onCheckChange('${c.word.replace(/'/g, "\\'")}', this.checked)">
       <div class="word-list-text">
         <div class="word-list-en">${c.word} <span style="font-size:0.7rem;color:var(--text-muted);font-weight:400;">${c.pos}</span></div>
         <div class="word-list-ja">${c.meaning}</div>
@@ -946,34 +848,18 @@ function renderWordList() {
     list.appendChild(div);
   });
 }
-function onCheckChange(word, val) {
-  setCheck(word, val);
-}
-function checkAll() {
-  const checks = loadChecks();
-  getAllCards().forEach(c => { checks[c.word] = true; });
-  saveChecks(checks);
-  renderWordList();
-}
-function uncheckAll() {
-  saveChecks({});
-  renderWordList();
-}
+function onCheckChange(word, val) { setCheck(word, val); }
+function checkAll() { const checks = loadChecks(); getAllCards().forEach(c => { checks[c.word] = true; }); saveChecks(checks); renderWordList(); }
+function uncheckAll() { saveChecks({}); renderWordList(); }
+
 function toggleListening() {
-  if (isListening) {
-    stopListening();
-  } else {
-    startListening();
-  }
+  if (isListening) stopListening();
+  else startListening();
 }
 function startListening() {
   listenList = getListenList();
-  if (listenList.length === 0) {
-    alert('再生する単語がありません。フィルター設定を確認してください。');
-    return;
-  }
-  isListening = true;
-  listenIndex = 0;
+  if (listenList.length === 0) { alert('再生する単語がありません。フィルター設定を確認してください。'); return; }
+  isListening = true; listenIndex = 0;
   document.getElementById('btnListenPlay').textContent = '⏹ 停止';
   document.getElementById('btnListenPlay').classList.add('playing');
   document.getElementById('listeningProgress').style.display = 'block';
@@ -986,52 +872,32 @@ function stopListening() {
   document.getElementById('btnListenPlay').classList.remove('playing');
   document.getElementById('listeningProgress').style.display = 'none';
   document.getElementById('listeningCurWord').textContent = '-';
-  // ハイライト解除
   document.querySelectorAll('.word-list-item.playing-now').forEach(el => el.classList.remove('playing-now'));
 }
 function playNext() {
-  if (!isListening || listenIndex >= listenList.length) {
-    stopListening();
-    return;
-  }
+  if (!isListening || listenIndex >= listenList.length) { stopListening(); return; }
   const c = listenList[listenIndex];
-  // ハイライト更新
   document.querySelectorAll('.word-list-item.playing-now').forEach(el => el.classList.remove('playing-now'));
   const item = document.getElementById(`wli-${c.word}`);
-  if (item) {
-    item.classList.add('playing-now');
-    item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
+  if (item) { item.classList.add('playing-now'); item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
   document.getElementById('listeningCurWord').textContent = `${c.word}　${c.meaning}`;
-  // 再生シーケンス
   const seq = [];
-  seq.push({ text: c.word,    lang: 'en-US', rate: 0.8 });
+  seq.push({ text: c.word, lang: 'en-US', rate: 0.8 });
   seq.push({ text: c.meaning, lang: 'ja-JP', rate: 0.9 });
-  if (listenMode === 'all') {
-    seq.push({ text: c.example, lang: 'en-US', rate: 0.85 });
-  }
-  playSequence(seq, 0, () => {
-    listenIndex++;
-    setTimeout(() => { playNext(); }, 150);
-  });
+  if (listenMode === 'all') seq.push({ text: c.example, lang: 'en-US', rate: 0.85 });
+  playSequence(seq, 0, () => { listenIndex++; setTimeout(() => { playNext(); }, 150); });
 }
 function playSequence(seq, idx, onDone) {
   if (!isListening || idx >= seq.length) { onDone(); return; }
   const item = seq[idx];
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(item.text);
-  u.lang = item.lang;
-  u.rate = item.rate;
-  u.onend = () => {
-    setTimeout(() => { playSequence(seq, idx + 1, onDone); }, 200);
-  };
-  u.onerror = () => {
-    setTimeout(() => { playSequence(seq, idx + 1, onDone); }, 200);
-  };
-  setTimeout(() => {
-    if (isListening) window.speechSynthesis.speak(u);
-  }, 50);
+  u.lang = item.lang; u.rate = item.rate;
+  u.onend = () => { setTimeout(() => { playSequence(seq, idx + 1, onDone); }, 200); };
+  u.onerror = () => { setTimeout(() => { playSequence(seq, idx + 1, onDone); }, 200); };
+  setTimeout(() => { if (isListening) window.speechSynthesis.speak(u); }, 50);
 }
+
 // タブ切替
 function switchTab(tab) {
   const tabs = document.querySelectorAll('.tab-btn');
@@ -1044,7 +910,8 @@ function switchTab(tab) {
   if (tab === 'flash' && isListening) stopListening();
   if (tab === 'listen' && isListening) stopListening();
 }
-// 初期化
+
+// 初期化用の長文データ (そのまま維持)
 const DEFAULT_TEXT = `1.	balance（名詞・動詞）意味：バランス、均衡；〜のバランスを保つ例文：It is important to maintain a balance between work and private life.訳：仕事とプライベートのバランスを保つことが大切です。
 2.	vacation（名詞）意味：休暇、バカンス例文：Austrian workers are entitled to at least five weeks of paid vacation per year.訳：オーストリアの労働者は年間少なくとも5週間の有給休暇を得る権利があります。
 3.	regulation（名詞）意味：規制、規則、法規例文：Labor regulations in Austria strictly limit overtime work.訳：オーストリアの労働規制は残業を厳しく制限しています。
@@ -1060,6 +927,7 @@ const DEFAULT_TEXT = `1.	balance（名詞・動詞）意味：バランス、均
 3.	quality（名詞）意味：質、品質、クオリティ例文：Vienna consistently ranks first in quality of life surveys around the world.訳：ウィーンは世界中の生活の質に関する調査で常に1位にランクインしています。
 4.	candidate（名詞）意味：候補者、候補地例文：Austria is a strong candidate for those seeking a better work-life balance abroad.訳：オーストリアは海外でより良いワークライフバランスを求める人々にとって有力な候補地です。
 5.	overwhelming（形容詞）意味：圧倒的な例文：Compared to Japan, the advantages of working in Austria are overwhelming.訳：日本と比べると、オーストリアで働くことの利点は圧倒的です。`;
+
 const DEFAULT_TEXT2 = `1.	survive（動詞）意味：生き延びる、存続する例文：A cockroach can survive for weeks without its head because its brain is not centralized.訳：ゴキブリは脳が分散しているため、頭がなくても数週間生き延びることができる。
 2.	ancient（形容詞）意味：古代の、非常に古い例文：Ancient Egyptians used to shave off their eyebrows when their cat died as a sign of mourning.訳：古代エジプト人は猫が死ぬと、哀悼のしるしとして眉毛を剃っていた。
 3.	gravity（名詞）意味：重力、引力例文：In space, astronauts grow slightly taller because gravity no longer compresses their spine.訳：宇宙では重力が背骨を圧迫しないため、宇宙飛行士はわずかに背が伸びる。
@@ -1110,6 +978,7 @@ const DEFAULT_TEXT2 = `1.	survive（動詞）意味：生き延びる、存続�
 48.	solution（名詞）意味：解決策、溶液例文：The solution to jet lag may lie in controlling when you eat, not just when you sleep.訳：時差ぼけの解決策は、いつ眠るかだけでなく、いつ食べるかにある可能性がある。
 49.	specific（形容詞）意味：特定の、具体的な例文：There is a specific phobia called "arachibutyrophobia" — the fear of peanut butter sticking to the roof of your mouth.訳：「アラキブティロフォビア」という特定の恐怖症があり、ピーナッツバターが口の天井にくっつくことへの恐怖だ。
 50.	structure（名詞）意味：構造、建造物例文：The internal structure of a cat's ear is so sensitive that it can hear ultrasonic frequencies that even dogs cannot.訳：猫の耳の内部構造は非常に敏感で、犬でさえ聞こえない超音波域の音を聞くことができる。`;
+
 const DEFAULT_TEXT3 = `1.	substance（名詞）意味：物質、実質例文：Glass is technically not a solid substance — it is an amorphous liquid that flows incredibly slowly.訳：ガラスは技術的には固体ではなく、非常にゆっくり流れる非晶質液体だ。
 2.	sufficient（形容詞）意味：十分な例文：A single teaspoon of a neutron star would be sufficient to weigh about a billion tons.訳：中性子星をティースプーン一杯すくうだけで、約10億トンにもなる。
 3.	suggest（動詞）意味：提案する、示唆する例文：Evidence suggests that Napoleon was actually of average height for his time — the short image was British propaganda.訳：証拠によれば、ナポレオンは当時の平均的な身長であり、小柄なイメージはイギリスのプロパガンダだった。
@@ -1160,18 +1029,16 @@ const DEFAULT_TEXT3 = `1.	substance（名詞）意味：物質、実質例文：
 48.	emotion（名詞）意味：感情、感動例文：Fish have been found to experience emotion — they show signs of depression when kept in poor conditions.訳：魚は感情を持つことが分かっており、劣悪な環境に置かれるとうつ症状を示す。
 49.	emphasize（動詞）意味：強調する例文：Scientists emphasize that sleeping less than 6 hours regularly can have the same effect as being drunk.訳：科学者たちは、定期的に6時間未満の睡眠を続けることは酔っているのと同じ影響があると強調する。
 50.	encounter（動詞・名詞）意味：遭遇する；出会い例文：If you encounter a crocodile on land, run in a straight line — they tire quickly on flat ground.訳：陸でワニに遭遇したら一直線に逃げること — ワニは平地ではすぐに疲れてしまう。`;
+
 const saved = loadSections();
-if (saved) {
-  sections = saved;
-} else {
+if (saved) { sections = saved; } else {
   addCardsToSections(parseCards(DEFAULT_TEXT));
   addCardsToSections(parseCards(DEFAULT_TEXT2));
   addCardsToSections(parseCards(DEFAULT_TEXT3));
 }
 renderSectionList();
 
-// ★ ここを修正しました (editmode の処理を追加) ★
-// セクション画面ボタンのタッチ登録
+// ★Safari用：ボタンのタッチ登録 (editmode追加済み)
 (function() {
   var map = { append: appendFromText, replace: loadFromText, startall: startAll, editmode: openEditMode };
   ['btnAppend','btnReplace','btnStartAll','btnEditMode'].forEach(function(id) {
@@ -1201,36 +1068,29 @@ function openModal(title, bodyHTML, btnsHTML) {
   document.getElementById('modalBtns').innerHTML = btnsHTML;
   document.getElementById('modalOverlay').style.display = 'flex';
 }
+
 // 新規セクション作成
 function openNewSectionModal() {
-  openModal(
-    '新しいセクションを作る',
+  openModal('新しいセクションを作る',
     `<input class="modal-input" id="newSecName" placeholder="セクション名" value="セクション${sections.length + 1}">`,
-    `<button class="modal-btn modal-btn-cancel" data-maction="close">キャンセル</button>
-     <button class="modal-btn modal-btn-ok" data-maction="create">作成</button>`
+    `<button class="modal-btn modal-btn-cancel" data-maction="close">キャンセル</button><button class="modal-btn modal-btn-ok" data-maction="create">作成</button>`
   );
   setTimeout(() => document.getElementById('newSecName').focus(), 100);
 }
 function createNewSection() {
   const name = document.getElementById('newSecName').value.trim();
   if (!name) return;
-  sections.push({ name, cards: [] });
-  saveSections();
-  renderSectionList();
+  sections.push({ name, cards: [] }); saveSections(); renderSectionList();
   document.getElementById('modalOverlay').style.display = 'none';
 }
 function openDeleteSectionModal(idx) {
-  openModal(
-    'セクションを削除',
+  openModal('セクションを削除',
     `<p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">「${sections[idx].name}」（${sections[idx].cards.length}語）を削除します。<br>この操作は取り消せません。</p>`,
-    `<button class="modal-btn modal-btn-cancel" data-maction="close">キャンセル</button>
-     <button class="modal-btn modal-btn-del" data-maction="delsec" data-i="${idx}">削除する</button>`
+    `<button class="modal-btn modal-btn-cancel" data-maction="close">キャンセル</button><button class="modal-btn modal-btn-del" data-maction="delsec" data-i="${idx}">削除する</button>`
   );
 }
 function deleteSection(idx) {
-  sections.splice(idx, 1);
-  saveSections();
-  renderSectionList();
+  sections.splice(idx, 1); saveSections(); renderSectionList();
   document.getElementById('modalOverlay').style.display = 'none';
 }
 function openEditSectionModal(idx) {
@@ -1246,10 +1106,8 @@ function openEditSectionModal(idx) {
         <button class="sec-btn sec-btn-del"  data-maction="delword"  data-i="${idx}" data-j="${ci}">🗑️</button>
       </div>
     </div>`).join('');
-  openModal(
-    'セクション編集',
-    `<div style="margin-bottom:14px;">
-      <div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;margin-bottom:6px;">セクション名</div>
+  openModal('セクション編集',
+    `<div style="margin-bottom:14px;"><div style="font-size:0.75rem;color:var(--text-muted);font-weight:600;margin-bottom:6px;">セクション名</div>
       <input class="modal-input" id="editSecName" value="${sec.name}">
       <button class="modal-btn modal-btn-ok" data-maction="savename" data-i="${idx}" style="width:100%;margin-bottom:16px;">名前を保存</button>
     </div>
@@ -1264,62 +1122,48 @@ function openEditSectionModal(idx) {
 function saveSecName(idx) {
   const name = document.getElementById('editSecName').value.trim();
   if (!name) return;
-  sections[idx].name = name;
-  saveSections();
-  renderSectionList();
+  sections[idx].name = name; saveSections(); renderSectionList();
   const btn = document.querySelector('[data-maction="savename"]');
   if (btn) { btn.textContent = '✓ 保存しました'; setTimeout(() => { btn.textContent = '名前を保存'; }, 1500); }
 }
 function openDeleteWordModal(secIdx, cardIdx) {
   const c = sections[secIdx].cards[cardIdx];
-  openModal(
-    '単語を削除',
+  openModal('単語を削除',
     `<p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">「${c.word}」を削除します。<br>この操作は取り消せません。</p>`,
-    `<button class="modal-btn modal-btn-cancel" data-maction="backedit" data-i="${secIdx}">戻る</button>
-     <button class="modal-btn modal-btn-del" data-maction="dodelword" data-i="${secIdx}" data-j="${cardIdx}">削除する</button>`
+    `<button class="modal-btn modal-btn-cancel" data-maction="backedit" data-i="${secIdx}">戻る</button><button class="modal-btn modal-btn-del" data-maction="dodelword" data-i="${secIdx}" data-j="${cardIdx}">削除する</button>`
   );
 }
-function deleteWord(secIdx, cardIdx) {
-  sections[secIdx].cards.splice(cardIdx, 1);
-  saveSections();
-  renderSectionList();
-  openEditSectionModal(secIdx);
-}
+function deleteWord(secIdx, cardIdx) { sections[secIdx].cards.splice(cardIdx, 1); saveSections(); renderSectionList(); openEditSectionModal(secIdx); }
+
 function openEditWordModal(secIdx, cardIdx) {
   const c = sections[secIdx].cards[cardIdx];
-  openModal(
-    '単語を編集',
+  openModal('単語を編集',
     `<input class="modal-input" id="ew-word" placeholder="単語" value="${c.word}">
      <input class="modal-input" id="ew-pos" placeholder="品詞（例：名詞）" value="${c.pos}">
      <input class="modal-input" id="ew-meaning" placeholder="意味" value="${c.meaning}">
      <textarea class="modal-textarea" id="ew-example" placeholder="例文">${c.example}</textarea>
      <textarea class="modal-textarea" id="ew-trans" placeholder="訳">${c.trans}</textarea>`,
-    `<button class="modal-btn modal-btn-cancel" data-maction="backedit" data-i="${secIdx}">戻る</button>
-     <button class="modal-btn modal-btn-ok" data-maction="saveword" data-i="${secIdx}" data-j="${cardIdx}">保存</button>`
+    `<button class="modal-btn modal-btn-cancel" data-maction="backedit" data-i="${secIdx}">戻る</button><button class="modal-btn modal-btn-ok" data-maction="saveword" data-i="${secIdx}" data-j="${cardIdx}">保存</button>`
   );
 }
 function saveWord(secIdx, cardIdx) {
   sections[secIdx].cards[cardIdx] = {
-    word:    document.getElementById('ew-word').value.trim(),
-    pos:     document.getElementById('ew-pos').value.trim(),
+    word: document.getElementById('ew-word').value.trim(),
+    pos: document.getElementById('ew-pos').value.trim(),
     meaning: document.getElementById('ew-meaning').value.trim(),
     example: document.getElementById('ew-example').value.trim(),
-    trans:   document.getElementById('ew-trans').value.trim(),
+    trans: document.getElementById('ew-trans').value.trim(),
   };
-  saveSections();
-  renderSectionList();
-  openEditSectionModal(secIdx);
+  saveSections(); renderSectionList(); openEditSectionModal(secIdx);
 }
 function openAddWordModal(secIdx) {
-  openModal(
-    '単語を追加',
+  openModal('単語を追加',
     `<input class="modal-input" id="ew-word" placeholder="単語">
      <input class="modal-input" id="ew-pos" placeholder="品詞（例：名詞）">
      <input class="modal-input" id="ew-meaning" placeholder="意味">
      <textarea class="modal-textarea" id="ew-example" placeholder="例文"></textarea>
      <textarea class="modal-textarea" id="ew-trans" placeholder="訳"></textarea>`,
-    `<button class="modal-btn modal-btn-cancel" data-maction="backedit" data-i="${secIdx}">戻る</button>
-     <button class="modal-btn modal-btn-ok" data-maction="doaddword" data-i="${secIdx}">追加</button>`
+    `<button class="modal-btn modal-btn-cancel" data-maction="backedit" data-i="${secIdx}">戻る</button><button class="modal-btn modal-btn-ok" data-maction="doaddword" data-i="${secIdx}">追加</button>`
   );
 }
 function addWord(secIdx) {
@@ -1327,14 +1171,12 @@ function addWord(secIdx) {
   if (!word) return;
   sections[secIdx].cards.push({
     word,
-    pos:     document.getElementById('ew-pos').value.trim(),
+    pos: document.getElementById('ew-pos').value.trim(),
     meaning: document.getElementById('ew-meaning').value.trim(),
     example: document.getElementById('ew-example').value.trim(),
-    trans:   document.getElementById('ew-trans').value.trim(),
+    trans: document.getElementById('ew-trans').value.trim(),
   });
-  saveSections();
-  renderSectionList();
-  openEditSectionModal(secIdx);
+  saveSections(); renderSectionList(); openEditSectionModal(secIdx);
 }
 
 // ===== 編集モード =====
@@ -1356,7 +1198,6 @@ function closeEditMode() {
   renderSectionList();
 }
 function _editReg(el) {
-  // editContent内のボタンにclickリスナーを登録するヘルパー
   el.querySelectorAll('[data-ea]').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var a = this.getAttribute('data-ea');
@@ -1383,13 +1224,9 @@ function renderEditSections() {
     sections.forEach(function(sec, idx) {
       html += '<div class="edit-list-item">'
         + '<button class="edit-item-btn" type="button" data-ea="opensec" data-i="' + idx + '">'
-        + '<div class="edit-item-name">' + sec.name + '</div>'
-        + '<div class="edit-item-sub">' + sec.cards.length + '語</div>'
-        + '</button>'
-        + '<div class="edit-item-actions">'
-        + '<button class="edit-icon-btn" type="button" data-ea="renamesec" data-i="' + idx + '">✏️</button>'        
-        + '<button class="edit-icon-btn edit-icon-del" type="button" data-ea="delsec" data-i="' + idx + '">🗑️</button>'
-        + '</div></div>';
+        + '<div class="edit-item-name">' + sec.name + '</div><div class="edit-item-sub">' + sec.cards.length + '語</div></button>'
+        + '<div class="edit-item-actions"><button class="edit-icon-btn" type="button" data-ea="renamesec" data-i="' + idx + '">✏️</button>'        
+        + '<button class="edit-icon-btn edit-icon-del" type="button" data-ea="delsec" data-i="' + idx + '">🗑️</button></div></div>';
     });
     html += '</div>';
   }
@@ -1409,15 +1246,11 @@ function renderEditWords(secIdx) {
     html += '<div class="edit-list">';
     sec.cards.forEach(function(card, ci) {
       html += '<div class="edit-list-item">'
-        + '<div class="edit-item-text">'
-        + '<div class="edit-item-name">' + card.word + '<span class="edit-item-pos">' + card.pos + '</span></div>'
-        + '<div class="edit-item-sub">' + card.meaning + '</div>'
-        + '</div>'
-        + '<div class="edit-item-actions">'
-        + '<button class="edit-icon-btn" type="button" data-ea="moveword" data-i="' + secIdx + '" data-j="' + ci + '">↕️</button>'     
+        + '<div class="edit-item-text"><div class="edit-item-name">' + card.word + '<span class="edit-item-pos">' + card.pos + '</span></div>'
+        + '<div class="edit-item-sub">' + card.meaning + '</div></div>'
+        + '<div class="edit-item-actions"><button class="edit-icon-btn" type="button" data-ea="moveword" data-i="' + secIdx + '" data-j="' + ci + '">↕️</button>'     
         + '<button class="edit-icon-btn" type="button" data-ea="editword" data-i="' + secIdx + '" data-j="' + ci + '">✏️</button>'
-        + '<button class="edit-icon-btn edit-icon-del" type="button" data-ea="delword" data-i="' + secIdx + '" data-j="' + ci + '">🗑️</button>'
-        + '</div></div>';
+        + '<button class="edit-icon-btn edit-icon-del" type="button" data-ea="delword" data-i="' + secIdx + '" data-j="' + ci + '">🗑️</button></div></div>';
     });
     html += '</div>';
   }
@@ -1429,12 +1262,9 @@ function showAddSectionForm() {
   document.getElementById('editTitle').textContent = 'セクションを追加';
   document.getElementById('editBackBtn').onclick = renderEditSections;
   var c = document.getElementById('editContent');
-  c.innerHTML = '<div class="edit-form">'
-    + '<div class="edit-form-label">セクション名</div>'
+  c.innerHTML = '<div class="edit-form"><div class="edit-form-label">セクション名</div>'
     + '<input class="edit-form-input" id="ef0" type="text" placeholder="例: セクション4" value="セクション' + (sections.length + 1) + '">'
-    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">作成</button>'
-    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
-    + '</div>';
+    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">作成</button><button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button></div>';
   document.getElementById('ef-ok').addEventListener('click', function() {
     var name = document.getElementById('ef0').value.trim(); if (!name) return;
     sections.push({ name: name, cards: [] }); saveSections(); renderEditSections();
@@ -1446,12 +1276,9 @@ function showRenameSectionForm(idx) {
   document.getElementById('editTitle').textContent = '名前を変更';
   document.getElementById('editBackBtn').onclick = renderEditSections;
   var c = document.getElementById('editContent');
-  c.innerHTML = '<div class="edit-form">'
-    + '<div class="edit-form-label">セクション名</div>'
+  c.innerHTML = '<div class="edit-form"><div class="edit-form-label">セクション名</div>'
     + '<input class="edit-form-input" id="ef0" type="text" value="' + sections[idx].name + '">'
-    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">保存</button>'
-    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
-    + '</div>';
+    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">保存</button><button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button></div>';
   document.getElementById('ef-ok').addEventListener('click', function() {
     var name = document.getElementById('ef0').value.trim(); if (!name) return;
     sections[idx].name = name; saveSections(); renderEditSections();
@@ -1463,14 +1290,9 @@ function confirmDeleteSectionEdit(idx) {
   document.getElementById('editTitle').textContent = 'セクションを削除';
   document.getElementById('editBackBtn').onclick = renderEditSections;
   var c = document.getElementById('editContent');
-  c.innerHTML = '<div class="edit-form">'
-    + '<p class="edit-confirm-msg">「' + sections[idx].name + '」（' + sections[idx].cards.length + '語）を削除します。<br>この操作は取り消せません。</p>'
-    + '<button class="edit-form-btn edit-form-btn-del" type="button" id="ef-ok">削除する</button>'
-    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
-    + '</div>';
-  document.getElementById('ef-ok').addEventListener('click', function() {
-    sections.splice(idx, 1); saveSections(); renderEditSections();
-  });
+  c.innerHTML = '<div class="edit-form"><p class="edit-confirm-msg">「' + sections[idx].name + '」（' + sections[idx].cards.length + '語）を削除します。<br>この操作は取り消せません。</p>'
+    + '<button class="edit-form-btn edit-form-btn-del" type="button" id="ef-ok">削除する</button><button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button></div>';
+  document.getElementById('ef-ok').addEventListener('click', function() { sections.splice(idx, 1); saveSections(); renderEditSections(); });
   document.getElementById('ef-cancel').addEventListener('click', renderEditSections);
 }
 function showEditWordForm(secIdx, cardIdx) {
@@ -1478,22 +1300,16 @@ function showEditWordForm(secIdx, cardIdx) {
   document.getElementById('editTitle').textContent = '単語を編集';
   document.getElementById('editBackBtn').onclick = function() { renderEditWords(secIdx); };
   var c = document.getElementById('editContent');
-  c.innerHTML = '<div class="edit-form">'
-    + '<div class="edit-form-label">単語</div><input class="edit-form-input" id="ef-word" type="text" value="' + card.word + '">'
+  c.innerHTML = '<div class="edit-form"><div class="edit-form-label">単語</div><input class="edit-form-input" id="ef-word" type="text" value="' + card.word + '">'
     + '<div class="edit-form-label">品詞</div><input class="edit-form-input" id="ef-pos" type="text" value="' + card.pos + '">'
     + '<div class="edit-form-label">意味</div><input class="edit-form-input" id="ef-meaning" type="text" value="' + card.meaning + '">'
     + '<div class="edit-form-label">例文</div><textarea class="edit-form-textarea" id="ef-example">' + card.example + '</textarea>'
     + '<div class="edit-form-label">訳</div><textarea class="edit-form-textarea" id="ef-trans">' + card.trans + '</textarea>'
-    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">保存</button>'
-    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
-    + '</div>';
+    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">保存</button><button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button></div>';
   document.getElementById('ef-ok').addEventListener('click', function() {
     sections[secIdx].cards[cardIdx] = {
-      word: document.getElementById('ef-word').value.trim(),
-      pos: document.getElementById('ef-pos').value.trim(),
-      meaning: document.getElementById('ef-meaning').value.trim(),
-      example: document.getElementById('ef-example').value.trim(),
-      trans: document.getElementById('ef-trans').value.trim()
+      word: document.getElementById('ef-word').value.trim(), pos: document.getElementById('ef-pos').value.trim(),
+      meaning: document.getElementById('ef-meaning').value.trim(), example: document.getElementById('ef-example').value.trim(), trans: document.getElementById('ef-trans').value.trim()
     };
     saveSections(); renderEditWords(secIdx);
   });
@@ -1503,23 +1319,17 @@ function showAddWordForm(secIdx) {
   document.getElementById('editTitle').textContent = '単語を追加';
   document.getElementById('editBackBtn').onclick = function() { renderEditWords(secIdx); };
   var c = document.getElementById('editContent');
-  c.innerHTML = '<div class="edit-form">'
-    + '<div class="edit-form-label">単語</div><input class="edit-form-input" id="ef-word" type="text" placeholder="単語">'
+  c.innerHTML = '<div class="edit-form"><div class="edit-form-label">単語</div><input class="edit-form-input" id="ef-word" type="text" placeholder="単語">'
     + '<div class="edit-form-label">品詞</div><input class="edit-form-input" id="ef-pos" type="text" placeholder="例: 名詞">'
     + '<div class="edit-form-label">意味</div><input class="edit-form-input" id="ef-meaning" type="text" placeholder="意味">'
     + '<div class="edit-form-label">例文</div><textarea class="edit-form-textarea" id="ef-example" placeholder="例文"></textarea>'
     + '<div class="edit-form-label">訳</div><textarea class="edit-form-textarea" id="ef-trans" placeholder="訳"></textarea>'
-    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">追加</button>'
-    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
-    + '</div>';
+    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">追加</button><button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button></div>';
   document.getElementById('ef-ok').addEventListener('click', function() {
     var word = document.getElementById('ef-word').value.trim(); if (!word) return;
     sections[secIdx].cards.push({
-      word: word,
-      pos: document.getElementById('ef-pos').value.trim(),
-      meaning: document.getElementById('ef-meaning').value.trim(),
-      example: document.getElementById('ef-example').value.trim(),
-      trans: document.getElementById('ef-trans').value.trim()
+      word: word, pos: document.getElementById('ef-pos').value.trim(), meaning: document.getElementById('ef-meaning').value.trim(),
+      example: document.getElementById('ef-example').value.trim(), trans: document.getElementById('ef-trans').value.trim()
     });
     saveSections(); renderEditWords(secIdx);
   });
@@ -1531,14 +1341,9 @@ function confirmDeleteWordEdit(secIdx, cardIdx) {
   document.getElementById('editTitle').textContent = '単語を削除';
   document.getElementById('editBackBtn').onclick = function() { renderEditWords(secIdx); };
   var c = document.getElementById('editContent');
-  c.innerHTML = '<div class="edit-form">'
-    + '<p class="edit-confirm-msg">「' + card.word + '」を削除します。<br>この操作は取り消せません。</p>'
-    + '<button class="edit-form-btn edit-form-btn-del" type="button" id="ef-ok">削除する</button>'
-    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
-    + '</div>';
-  document.getElementById('ef-ok').addEventListener('click', function() {
-    sections[secIdx].cards.splice(cardIdx, 1); saveSections(); renderEditWords(secIdx);
-  });
+  c.innerHTML = '<div class="edit-form"><p class="edit-confirm-msg">「' + card.word + '」を削除します。<br>この操作は取り消せません。</p>'
+    + '<button class="edit-form-btn edit-form-btn-del" type="button" id="ef-ok">削除する</button><button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button></div>';
+  document.getElementById('ef-ok').addEventListener('click', function() { sections[secIdx].cards.splice(cardIdx, 1); saveSections(); renderEditWords(secIdx); });
   document.getElementById('ef-cancel').addEventListener('click', function() { renderEditWords(secIdx); });
 }
 function showMoveWordView(secIdx, cardIdx) {
@@ -1549,31 +1354,27 @@ function showMoveWordView(secIdx, cardIdx) {
   var html = '<div class="edit-form"><p class="edit-confirm-msg">「' + card.word + '」の移動先セクションを選んでください：</p>';
   sections.forEach(function(sec, i) {
     if (i === secIdx) return;
-    html += '<button class="edit-move-btn" type="button" data-moveto="' + i + '">'
-      + sec.name + ' <span style="font-size:0.75rem;color:var(--text-muted);font-weight:400;">' + sec.cards.length + '語</span></button>';
+    html += '<button class="edit-move-btn" type="button" data-moveto="' + i + '">' + sec.name + ' <span style="font-size:0.75rem;color:var(--text-muted);font-weight:400;">' + sec.cards.length + '語</span></button>';
   });
   html += '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button></div>';
   c.innerHTML = html;
   c.querySelectorAll('[data-moveto]').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var targetIdx = parseInt(this.getAttribute('data-moveto'));
-      sections[targetIdx].cards.push(card);
-      sections[secIdx].cards.splice(cardIdx, 1);
+      sections[targetIdx].cards.push(card); sections[secIdx].cards.splice(cardIdx, 1);
       saveSections(); renderEditWords(secIdx);
     });
   });
   document.getElementById('ef-cancel').addEventListener('click', function() { renderEditWords(secIdx); });
 }
 
-// モーダルボタン イベント委譲（iOS Safari対応）
+// モーダルイベント委譲（iOS対応）
 (function() {
   var modalBox = document.getElementById('modalBox');
   var overlay  = document.getElementById('modalOverlay');
   var _touching = false;
   function dispatchModal(btn) {
-    var a = btn.dataset.maction;
-    var i = parseInt(btn.dataset.i);
-    var j = parseInt(btn.dataset.j);
+    var a = btn.dataset.maction; var i = parseInt(btn.dataset.i); var j = parseInt(btn.dataset.j);
     if (a === 'close')       overlay.style.display = 'none';
     else if (a === 'create')    createNewSection();
     else if (a === 'delsec')    deleteSection(i);
@@ -1587,29 +1388,18 @@ function showMoveWordView(secIdx, cardIdx) {
     else if (a === 'doaddword') addWord(i);
   }
   modalBox.addEventListener('touchend', function(e) {
-    var btn = e.target.closest('[data-maction]');
-    if (!btn) return;
-    e.preventDefault();
-    _touching = true;
-    dispatchModal(btn);
-    setTimeout(function() { _touching = false; }, 300);
+    var btn = e.target.closest('[data-maction]'); if (!btn) return;
+    e.preventDefault(); _touching = true; dispatchModal(btn); setTimeout(function() { _touching = false; }, 300);
   }, { passive: false });
   modalBox.addEventListener('click', function(e) {
     if (_touching) return;
-    var btn = e.target.closest('[data-maction]');
-    if (!btn) return;
-    dispatchModal(btn);
+    var btn = e.target.closest('[data-maction]'); if (!btn) return; dispatchModal(btn);
   });
-  // オーバーレイタッチで閉じる（iOS）
-  overlay.addEventListener('touchend', function(e) {
-    if (e.target === this) this.style.display = 'none';
-  }, { passive: true });
+  overlay.addEventListener('touchend', function(e) { if (e.target === this) this.style.display = 'none'; }, { passive: true });
 })();
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
-  });
+  window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(() => {}); });
 }
 </script>
 </body>
