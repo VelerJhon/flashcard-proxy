@@ -54,11 +54,11 @@
 #sectionScreen { width: 100%; max-width: 420px; position: relative; z-index: 1; }
 .section-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
 .section-card {
-background: #fff; border-radius: 16px; padding: 0;
+background: #fff; border-radius: 16px; padding: 16px 20px;
 border: 1.5px solid rgba(99,102,241,0.12);
 box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 display: flex; align-items: center; justify-content: space-between;
-touch-action: manipulation; overflow: hidden;
+touch-action: manipulation;
 -webkit-transition: transform 0.12s; transition: transform 0.12s;
 }
 .section-card:active { -webkit-transform: scale(0.98); transform: scale(0.98); }
@@ -67,24 +67,87 @@ touch-action: manipulation; overflow: hidden;
 .section-weak { font-size: 0.7rem; color: var(–wrong); margin-top: 3px; }
 .section-arrow { color: var(--accent2); font-size: 1.2rem; }
 
-/* セクションカード内レイアウト */
-.section-card { padding: 0; overflow: hidden; }
-.section-card-info {
-  flex: 1; padding: 16px 20px; cursor: pointer; min-width: 0;
-  -webkit-tap-highlight-color: transparent;
+/* 編集モードボタン */
+.btn-edit-mode {
+  background: rgba(99,102,241,0.1); border: 1.5px solid rgba(99,102,241,0.25);
+  border-radius: 10px; padding: 7px 16px; font-size: 0.82rem; font-weight: 700;
+  color: var(--accent2); cursor: pointer; touch-action: manipulation;
+  -webkit-appearance: none; appearance: none;
+  font-family: 'Noto Sans JP', -apple-system, sans-serif;
+  position: relative; z-index: 1; margin-bottom: 20px; margin-left: auto;
+  display: block; -webkit-tap-highlight-color: transparent;
 }
-.section-card-right {
-  display: -webkit-flex; display: flex; align-items: center; gap: 6px;
-  padding-right: 12px; flex-shrink: 0;
+/* 編集画面 */
+.edit-header {
+  width: 100%; display: -webkit-flex; display: flex; align-items: center;
+  gap: 12px; margin-bottom: 20px;
 }
-.sec-icon-btn {
-  background: rgba(99,102,241,0.08); border: 1.5px solid rgba(99,102,241,0.2);
-  border-radius: 8px; font-size: 1rem; width: 36px; height: 36px; padding: 0;
-  cursor: pointer; touch-action: manipulation; -webkit-appearance: none; appearance: none;
-  display: -webkit-flex; display: flex; align-items: center; justify-content: center;
-  -webkit-tap-highlight-color: transparent; flex-shrink: 0;
+.edit-title { -webkit-flex:1; flex:1; text-align:center; font-size:0.95rem; font-weight:700; color:var(--text); }
+.edit-add-btn {
+  width:100%; background:var(--accent2); color:#fff; border:none; border-radius:12px;
+  padding:13px; font-size:0.9rem; font-weight:700; cursor:pointer;
+  touch-action:manipulation; -webkit-appearance:none; appearance:none;
+  font-family:'Noto Sans JP',-apple-system,sans-serif; margin-bottom:14px; display:block;
+  -webkit-tap-highlight-color:transparent;
 }
-.sec-icon-btn-del { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.2); }
+.edit-list { display:-webkit-flex; display:flex; flex-direction:column; gap:8px; }
+.edit-list-item {
+  background:#fff; border-radius:14px; border:1.5px solid rgba(99,102,241,0.1);
+  box-shadow:0 2px 6px rgba(0,0,0,0.04);
+  display:-webkit-flex; display:flex; align-items:center; overflow:hidden;
+}
+.edit-item-btn {
+  -webkit-flex:1; flex:1; padding:14px 16px; text-align:left; background:none; border:none;
+  cursor:pointer; touch-action:manipulation; -webkit-appearance:none; appearance:none;
+  font-family:'Noto Sans JP',-apple-system,sans-serif;
+  -webkit-tap-highlight-color:transparent; min-width:0; display:block;
+}
+.edit-item-text { -webkit-flex:1; flex:1; padding:14px 16px; min-width:0; }
+.edit-item-name { font-size:0.95rem; font-weight:700; color:var(--text); }
+.edit-item-sub { font-size:0.75rem; color:var(--text-muted); margin-top:3px; }
+.edit-item-pos { font-size:0.72rem; color:var(--text-muted); font-weight:400; margin-left:4px; }
+.edit-item-actions { display:-webkit-flex; display:flex; gap:6px; padding-right:12px; flex-shrink:0; }
+.edit-icon-btn {
+  background:rgba(99,102,241,0.08); border:1.5px solid rgba(99,102,241,0.2);
+  border-radius:8px; font-size:1rem; width:36px; height:36px; padding:0; cursor:pointer;
+  touch-action:manipulation; -webkit-appearance:none; appearance:none;
+  display:-webkit-flex; display:flex; align-items:center; justify-content:center;
+  -webkit-tap-highlight-color:transparent; flex-shrink:0;
+}
+.edit-icon-del { background:rgba(220,38,38,0.06); border-color:rgba(220,38,38,0.2); }
+.edit-empty { color:var(--text-muted); font-size:0.85rem; text-align:center; padding:24px 0; }
+/* 編集フォーム */
+.edit-form { display:-webkit-flex; display:flex; flex-direction:column; }
+.edit-form-label { font-size:0.75rem; font-weight:600; color:var(--text-muted); margin-bottom:5px; margin-top:14px; }
+.edit-form-input {
+  width:100%; background:#fff; border:1.5px solid rgba(99,102,241,0.2); border-radius:10px;
+  color:var(--text); padding:11px 12px; font-family:'Noto Sans JP',-apple-system,sans-serif;
+  font-size:16px; -webkit-appearance:none; appearance:none; outline:none; box-sizing:border-box;
+}
+.edit-form-textarea {
+  width:100%; background:#fff; border:1.5px solid rgba(99,102,241,0.2); border-radius:10px;
+  color:var(--text); padding:11px 12px; font-family:'Noto Sans JP',-apple-system,sans-serif;
+  font-size:16px; -webkit-appearance:none; appearance:none; outline:none; box-sizing:border-box;
+  min-height:72px; resize:vertical;
+}
+.edit-form-input:focus, .edit-form-textarea:focus { border-color:var(--accent2); }
+.edit-form-btn {
+  width:100%; padding:13px; border:none; border-radius:12px; margin-top:12px;
+  font-size:0.9rem; font-weight:700; cursor:pointer;
+  touch-action:manipulation; -webkit-appearance:none; appearance:none;
+  font-family:'Noto Sans JP',-apple-system,sans-serif; -webkit-tap-highlight-color:transparent;
+}
+.edit-form-btn-ok { background:var(--accent2); color:#fff; }
+.edit-form-btn-cancel { background:#f1f5f9; color:var(--text); }
+.edit-form-btn-del { background:var(--wrong); color:#fff; }
+.edit-confirm-msg { font-size:0.85rem; color:var(--text-muted); line-height:1.7; margin:8px 0 4px; }
+.edit-move-btn {
+  width:100%; background:#fff; border:1.5px solid rgba(99,102,241,0.15); border-radius:12px;
+  padding:14px 16px; text-align:left; margin-bottom:8px; cursor:pointer;
+  touch-action:manipulation; -webkit-appearance:none; appearance:none;
+  font-family:'Noto Sans JP',-apple-system,sans-serif; -webkit-tap-highlight-color:transparent;
+  font-size:0.9rem; font-weight:700; color:var(--text);
+}
 
 /* モーダル */
 #modalOverlay {
@@ -420,6 +483,7 @@ background: #fff; color: var(–accent2);
 <div class="bg-glow"></div>
 <h1>📚 Flash Cards</h1>
 <p class="subtitle" id="mainSubtitle">セクションを選んで学習しよう</p>
+<button class="btn-edit-mode" id="btnEditMode" type="button">✏️ 編集</button>
 
 <!-- タブナビ -->
 
@@ -550,6 +614,16 @@ background: #fff; color: var(–accent2);
   <div class="word-list" id="wordList"></div>
 </div>
 
+<!-- 編集画面 -->
+<div id="editScreen" style="display:none;width:100%;max-width:420px;position:relative;z-index:1;padding-bottom:40px;">
+  <div class="edit-header">
+    <button class="btn-back" id="editBackBtn" type="button">← 戻る</button>
+    <div class="edit-title" id="editTitle">編集モード</div>
+    <div style="width:60px;"></div>
+  </div>
+  <div id="editContent"></div>
+</div>
+
 <!-- モーダル -->
 <div id="modalOverlay" style="display:none;" onclick="closeModal(event)">
   <div id="modalBox">
@@ -676,50 +750,13 @@ function renderSectionList() {
     const div = document.createElement('div');
     div.className = 'section-card';
     div.innerHTML = `
-      <div class="section-card-info">
+      <div>
         <div class="section-name">${sec.name}</div>
         <div class="section-meta">${sec.cards.length}語</div>
         ${weakCount > 0 ? `<div class="section-weak">😓 苦手 ${weakCount}語</div>` : ''}
       </div>
-      <div class="section-card-right">
-        <button class="sec-icon-btn" type="button" data-saction="edit">✏️</button>
-        <button class="sec-icon-btn sec-icon-btn-del" type="button" data-saction="del">🗑️</button>
-        <span class="section-arrow">›</span>
-      </div>`;
-
-    // info area: iOS Safari対応（touchend + click 二重発火防止）
-    const infoEl = div.querySelector('.section-card-info');
-    var _infoTouching = false;
-    infoEl.addEventListener('touchend', function(e) {
-      e.preventDefault();
-      _infoTouching = true;
-      startSection(idx);
-      setTimeout(function() { _infoTouching = false; }, 300);
-    }, { passive: false });
-    infoEl.addEventListener('click', function() {
-      if (_infoTouching) return;
-      startSection(idx);
-    });
-
-    // 編集・削除ボタン: iOS Safari対応
-    div.querySelectorAll('[data-saction]').forEach(function(btn) {
-      var _btnTouching = false;
-      btn.addEventListener('touchend', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        _btnTouching = true;
-        if (btn.getAttribute('data-saction') === 'edit') openEditSectionModal(idx);
-        else openDeleteSectionModal(idx);
-        setTimeout(function() { _btnTouching = false; }, 300);
-      }, { passive: false });
-      btn.addEventListener('click', function(e) {
-        if (_btnTouching) return;
-        e.stopPropagation();
-        if (btn.getAttribute('data-saction') === 'edit') openEditSectionModal(idx);
-        else openDeleteSectionModal(idx);
-      });
-    });
-
+      <div class="section-arrow">›</div>`;
+    div.addEventListener('click', () => startSection(idx));
     list.appendChild(div);
   });
 }
@@ -1887,6 +1924,246 @@ trans:   document.getElementById(‘ew-trans’).value.trim(),
 saveSections();
 renderSectionList();
 openEditSectionModal(secIdx);
+}
+
+// ===== 編集モード =====
+document.getElementById('btnEditMode').addEventListener('click', openEditMode);
+
+function openEditMode() {
+  document.getElementById('sectionScreen').style.display = 'none';
+  document.getElementById('listeningScreen').style.display = 'none';
+  document.getElementById('tabNav').style.display = 'none';
+  document.getElementById('mainSubtitle').style.display = 'none';
+  document.getElementById('btnEditMode').style.display = 'none';
+  document.getElementById('editScreen').style.display = '';
+  renderEditSections();
+}
+function closeEditMode() {
+  document.getElementById('editScreen').style.display = 'none';
+  document.getElementById('sectionScreen').style.display = 'block';
+  document.getElementById('tabNav').style.display = 'flex';
+  document.getElementById('mainSubtitle').style.display = 'block';
+  document.getElementById('btnEditMode').style.display = 'block';
+  renderSectionList();
+}
+
+function _editReg(el) {
+  // editContent内のボタンにclickリスナーを登録するヘルパー
+  el.querySelectorAll('[data-ea]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var a = this.getAttribute('data-ea');
+      var i = parseInt(this.getAttribute('data-i'));
+      var j = parseInt(this.getAttribute('data-j'));
+      if (a === 'opensec')   renderEditWords(i);
+      else if (a === 'renamesec') showRenameSectionForm(i);
+      else if (a === 'delsec')    confirmDeleteSectionEdit(i);
+      else if (a === 'editword')  showEditWordForm(i, j);
+      else if (a === 'delword')   confirmDeleteWordEdit(i, j);
+      else if (a === 'moveword')  showMoveWordView(i, j);
+    });
+  });
+}
+
+function renderEditSections() {
+  document.getElementById('editTitle').textContent = 'セクション一覧';
+  document.getElementById('editBackBtn').onclick = closeEditMode;
+  var c = document.getElementById('editContent');
+  var html = '<button class="edit-add-btn" id="eAddSec" type="button">＋ セクションを追加</button>';
+  if (sections.length === 0) {
+    html += '<p class="edit-empty">セクションがありません</p>';
+  } else {
+    html += '<div class="edit-list">';
+    sections.forEach(function(sec, idx) {
+      html += '<div class="edit-list-item">'
+        + '<button class="edit-item-btn" type="button" data-ea="opensec" data-i="' + idx + '">'
+        + '<div class="edit-item-name">' + sec.name + '</div>'
+        + '<div class="edit-item-sub">' + sec.cards.length + '語</div>'
+        + '</button>'
+        + '<div class="edit-item-actions">'
+        + '<button class="edit-icon-btn" type="button" data-ea="renamesec" data-i="' + idx + '">✏️</button>'
+        + '<button class="edit-icon-btn edit-icon-del" type="button" data-ea="delsec" data-i="' + idx + '">🗑️</button>'
+        + '</div></div>';
+    });
+    html += '</div>';
+  }
+  c.innerHTML = html;
+  document.getElementById('eAddSec').addEventListener('click', showAddSectionForm);
+  _editReg(c);
+}
+
+function renderEditWords(secIdx) {
+  var sec = sections[secIdx];
+  document.getElementById('editTitle').textContent = sec.name;
+  document.getElementById('editBackBtn').onclick = renderEditSections;
+  var c = document.getElementById('editContent');
+  var html = '<button class="edit-add-btn" id="eAddWord" type="button">＋ 単語を追加</button>';
+  if (sec.cards.length === 0) {
+    html += '<p class="edit-empty">単語がありません</p>';
+  } else {
+    html += '<div class="edit-list">';
+    sec.cards.forEach(function(card, ci) {
+      html += '<div class="edit-list-item">'
+        + '<div class="edit-item-text">'
+        + '<div class="edit-item-name">' + card.word + '<span class="edit-item-pos">' + card.pos + '</span></div>'
+        + '<div class="edit-item-sub">' + card.meaning + '</div>'
+        + '</div>'
+        + '<div class="edit-item-actions">'
+        + '<button class="edit-icon-btn" type="button" data-ea="moveword" data-i="' + secIdx + '" data-j="' + ci + '">↕️</button>'
+        + '<button class="edit-icon-btn" type="button" data-ea="editword" data-i="' + secIdx + '" data-j="' + ci + '">✏️</button>'
+        + '<button class="edit-icon-btn edit-icon-del" type="button" data-ea="delword" data-i="' + secIdx + '" data-j="' + ci + '">🗑️</button>'
+        + '</div></div>';
+    });
+    html += '</div>';
+  }
+  c.innerHTML = html;
+  document.getElementById('eAddWord').addEventListener('click', function() { showAddWordForm(secIdx); });
+  _editReg(c);
+}
+
+function showAddSectionForm() {
+  document.getElementById('editTitle').textContent = 'セクションを追加';
+  document.getElementById('editBackBtn').onclick = renderEditSections;
+  var c = document.getElementById('editContent');
+  c.innerHTML = '<div class="edit-form">'
+    + '<div class="edit-form-label">セクション名</div>'
+    + '<input class="edit-form-input" id="ef0" type="text" placeholder="例: セクション4" value="セクション' + (sections.length + 1) + '">'
+    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">作成</button>'
+    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
+    + '</div>';
+  document.getElementById('ef-ok').addEventListener('click', function() {
+    var name = document.getElementById('ef0').value.trim(); if (!name) return;
+    sections.push({ name: name, cards: [] }); saveSections(); renderEditSections();
+  });
+  document.getElementById('ef-cancel').addEventListener('click', renderEditSections);
+  setTimeout(function() { document.getElementById('ef0').focus(); }, 100);
+}
+
+function showRenameSectionForm(idx) {
+  document.getElementById('editTitle').textContent = '名前を変更';
+  document.getElementById('editBackBtn').onclick = renderEditSections;
+  var c = document.getElementById('editContent');
+  c.innerHTML = '<div class="edit-form">'
+    + '<div class="edit-form-label">セクション名</div>'
+    + '<input class="edit-form-input" id="ef0" type="text" value="' + sections[idx].name + '">'
+    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">保存</button>'
+    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
+    + '</div>';
+  document.getElementById('ef-ok').addEventListener('click', function() {
+    var name = document.getElementById('ef0').value.trim(); if (!name) return;
+    sections[idx].name = name; saveSections(); renderEditSections();
+  });
+  document.getElementById('ef-cancel').addEventListener('click', renderEditSections);
+  setTimeout(function() { document.getElementById('ef0').focus(); }, 100);
+}
+
+function confirmDeleteSectionEdit(idx) {
+  document.getElementById('editTitle').textContent = 'セクションを削除';
+  document.getElementById('editBackBtn').onclick = renderEditSections;
+  var c = document.getElementById('editContent');
+  c.innerHTML = '<div class="edit-form">'
+    + '<p class="edit-confirm-msg">「' + sections[idx].name + '」（' + sections[idx].cards.length + '語）を削除します。<br>この操作は取り消せません。</p>'
+    + '<button class="edit-form-btn edit-form-btn-del" type="button" id="ef-ok">削除する</button>'
+    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
+    + '</div>';
+  document.getElementById('ef-ok').addEventListener('click', function() {
+    sections.splice(idx, 1); saveSections(); renderEditSections();
+  });
+  document.getElementById('ef-cancel').addEventListener('click', renderEditSections);
+}
+
+function showEditWordForm(secIdx, cardIdx) {
+  var card = sections[secIdx].cards[cardIdx];
+  document.getElementById('editTitle').textContent = '単語を編集';
+  document.getElementById('editBackBtn').onclick = function() { renderEditWords(secIdx); };
+  var c = document.getElementById('editContent');
+  c.innerHTML = '<div class="edit-form">'
+    + '<div class="edit-form-label">単語</div><input class="edit-form-input" id="ef-word" type="text" value="' + card.word + '">'
+    + '<div class="edit-form-label">品詞</div><input class="edit-form-input" id="ef-pos" type="text" value="' + card.pos + '">'
+    + '<div class="edit-form-label">意味</div><input class="edit-form-input" id="ef-meaning" type="text" value="' + card.meaning + '">'
+    + '<div class="edit-form-label">例文</div><textarea class="edit-form-textarea" id="ef-example">' + card.example + '</textarea>'
+    + '<div class="edit-form-label">訳</div><textarea class="edit-form-textarea" id="ef-trans">' + card.trans + '</textarea>'
+    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">保存</button>'
+    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
+    + '</div>';
+  document.getElementById('ef-ok').addEventListener('click', function() {
+    sections[secIdx].cards[cardIdx] = {
+      word: document.getElementById('ef-word').value.trim(),
+      pos: document.getElementById('ef-pos').value.trim(),
+      meaning: document.getElementById('ef-meaning').value.trim(),
+      example: document.getElementById('ef-example').value.trim(),
+      trans: document.getElementById('ef-trans').value.trim()
+    };
+    saveSections(); renderEditWords(secIdx);
+  });
+  document.getElementById('ef-cancel').addEventListener('click', function() { renderEditWords(secIdx); });
+}
+
+function showAddWordForm(secIdx) {
+  document.getElementById('editTitle').textContent = '単語を追加';
+  document.getElementById('editBackBtn').onclick = function() { renderEditWords(secIdx); };
+  var c = document.getElementById('editContent');
+  c.innerHTML = '<div class="edit-form">'
+    + '<div class="edit-form-label">単語</div><input class="edit-form-input" id="ef-word" type="text" placeholder="単語">'
+    + '<div class="edit-form-label">品詞</div><input class="edit-form-input" id="ef-pos" type="text" placeholder="例: 名詞">'
+    + '<div class="edit-form-label">意味</div><input class="edit-form-input" id="ef-meaning" type="text" placeholder="意味">'
+    + '<div class="edit-form-label">例文</div><textarea class="edit-form-textarea" id="ef-example" placeholder="例文"></textarea>'
+    + '<div class="edit-form-label">訳</div><textarea class="edit-form-textarea" id="ef-trans" placeholder="訳"></textarea>'
+    + '<button class="edit-form-btn edit-form-btn-ok" type="button" id="ef-ok">追加</button>'
+    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
+    + '</div>';
+  document.getElementById('ef-ok').addEventListener('click', function() {
+    var word = document.getElementById('ef-word').value.trim(); if (!word) return;
+    sections[secIdx].cards.push({
+      word: word,
+      pos: document.getElementById('ef-pos').value.trim(),
+      meaning: document.getElementById('ef-meaning').value.trim(),
+      example: document.getElementById('ef-example').value.trim(),
+      trans: document.getElementById('ef-trans').value.trim()
+    });
+    saveSections(); renderEditWords(secIdx);
+  });
+  document.getElementById('ef-cancel').addEventListener('click', function() { renderEditWords(secIdx); });
+  setTimeout(function() { document.getElementById('ef-word').focus(); }, 100);
+}
+
+function confirmDeleteWordEdit(secIdx, cardIdx) {
+  var card = sections[secIdx].cards[cardIdx];
+  document.getElementById('editTitle').textContent = '単語を削除';
+  document.getElementById('editBackBtn').onclick = function() { renderEditWords(secIdx); };
+  var c = document.getElementById('editContent');
+  c.innerHTML = '<div class="edit-form">'
+    + '<p class="edit-confirm-msg">「' + card.word + '」を削除します。<br>この操作は取り消せません。</p>'
+    + '<button class="edit-form-btn edit-form-btn-del" type="button" id="ef-ok">削除する</button>'
+    + '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button>'
+    + '</div>';
+  document.getElementById('ef-ok').addEventListener('click', function() {
+    sections[secIdx].cards.splice(cardIdx, 1); saveSections(); renderEditWords(secIdx);
+  });
+  document.getElementById('ef-cancel').addEventListener('click', function() { renderEditWords(secIdx); });
+}
+
+function showMoveWordView(secIdx, cardIdx) {
+  var card = sections[secIdx].cards[cardIdx];
+  document.getElementById('editTitle').textContent = '単語を移動';
+  document.getElementById('editBackBtn').onclick = function() { renderEditWords(secIdx); };
+  var c = document.getElementById('editContent');
+  var html = '<div class="edit-form"><p class="edit-confirm-msg">「' + card.word + '」の移動先セクションを選んでください：</p>';
+  sections.forEach(function(sec, i) {
+    if (i === secIdx) return;
+    html += '<button class="edit-move-btn" type="button" data-moveto="' + i + '">'
+      + sec.name + ' <span style="font-size:0.75rem;color:var(--text-muted);font-weight:400;">' + sec.cards.length + '語</span></button>';
+  });
+  html += '<button class="edit-form-btn edit-form-btn-cancel" type="button" id="ef-cancel">キャンセル</button></div>';
+  c.innerHTML = html;
+  c.querySelectorAll('[data-moveto]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetIdx = parseInt(this.getAttribute('data-moveto'));
+      sections[targetIdx].cards.push(card);
+      sections[secIdx].cards.splice(cardIdx, 1);
+      saveSections(); renderEditWords(secIdx);
+    });
+  });
+  document.getElementById('ef-cancel').addEventListener('click', function() { renderEditWords(secIdx); });
 }
 
 // モーダルボタン イベント委譲（iOS Safari対応）
