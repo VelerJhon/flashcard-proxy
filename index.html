@@ -1817,44 +1817,45 @@ openEditSectionModal(secIdx);
 }
 
 // ===== イベント登録（DOM構築後） =====
-document.getElementById(‘sectionScreen’).addEventListener(‘click’, function(e) {
-const el = e.target.closest(’[data-action]’);
-if (!el) return;
-const a = el.dataset.action;
-if (a === ‘startall’)   startAll();
-if (a === ‘newsection’) openNewSectionModal();
-if (a === ‘append’)     appendFromText();
-if (a === ‘replace’)    loadFromText();
-});
+document.addEventListener(‘click’, function(e) {
+// モーダル背景クリックで閉じる
+if (e.target === document.getElementById(‘modalOverlay’)) {
+document.getElementById(‘modalOverlay’).style.display = ‘none’;
+return;
+}
 
-document.getElementById(‘sectionList’).addEventListener(‘click’, function(e) {
+// data-action（セクション画面）
 const el = e.target.closest(’[data-action]’);
-if (!el) return;
-const action = el.dataset.action;
-const idx = parseInt(el.dataset.idx);
-if (action === ‘start’) startSection(idx);
-if (action === ‘edit’)  openEditSectionModal(idx);
-if (action === ‘del’)   openDeleteSectionModal(idx);
-});
+if (el) {
+const a   = el.dataset.action;
+const idx = el.dataset.idx !== undefined ? parseInt(el.dataset.idx) : null;
+if (a === ‘startall’)   { startAll(); return; }
+if (a === ‘newsection’) { openNewSectionModal(); return; }
+if (a === ‘append’)     { appendFromText(); return; }
+if (a === ‘replace’)    { loadFromText(); return; }
+if (a === ‘start’)      { startSection(idx); return; }
+if (a === ‘edit’)       { openEditSectionModal(idx); return; }
+if (a === ‘del’)        { openDeleteSectionModal(idx); return; }
+}
 
-document.getElementById(‘modalOverlay’).addEventListener(‘click’, function(e) {
-if (e.target === this) { this.style.display = ‘none’; return; }
-const el = e.target.closest(’[data-maction]’);
-if (!el) return;
-const a = el.dataset.maction;
-const i = el.dataset.i !== undefined ? parseInt(el.dataset.i) : null;
-const j = el.dataset.j !== undefined ? parseInt(el.dataset.j) : null;
-if (a === ‘close’)     document.getElementById(‘modalOverlay’).style.display = ‘none’;
-if (a === ‘create’)    createNewSection();
-if (a === ‘delsec’)    deleteSection(i);
-if (a === ‘savename’)  saveSecName(i);
-if (a === ‘addword’)   openAddWordModal(i);
-if (a === ‘editword’)  openEditWordModal(i, j);
-if (a === ‘delword’)   openDeleteWordModal(i, j);
-if (a === ‘dodelword’) deleteWord(i, j);
-if (a === ‘saveword’)  saveWord(i, j);
-if (a === ‘doaddword’) addWord(i);
-if (a === ‘backedit’)  openEditSectionModal(i);
+// data-maction（モーダル）
+const mel = e.target.closest(’[data-maction]’);
+if (mel) {
+const a = mel.dataset.maction;
+const i = mel.dataset.i !== undefined ? parseInt(mel.dataset.i) : null;
+const j = mel.dataset.j !== undefined ? parseInt(mel.dataset.j) : null;
+if (a === ‘close’)     { document.getElementById(‘modalOverlay’).style.display = ‘none’; return; }
+if (a === ‘create’)    { createNewSection(); return; }
+if (a === ‘delsec’)    { deleteSection(i); return; }
+if (a === ‘savename’)  { saveSecName(i); return; }
+if (a === ‘addword’)   { openAddWordModal(i); return; }
+if (a === ‘editword’)  { openEditWordModal(i, j); return; }
+if (a === ‘delword’)   { openDeleteWordModal(i, j); return; }
+if (a === ‘dodelword’) { deleteWord(i, j); return; }
+if (a === ‘saveword’)  { saveWord(i, j); return; }
+if (a === ‘doaddword’) { addWord(i); return; }
+if (a === ‘backedit’)  { openEditSectionModal(i); return; }
+}
 });
 
 if (‘serviceWorker’ in navigator) {
