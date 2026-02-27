@@ -348,6 +348,42 @@
     touch-action: manipulation; -webkit-appearance: none; appearance: none; font-family: 'Noto Sans JP', -apple-system, sans-serif;
     background: #fff; color: var(--accent2);
   }
+  /* ヘルプ画面 */
+  #helpScreen { display: none; width: 100%; max-width: 420px; position: relative; z-index: 1; padding-bottom: 20px; }
+  .help-section {
+    background: #fff; border-radius: 16px; padding: 18px 18px 14px;
+    border: 1.5px solid rgba(99,102,241,0.1); box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 14px;
+  }
+  .help-section-title {
+    font-size: 0.92rem; font-weight: 700; color: var(--accent2);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 7px;
+    border-bottom: 1.5px solid rgba(99,102,241,0.1); padding-bottom: 10px;
+  }
+  .help-item { margin-bottom: 10px; }
+  .help-item:last-child { margin-bottom: 0; }
+  .help-label {
+    font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 3px;
+  }
+  .help-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.7; }
+  .help-code {
+    background: #f1f5f9; border-radius: 10px; padding: 12px 14px; margin: 8px 0;
+    font-size: 0.72rem; color: var(--text); line-height: 1.9;
+    border-left: 3px solid var(--accent2); white-space: pre; overflow-x: auto;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  .help-badge {
+    display: inline-block; background: rgba(99,102,241,0.1); color: var(--accent2);
+    border-radius: 6px; padding: 1px 8px; font-size: 0.68rem; font-weight: 700;
+    margin-right: 4px; vertical-align: middle;
+  }
+  .help-badge.green { background: rgba(22,163,74,0.1); color: #16a34a; }
+  .help-badge.red { background: rgba(220,38,38,0.1); color: #dc2626; }
+  .help-tip {
+    background: rgba(99,102,241,0.06); border-radius: 10px; padding: 10px 13px;
+    font-size: 0.73rem; color: var(--text-muted); line-height: 1.7; margin-top: 8px;
+  }
+  .help-tip strong { color: var(--accent2); }
 </style>
 </head>
 <body>
@@ -359,6 +395,7 @@
 <div class="tab-nav" id="tabNav">
   <button class="tab-btn active" onclick="switchTab('flash')">📇 フラッシュ</button>
   <button class="tab-btn" onclick="switchTab('listen')">🎧 リスニング</button>
+  <button class="tab-btn" onclick="switchTab('help')">❓ ガイド</button>
 </div>
 
 <div id="sectionScreen">
@@ -469,6 +506,126 @@
     <button class="check-action-btn" onclick="uncheckAll()">全て外す</button>
   </div>
   <div class="word-list" id="wordList"></div>
+</div>
+
+<div id="helpScreen">
+
+  <div class="help-section">
+    <div class="help-section-title">📋 単語の登録方法</div>
+    <div class="help-item">
+      <div class="help-label">テキストを貼り付けて一括登録</div>
+      <div class="help-desc">トップ画面の「単語リストを追加する」を開いて、下の形式で書いたテキストを貼り付けるだけで単語を登録できます。50語ごとに自動でセクションが分かれます。</div>
+    </div>
+    <div class="help-label" style="margin-top:10px;font-size:0.75rem;">書き方のフォーマット</div>
+    <div class="help-code">単語（品詞）
+意味：日本語の意味
+例文：English example sentence.
+訳：例文の日本語訳</div>
+    <div class="help-desc">番号付き（<code style="background:#f1f5f9;padding:1px 5px;border-radius:4px;">1. word</code> の形）でも番号なしでもどちらでも読み取れます。</div>
+    <div class="help-label" style="margin-top:12px;font-size:0.75rem;">記入例</div>
+    <div class="help-code">1. balance（名詞）
+意味：バランス、均衡
+例文：It is important to maintain a balance between work and life.
+訳：仕事と生活のバランスを保つことが大切です。
+
+2. efficient（形容詞）
+意味：効率的な
+例文：She is known for being highly efficient.
+訳：彼女は非常に効率的なことで知られています。</div>
+    <div class="help-item" style="margin-top:4px;">
+      <div class="help-label">追記する vs 全て入れ替え</div>
+      <div class="help-desc">
+        <span class="help-badge">＋ 追記する</span>すである単語に新しい単語を追加します。<br>
+        <span class="help-badge">全て入れ替え</span>登録済みの全単語を削除して新しく入れ替えます（注意！）
+      </div>
+    </div>
+  </div>
+
+  <div class="help-section">
+    <div class="help-section-title">📇 フラッシュカード学習</div>
+    <div class="help-item">
+      <div class="help-label">学習の始め方</div>
+      <div class="help-desc">セクション一覧からセクションをタップすると学習スタート。「全セクションまとめて学習」ボタンで全単語を一度に学習することもできます。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">カードの操作</div>
+      <div class="help-desc">
+        カードをタップすると裏返して意味・例文・訳が表示されます。<br>
+        <span class="help-badge green">✓ 覚えた</span>正解したカードをキューから除外<br>
+        <span class="help-badge red">✗ もう一度</span>間違えたカードは後でもう一度出題
+      </div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">便利な機能</div>
+      <div class="help-desc">
+        <span class="help-badge">EN→JP</span>ボタンで日本語→英語モードに切替<br>
+        <span class="help-badge">🔊</span>ボタンで単語・例文の音声を再生<br>
+        間違えた回数が多い単語には <strong style="color:#dc2626;">😓 苦手</strong> バッジが表示されます
+      </div>
+    </div>
+  </div>
+
+  <div class="help-section">
+    <div class="help-section-title">🎧 リスニング機能</div>
+    <div class="help-item">
+      <div class="help-label">自動連続再生</div>
+      <div class="help-desc">「▶ 再生開始」ボタンで全単語を自動で読み上げます。再生中は現在の単語・例文・訳がリアルタイムで表示されます。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">任意の単語から再生</div>
+      <div class="help-desc">単語リストの各単語をタップすると、その単語から再生をスタートできます。再生中に別の単語をタップすると、そこから切り替わります。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">設定項目</div>
+      <div class="help-desc">
+        <span class="help-badge">モード</span>「単語のみ」か「単語＋例文」を選択<br>
+        <span class="help-badge">フィルター</span>全て / チェック済みのみ / チェックなしのみ、で絞り込み<br>
+        <span class="help-badge">セクション</span>特定のセクションだけを再生することもできます
+      </div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">チェックボックス</div>
+      <div class="help-desc">各単語のチェックボックスをオン/オフして、再生する単語を選べます。「全てチェック」「全て外す」ボタンで一括操作も可能です。</div>
+    </div>
+  </div>
+
+  <div class="help-section">
+    <div class="help-section-title">✏️ 編集機能</div>
+    <div class="help-item">
+      <div class="help-label">編集モードの開き方</div>
+      <div class="help-desc">画面右上の「✏️ 編集」ボタンをタップすると編集モードに入ります。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">セクションの管理</div>
+      <div class="help-desc">セクションの追加・名前変更・削除ができます。セクション名横の ✏️ で名前変更、🗑️ で削除。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">単語の管理</div>
+      <div class="help-desc">セクションをタップすると単語一覧が開きます。↕️ で別セクションへ移動、✏️ で編集、🗑️ で削除。「＋ 単語を追加」で新規追加もできます。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">読み（ひらがな）フィールド</div>
+      <div class="help-desc">単語の編集画面に「読み（ひらがな）」欄があります。漢字を含む意味の読み方が自動音声で間違って読まれる場合、ここにひらがなで正しい読みを入力してください。入力した読みがリスニング時のTTS音声に使われます。</div>
+    </div>
+    <div class="help-tip"><strong>例：</strong>「均衡」がうまく読まれない場合 → 読み欄に <strong>きんこう</strong> と入力</div>
+  </div>
+
+  <div class="help-section">
+    <div class="help-section-title">💡 その他のヒント</div>
+    <div class="help-item">
+      <div class="help-label">データはこの端末に保存されます</div>
+      <div class="help-desc">登録した単語はブラウザのローカルストレージに保存されるため、同じ端末・ブラウザ上でのみ引き継がれます。別の端末やブラウザでは別々のデータになります。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">オフラインでも使えます</div>
+      <div class="help-desc">一度読み込んだあとはインターネット接続がなくても使えます（PWA対応）。ホーム画面に追加するとアプリのように起動できます。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">音声が出ない場合</div>
+      <div class="help-desc">端末の音量を確認してください。iOSの場合、初回はサイレントモードをオフにする必要がある場合があります。ブラウザによってはTTS（テキスト読み上げ）非対応のことがあります。</div>
+    </div>
+  </div>
+
 </div>
 
 <div id="editScreen" style="display:none;width:100%;max-width:420px;position:relative;z-index:1;padding-bottom:40px;">
@@ -975,8 +1132,10 @@ function switchTab(tab) {
   const tabs = document.querySelectorAll('.tab-btn');
   tabs[0].classList.toggle('active', tab === 'flash');
   tabs[1].classList.toggle('active', tab === 'listen');
+  tabs[2].classList.toggle('active', tab === 'help');
   document.getElementById('sectionScreen').style.display   = tab === 'flash' ? 'block' : 'none';
   document.getElementById('listeningScreen').style.display = tab === 'listen' ? 'block' : 'none';
+  document.getElementById('helpScreen').style.display      = tab === 'help' ? 'block' : 'none';
   document.getElementById('mainSubtitle').style.display    = 'block';
   if (tab === 'listen') renderWordList();
   if (tab === 'flash' && isListening) stopListening();
