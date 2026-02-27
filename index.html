@@ -185,14 +185,14 @@
   .btn-all:active { opacity: 0.85; }
   /* 追記エリア */
   .paste-section { width: 100%; max-width: 420px; margin-bottom: 24px; position: relative; z-index: 1; }
-  .paste-section details summary {
+  .paste-toggle {
     font-size: 0.78rem; color: var(--text-muted); cursor: pointer;
     -webkit-user-select: none; user-select: none; padding: 8px 0;
-    list-style: none; display: flex; align-items: center; gap: 6px;
+    display: flex; align-items: center; gap: 6px;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
   }
-  .paste-section details summary::-webkit-details-marker { display: none; }
-  .paste-section details summary::before { content: '＋'; color: var(--accent2); font-size: 1rem; }
-  .paste-section details[open] summary::before { content: '－'; }
+  .paste-toggle::before { content: '＋'; color: var(--accent2); font-size: 1rem; }
+  .paste-toggle.open::before { content: '－'; }
   .paste-textarea {
     width: 100%; background: #fff; border: 1.5px solid rgba(99,102,241,0.2);
     border-radius: 12px; color: var(--text); font-family: 'Noto Sans JP', -apple-system, sans-serif;
@@ -355,16 +355,16 @@
 
 <div id="sectionScreen">
   <div class="paste-section">
-    <details>
-      <summary>単語リストを追加する</summary>
+    <div class="paste-toggle" id="pasteToggle" onclick="togglePasteArea()">単語リストを追加する</div>
+    <div id="pasteContent" style="display:none;">
       <textarea class="paste-textarea" id="pasteArea" placeholder="メモ帳の内容をここに貼り付けてください..."></textarea>
       <br>
       <div style="display:flex;gap:8px;margin-top:10px;">
-        <button class="btn-load" id="btnAppend" data-action="append" style="background:var(--accent2);">＋ 追記する</button>
-        <button class="btn-load" id="btnReplace" data-action="replace" style="background:#94a3b8;font-size:0.75rem;">全て入れ替え</button>
+        <button class="btn-load" id="btnAppend" onclick="appendFromText()" style="background:var(--accent2);">＋ 追記する</button>
+        <button class="btn-load" id="btnReplace" onclick="loadFromText()" style="background:#94a3b8;font-size:0.75rem;">全て入れ替え</button>
       </div>
       <div id="appendMsg" style="font-size:0.75rem;color:var(--correct);margin-top:6px;display:none;"></div>
-    </details>
+    </div>
   </div>
   <div id="sectionList" class="section-list"></div>
   <button class="btn-all" id="btnStartAll" data-action="startall">📖 全セクションまとめて学習</button>
@@ -1038,10 +1038,19 @@ if (saved) { sections = saved; } else {
 }
 renderSectionList();
 
-// ★Safari用：ボタンのタッチ登録 (editmode追加済み)
+// 単語エリア トグル
+function togglePasteArea() {
+  var content = document.getElementById('pasteContent');
+  var toggle  = document.getElementById('pasteToggle');
+  var isOpen  = content.style.display !== 'none';
+  content.style.display = isOpen ? 'none' : '';
+  toggle.classList.toggle('open', !isOpen);
+}
+
+// ★Safari用：ボタンのタッチ登録
 (function() {
-  var map = { append: appendFromText, replace: loadFromText, startall: startAll, editmode: openEditMode };
-  ['btnAppend','btnReplace','btnStartAll','btnEditMode'].forEach(function(id) {
+  var map = { startall: startAll, editmode: openEditMode };
+  ['btnStartAll','btnEditMode'].forEach(function(id) {
     var el = document.getElementById(id);
     if (!el) return;
     var touching = false;
