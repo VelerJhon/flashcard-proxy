@@ -58,8 +58,7 @@ background: #fff; border-radius: 16px; padding: 16px 20px;
 border: 1.5px solid rgba(99,102,241,0.12);
 box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 display: flex; align-items: center; justify-content: space-between;
-cursor: pointer; touch-action: manipulation;
--webkit-user-select: none; user-select: none;
+touch-action: manipulation;
 -webkit-transition: transform 0.12s; transition: transform 0.12s;
 }
 .section-card:active { -webkit-transform: scale(0.98); transform: scale(0.98); }
@@ -69,13 +68,15 @@ cursor: pointer; touch-action: manipulation;
 .section-arrow { color: var(–accent2); font-size: 1.2rem; }
 .section-actions { display: flex; gap: 6px; margin-top: 8px; }
 .sec-btn {
-padding: 5px 12px; border-radius: 8px; font-size: 0.72rem; font-weight: 700;
+padding: 8px 16px; border-radius: 8px; font-size: 0.78rem; font-weight: 700;
 border: none; cursor: pointer; touch-action: manipulation;
 -webkit-appearance: none; appearance: none;
 font-family: ‘Noto Sans JP’, -apple-system, sans-serif;
+-webkit-user-select: none; user-select: none;
+position: relative; z-index: 2;
 }
-.sec-btn-edit { background: rgba(99,102,241,0.1); color: var(–accent2); }
-.sec-btn-del  { background: rgba(220,38,38,0.1);  color: var(–wrong); }
+.sec-btn-edit { background: rgba(99,102,241,0.15); color: var(–accent2); }
+.sec-btn-del  { background: rgba(220,38,38,0.15);  color: var(–wrong); }
 
 /* モーダル */
 .modal-overlay {
