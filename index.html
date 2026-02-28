@@ -469,6 +469,14 @@
     font-family: 'Noto Sans JP', -apple-system, sans-serif; white-space: nowrap;
     flex-shrink: 0; -webkit-tap-highlight-color: transparent;
   }
+  .chat-del-btn {
+    background: rgba(220,38,38,0.08); color: #dc2626;
+    border: 1.5px solid rgba(220,38,38,0.2); border-radius: 10px;
+    padding: 8px 10px; font-size: 1rem; cursor: pointer; line-height: 1;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    flex-shrink: 0; -webkit-tap-highlight-color: transparent;
+  }
+  .chat-del-btn:disabled { opacity: 0.25; cursor: default; }
   .chat-messages {
     background: #f0f2f5; border-radius: 16px; padding: 14px;
     min-height: 280px; max-height: 52vh; overflow-y: auto;
@@ -814,10 +822,11 @@
     <span>✓ APIキー設定済み</span>
     <button type="button" onclick="openAIModal()">変更</button>
   </div>
-  <!-- チャット履歴 + 新規ボタン -->
+  <!-- チャット履歴 + 削除 + 新規ボタン -->
   <div class="chat-history-bar">
     <select class="chat-history-select" id="chatHistorySelect"></select>
-    <button class="chat-new-btn" type="button" id="chatNewBtn">＋ 新しいチャット</button>
+    <button class="chat-del-btn" type="button" id="chatDelBtn" title="このチャットを削除" disabled>🗑️</button>
+    <button class="chat-new-btn" type="button" id="chatNewBtn">＋ 新規</button>
   </div>
   <!-- メッセージエリア -->
   <div class="chat-messages" id="chatMessages">
@@ -905,7 +914,7 @@ async function generateWithAI() {
   const prompt = `英単語「${word}」（品詞：${pos || '不明'}）について、次のJSON形式のみで返してください。説明・コードブロック・余分な文字は不要です。\n{"meaning":"日本語の意味（簡潔に）","example":"自然な英語例文1文","trans":"例文の日本語訳"}`;
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2039,15 +2048,18 @@ function switchChatSessionById(id) {
 }
 
 function renderChatHistorySelect() {
-  var sel = document.getElementById('chatHistorySelect');
+  var sel    = document.getElementById('chatHistorySelect');
+  var delBtn = document.getElementById('chatDelBtn');
   if (!sel) return;
   sel.innerHTML = '';
   if (chatSessions.length === 0) {
     var opt0 = document.createElement('option');
     opt0.value = ''; opt0.textContent = 'チャット履歴なし';
     sel.appendChild(opt0);
+    if (delBtn) delBtn.disabled = true;
     return;
   }
+  if (delBtn) delBtn.disabled = false;
   var reversed = chatSessions.slice().reverse();
   reversed.forEach(function(session) {
     var opt = document.createElement('option');
@@ -2156,7 +2168,7 @@ async function sendChatMessage() {
     });
 
     var res = await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + key,
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + key,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2267,6 +2279,36 @@ function addWordsToChatSection(cards, session) {
   updateListenSectionSelect();
 }
 
+function deleteChatSession(id) {
+  if (!id) return;
+  var session = chatSessions.find(function(s) { return s.id === id; });
+  if (!session) return;
+  var title = session.title || '（新しいチャット）';
+  if (!confirm('「' + title + '」を削除しますか？\n追加済みの単語セクションは残ります。')) return;
+
+  chatSessions = chatSessions.filter(function(s) { return s.id !== id; });
+  saveChatSessions();
+
+  // 削除されたセッションが現在表示中だった場合、別セッションへ切り替え
+  if (id === currentChatId) {
+    if (chatSessions.length > 0) {
+      currentChatId = chatSessions[chatSessions.length - 1].id;
+    } else {
+      currentChatId = null;
+    }
+  }
+
+  renderChatHistorySelect();
+  var nextSession = currentChatId
+    ? chatSessions.find(function(s) { return s.id === currentChatId; })
+    : null;
+  renderChatMessages(nextSession ? nextSession.messages : []);
+  if (currentChatId) {
+    var sel = document.getElementById('chatHistorySelect');
+    if (sel) sel.value = currentChatId;
+  }
+}
+
 function showChatToast(message) {
   var toast = document.getElementById('chatToast');
   if (!toast) return;
@@ -2347,6 +2389,17 @@ function showChatErrorInUI(message) {
         sendChatMessage();
       }
     });
+  }
+
+  // 削除ボタン（iOS対応）
+  var delBtn2 = document.getElementById('chatDelBtn');
+  if (delBtn2) {
+    var _delt = false;
+    delBtn2.addEventListener('touchend', function(e) {
+      e.preventDefault(); _delt = true; deleteChatSession(currentChatId);
+      setTimeout(function() { _delt = false; }, 300);
+    }, { passive: false });
+    delBtn2.addEventListener('click', function() { if (_delt) return; deleteChatSession(currentChatId); });
   }
 
   // 履歴セレクト
