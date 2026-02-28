@@ -2162,10 +2162,13 @@ async function sendChatMessage() {
   if (sendBtn) sendBtn.disabled = true;
 
   try {
-    // systemInstruction を正式フィールドで渡す（偽の user/model 交換は不要）
     var apiContents = session.messages.map(function(m) {
       return { role: m.role === 'user' ? 'user' : 'model', parts: [{ text: m.content }] };
     });
+    var allContents = [
+      { role: 'user', parts: [{ text: buildChatSystemPrompt(session) }] },
+      { role: 'model', parts: [{ text: 'はい、了解しました。英語学習サポートAIとして対応します。' }] }
+    ].concat(apiContents);
 
     var res = await fetch(
       'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=' + key,
@@ -2173,8 +2176,7 @@ async function sendChatMessage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          systemInstruction: { parts: [{ text: buildChatSystemPrompt(session) }] },
-          contents: apiContents,
+          contents: allContents,
           generationConfig: { temperature: 0.85, maxOutputTokens: 2048 }
         })
       }
