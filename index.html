@@ -814,7 +814,7 @@
   <!-- APIキー未設定時 -->
   <div class="chat-apikey-row" id="chatApiKeyRow">
     <input type="password" class="chat-apikey-input" id="chatApiKeyInput"
-           placeholder="Gemini APIキーを入力してください" autocomplete="off">
+           placeholder="Groq APIキーを入力してください" autocomplete="off">
     <button class="chat-apikey-save-btn" type="button" id="chatApiKeySaveBtn">保存</button>
   </div>
   <!-- APIキー設定済み -->
@@ -861,7 +861,7 @@
 <script>
 const STORAGE_KEY   = 'flashcards_sections_v1';
 const STATS_KEY     = 'flashcards_stats_v1';
-const AI_KEY_STORAGE = 'flashcards_gemini_key';
+const AI_KEY_STORAGE = 'flashcards_groq_key';
 const SECTION_MAX   = 50;
 let sections = [];
 let studyCards = [];
@@ -870,7 +870,7 @@ let current = 0, okCount = 0, ngCount = 0;
 let isFlipped = false, isTouching = false;
 let reverseMode = false;
 
-// ===== Gemini AI =====
+// ===== Groq AI =====
 function getGeminiKey() { return localStorage.getItem(AI_KEY_STORAGE) || ''; }
 function saveGeminiKey(key) {
   if (key) localStorage.setItem(AI_KEY_STORAGE, key);
@@ -901,7 +901,7 @@ function saveAIKeyFromModal() {
 async function generateWithAI() {
   const key = getGeminiKey();
   if (!key) {
-    alert('Gemini APIキーが設定されていません。\n「✨ AI設定」ボタンからキーを入力してください。');
+    alert('Groq APIキーが設定されていません。\n「✨ AI設定」ボタンからキーを入力してください。');
     return;
   }
   const wordEl = document.getElementById('ef-word');
@@ -914,22 +914,24 @@ async function generateWithAI() {
   const prompt = `英単語「${word}」（品詞：${pos || '不明'}）について、次のJSON形式のみで返してください。説明・コードブロック・余分な文字は不要です。\n{"meaning":"日本語の意味（簡潔に）","example":"自然な英語例文1文","trans":"例文の日本語訳"}`;
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
+      'https://api.groq.com/openai/v1/chat/completions',
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.7, maxOutputTokens: 300 }
+          model: 'llama-3.3-70b-versatile',
+          messages: [{ role: 'user', content: prompt }],
+          temperature: 0.7,
+          max_tokens: 300
         })
       }
     );
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      throw new Error(err.error?.message || 'HTTPエラー ' + res.status);
+      throw new Error((err.error && err.error.message) || 'HTTPエラー ' + res.status);
     }
     const data = await res.json();
-    const raw = (data.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
+    const raw = ((data.choices?.[0]?.message?.content) || '').trim();
     const m = raw.match(/\{[\s\S]*?\}/);
     if (!m) throw new Error('レスポンスからJSONを取得できませんでした');
     const result = JSON.parse(m[0]);
@@ -2162,22 +2164,23 @@ async function sendChatMessage() {
   if (sendBtn) sendBtn.disabled = true;
 
   try {
-    var apiContents = session.messages.map(function(m) {
-      return { role: m.role === 'user' ? 'user' : 'model', parts: [{ text: m.content }] };
+    var apiMessages = session.messages.map(function(m) {
+      return { role: m.role === 'user' ? 'user' : 'assistant', content: m.content };
     });
-    var allContents = [
-      { role: 'user', parts: [{ text: buildChatSystemPrompt(session) }] },
-      { role: 'model', parts: [{ text: 'はい、了解しました。英語学習サポートAIとして対応します。' }] }
-    ].concat(apiContents);
+    var allMessages = [
+      { role: 'system', content: buildChatSystemPrompt(session) }
+    ].concat(apiMessages);
 
     var res = await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + key,
+      'https://api.groq.com/openai/v1/chat/completions',
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
         body: JSON.stringify({
-          contents: allContents,
-          generationConfig: { temperature: 0.85, maxOutputTokens: 2048 }
+          model: 'llama-3.3-70b-versatile',
+          messages: allMessages,
+          temperature: 0.85,
+          max_tokens: 2048
         })
       }
     );
@@ -2189,7 +2192,7 @@ async function sendChatMessage() {
 
     var data    = await res.json();
     var aiText  = '';
-    try { aiText = data.candidates[0].content.parts[0].text.trim(); } catch(e) {}
+    try { aiText = (data.choices[0].message.content || '').trim(); } catch(e) {}
 
     removeChatTypingIndicator();
     session.messages.push({ role: 'assistant', content: aiText });
@@ -2426,13 +2429,13 @@ if ('serviceWorker' in navigator) {
   <div id="aiModalBox">
     <div class="modal-drag-bar"></div>
     <div style="font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:4px;text-align:center;">✨ AI設定</div>
-    <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:16px;text-align:center;">Gemini APIキーを設定します</div>
-    <div class="edit-form-label">Gemini API キー</div>
-    <input class="edit-form-input" id="ai-key-input" type="password" placeholder="AIzaSy..." autocomplete="off">
+    <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:16px;text-align:center;">Groq APIキーを設定します</div>
+    <div class="edit-form-label">Groq API キー</div>
+    <input class="edit-form-input" id="ai-key-input" type="password" placeholder="gsk_..." autocomplete="off">
     <div class="ai-key-note">
-      ・キーは <strong>Google AI Studio</strong>（aistudio.google.com）で無料取得できます<br>
+      ・キーは <strong>Groq Console</strong>（console.groq.com）で無料取得できます<br>
       ・キーはこの端末のブラウザ内にのみ保存されます<br>
-      ・外部サーバーへの送信は Gemini API のみです
+      ・外部サーバーへの送信は Groq API のみです
     </div>
     <div id="ai-key-status" style="font-size:0.73rem;color:var(--correct);margin-top:8px;display:none;font-weight:600;"></div>
     <button class="edit-form-btn edit-form-btn-ok" id="ai-save-btn" type="button" onclick="saveAIKeyFromModal()" style="margin-top:16px;">保存</button>
