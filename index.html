@@ -2139,6 +2139,7 @@ async function sendChatMessage() {
   }
 
   // ユーザーメッセージを追加
+  var savedUserText = userText; // エラー時に入力欄を復元するために保存
   session.messages.push({ role: 'user', content: userText });
   if (inputEl) inputEl.value = '';
   renderChatMessages(session.messages);
@@ -2149,16 +2150,10 @@ async function sendChatMessage() {
   if (sendBtn) sendBtn.disabled = true;
 
   try {
-    var sysPrompt  = buildChatSystemPrompt(session);
-    // Gemini API: system prompt を最初のuser/model交換として埋め込む
-    var contents = [
-      { role: 'user',  parts: [{ text: sysPrompt }] },
-      { role: 'model', parts: [{ text: 'はい、英語学習サポートAIとして対応します。毎回📚英単語リストを5語提供します。' }] }
-    ].concat(
-      session.messages.map(function(m) {
-        return { role: m.role === 'user' ? 'user' : 'model', parts: [{ text: m.content }] };
-      })
-    );
+    // systemInstruction を正式フィールドで渡す（偽の user/model 交換は不要）
+    var apiContents = session.messages.map(function(m) {
+      return { role: m.role === 'user' ? 'user' : 'model', parts: [{ text: m.content }] };
+    });
 
     var res = await fetch(
       'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + key,
@@ -2166,7 +2161,8 @@ async function sendChatMessage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: contents,
+          systemInstruction: { parts: [{ text: buildChatSystemPrompt(session) }] },
+          contents: apiContents,
           generationConfig: { temperature: 0.85, maxOutputTokens: 2048 }
         })
       }
@@ -2203,12 +2199,17 @@ async function sendChatMessage() {
 
   } catch(err) {
     removeChatTypingIndicator();
+    // 失敗したユーザーメッセージを会話履歴から取り除き、入力欄を復元する
     var errSession = chatSessions.find(function(s) { return s.id === currentChatId; });
-    if (errSession) {
-      errSession.messages.push({ role: 'assistant', content: 'エラーが発生しました：' + err.message });
+    if (errSession && errSession.messages.length > 0 &&
+        errSession.messages[errSession.messages.length - 1].role === 'user') {
+      errSession.messages.pop();
       saveChatSessions();
-      renderChatMessages(errSession.messages);
     }
+    if (inputEl) inputEl.value = savedUserText;
+    renderChatMessages(errSession ? errSession.messages : []);
+    // エラーは会話履歴に保存せず、UIにのみ一時表示
+    showChatErrorInUI('エラーが発生しました：' + err.message);
   } finally {
     isChatSending = false;
     var sb = document.getElementById('chatSendBtn');
@@ -2272,6 +2273,24 @@ function showChatToast(message) {
   toast.textContent = message;
   toast.classList.add('show');
   setTimeout(function() { toast.classList.remove('show'); }, 2500);
+}
+
+function showChatErrorInUI(message) {
+  var container = document.getElementById('chatMessages');
+  if (!container) return;
+  // 既存のエラー表示があれば削除
+  var prev = container.querySelector('.chat-error-notice');
+  if (prev) prev.remove();
+  var errEl = document.createElement('div');
+  errEl.className = 'chat-error-notice';
+  errEl.style.cssText = 'background:#fee2e2;color:#dc2626;border-radius:12px;padding:10px 14px;'
+    + 'font-size:0.78rem;text-align:center;border:1px solid rgba(220,38,38,0.2);'
+    + 'line-height:1.5;word-break:break-all;';
+  errEl.textContent = message;
+  container.appendChild(errEl);
+  container.scrollTop = container.scrollHeight;
+  // 15秒後に自動消去
+  setTimeout(function() { if (errEl.parentNode) errEl.remove(); }, 15000);
 }
 
 // チャット画面のボタンイベント登録（iOS Safari対応）
