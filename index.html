@@ -291,9 +291,10 @@
   /* タブナビ */
   .tab-nav { display: flex; gap: 8px; width: 100%; max-width: 420px; margin-bottom: 20px; position: relative; z-index: 1; }
   .tab-btn {
-    flex: 1; padding: 10px 8px; border: none; border-radius: 12px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
+    flex: 1; padding: 8px 3px; border: none; border-radius: 12px; font-size: 0.7rem; font-weight: 700; cursor: pointer;
     touch-action: manipulation; -webkit-appearance: none; appearance: none; font-family: 'Noto Sans JP', -apple-system, sans-serif;
     transition: all 0.15s; background: #e8eaf6; color: #64748b; border: 1.5px solid rgba(99,102,241,0.15);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .tab-btn.active { background: var(--accent2) !important; color: #fff !important; border-color: transparent !important; box-shadow: 0 3px 12px rgba(99,102,241,0.4); }
   /* リスニング画面 */
@@ -411,6 +412,140 @@
     font-size: 0.7rem; color: var(--text-muted); line-height: 1.7;
     margin-top: 8px; background: #f8faff; border-radius: 10px; padding: 10px 12px;
   }
+  /* ===== AIチャット ===== */
+  #chatScreen { display: none; width: 100%; max-width: 420px; position: relative; z-index: 1; padding-bottom: 20px; }
+  .chat-level-row {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    background: #fff; border-radius: 12px; padding: 10px 14px;
+    border: 1.5px solid rgba(99,102,241,0.12); box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .chat-level-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; flex-shrink: 0; }
+  .chat-level-btn {
+    flex: 1; padding: 7px 4px; border: 1.5px solid rgba(99,102,241,0.2); border-radius: 8px;
+    font-size: 0.8rem; font-weight: 700; cursor: pointer; touch-action: manipulation;
+    -webkit-appearance: none; appearance: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; background: #f8faff; color: var(--text-muted);
+    transition: all 0.12s; -webkit-tap-highlight-color: transparent;
+  }
+  .chat-level-btn.active { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+  .chat-apikey-row { display: flex; gap: 8px; margin-bottom: 10px; }
+  .chat-apikey-input {
+    flex: 1; border: 1.5px solid rgba(99,102,241,0.2); border-radius: 10px;
+    padding: 10px 12px; font-size: 16px; color: var(--text); background: #fff;
+    -webkit-appearance: none; appearance: none; outline: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif;
+  }
+  .chat-apikey-input:focus { border-color: var(--accent2); }
+  .chat-apikey-save-btn {
+    background: var(--accent2); color: #fff; border: none; border-radius: 10px;
+    padding: 10px 14px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .chat-apikey-status {
+    display: none; align-items: center; justify-content: space-between;
+    background: rgba(22,163,74,0.08); border: 1.5px solid rgba(22,163,74,0.2);
+    border-radius: 10px; padding: 8px 14px; margin-bottom: 10px;
+    font-size: 0.78rem; color: var(--correct); font-weight: 600;
+  }
+  .chat-apikey-status button {
+    background: none; border: none; color: var(--text-muted); font-size: 0.72rem;
+    cursor: pointer; text-decoration: underline; padding: 0;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif;
+  }
+  .chat-history-bar { display: flex; gap: 8px; margin-bottom: 10px; }
+  .chat-history-select {
+    flex: 1; border: 1.5px solid rgba(99,102,241,0.2); border-radius: 10px;
+    padding: 8px 10px; font-size: 0.8rem; color: var(--text); background: #fff;
+    -webkit-appearance: none; appearance: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; cursor: pointer;
+    touch-action: manipulation; min-width: 0;
+  }
+  .chat-new-btn {
+    background: var(--accent2); color: #fff; border: none; border-radius: 10px;
+    padding: 8px 12px; font-size: 0.8rem; font-weight: 700; cursor: pointer;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; white-space: nowrap;
+    flex-shrink: 0; -webkit-tap-highlight-color: transparent;
+  }
+  .chat-messages {
+    background: #f0f2f5; border-radius: 16px; padding: 14px;
+    min-height: 280px; max-height: 52vh; overflow-y: auto;
+    -webkit-overflow-scrolling: touch; margin-bottom: 10px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .chat-empty-msg {
+    text-align: center; color: var(--text-muted); font-size: 0.82rem;
+    padding: 40px 0; align-self: center;
+  }
+  .chat-bubble-row { display: flex; flex-direction: column; }
+  .chat-bubble-row.user { align-items: flex-end; }
+  .chat-bubble-row.ai   { align-items: flex-start; }
+  .chat-bubble {
+    max-width: 88%; padding: 10px 14px; border-radius: 16px;
+    font-size: 0.84rem; line-height: 1.7; word-break: break-word;
+  }
+  .chat-bubble.user {
+    background: var(--accent2); color: #fff;
+    border-radius: 16px 16px 4px 16px;
+  }
+  .chat-bubble.ai {
+    background: #fff; color: var(--text);
+    border-radius: 16px 16px 16px 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .chat-word-list {
+    margin-top: 10px; padding-top: 8px;
+    border-top: 1.5px solid rgba(99,102,241,0.12);
+    font-size: 0.74rem; color: var(--text-muted); line-height: 1.8;
+    background: rgba(99,102,241,0.04); border-radius: 8px;
+    padding: 8px 10px; margin-top: 8px;
+  }
+  .chat-typing {
+    display: flex; gap: 5px; padding: 12px 16px;
+    background: #fff; border-radius: 16px 16px 16px 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08); align-self: flex-start;
+  }
+  .chat-typing span {
+    width: 8px; height: 8px; background: var(--text-muted);
+    border-radius: 50%; animation: chatTyping 1.2s infinite; display: block;
+  }
+  .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes chatTyping {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+  .chat-input-row { display: flex; gap: 8px; align-items: flex-end; }
+  .chat-input {
+    flex: 1; border: 1.5px solid rgba(99,102,241,0.2); border-radius: 12px;
+    padding: 10px 12px; font-size: 16px; color: var(--text); background: #fff;
+    -webkit-appearance: none; appearance: none; outline: none; resize: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; line-height: 1.5;
+    min-height: 44px; -webkit-overflow-scrolling: touch;
+  }
+  .chat-input:disabled { background: #f1f5f9; color: var(--text-muted); }
+  .chat-input:focus { border-color: var(--accent2); }
+  .chat-send-btn {
+    background: var(--accent2); color: #fff; border: none; border-radius: 12px;
+    padding: 10px 16px; font-size: 0.9rem; font-weight: 700; cursor: pointer;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: 'Noto Sans JP', -apple-system, sans-serif; white-space: nowrap;
+    height: 44px; flex-shrink: 0; -webkit-tap-highlight-color: transparent;
+  }
+  .chat-send-btn:disabled { opacity: 0.4; cursor: default; }
+  /* トースト通知 */
+  #chatToast {
+    position: fixed; bottom: calc(76px + env(safe-area-inset-bottom));
+    left: 50%; transform: translateX(-50%) translateY(16px);
+    background: rgba(22,163,74,0.92); color: #fff; border-radius: 20px;
+    padding: 10px 22px; font-size: 0.84rem; font-weight: 600;
+    z-index: 500; white-space: nowrap; opacity: 0;
+    -webkit-transition: opacity 0.3s, transform 0.3s; transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+  }
+  #chatToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
@@ -426,6 +561,7 @@
   <button class="tab-btn active" onclick="switchTab('flash')">📇 フラッシュ</button>
   <button class="tab-btn" onclick="switchTab('listen')">🎧 リスニング</button>
   <button class="tab-btn" onclick="switchTab('help')">❓ ガイド</button>
+  <button class="tab-btn" onclick="switchTab('chat')">🤖 AIチャット</button>
 </div>
 
 <div id="sectionScreen">
@@ -656,6 +792,43 @@
     </div>
   </div>
 
+</div>
+
+<!-- AIチャット画面 -->
+<div id="chatScreen">
+  <!-- レベル選択 -->
+  <div class="chat-level-row">
+    <span class="chat-level-label">レベル</span>
+    <button class="chat-level-btn active" data-level="A1" type="button">A1</button>
+    <button class="chat-level-btn" data-level="A2" type="button">A2</button>
+    <button class="chat-level-btn" data-level="B1" type="button">B1</button>
+  </div>
+  <!-- APIキー未設定時 -->
+  <div class="chat-apikey-row" id="chatApiKeyRow">
+    <input type="password" class="chat-apikey-input" id="chatApiKeyInput"
+           placeholder="Gemini APIキーを入力してください" autocomplete="off">
+    <button class="chat-apikey-save-btn" type="button" id="chatApiKeySaveBtn">保存</button>
+  </div>
+  <!-- APIキー設定済み -->
+  <div class="chat-apikey-status" id="chatApiKeyStatus">
+    <span>✓ APIキー設定済み</span>
+    <button type="button" onclick="openAIModal()">変更</button>
+  </div>
+  <!-- チャット履歴 + 新規ボタン -->
+  <div class="chat-history-bar">
+    <select class="chat-history-select" id="chatHistorySelect"></select>
+    <button class="chat-new-btn" type="button" id="chatNewBtn">＋ 新しいチャット</button>
+  </div>
+  <!-- メッセージエリア -->
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-empty-msg">メッセージを入力して会話を始めましょう</div>
+  </div>
+  <!-- 入力エリア -->
+  <div class="chat-input-row">
+    <textarea class="chat-input" id="chatInput"
+              placeholder="メッセージを入力... (Shift+Enterで改行)" rows="2" disabled></textarea>
+    <button class="chat-send-btn" type="button" id="chatSendBtn" disabled>送信</button>
+  </div>
 </div>
 
 <div id="editScreen" style="display:none;width:100%;max-width:420px;position:relative;z-index:1;padding-bottom:40px;">
@@ -896,6 +1069,7 @@ function beginStudy() {
   queue = buildQueue(studyCards);
   document.getElementById('sectionScreen').style.display = 'none';
   document.getElementById('listeningScreen').style.display = 'none';
+  document.getElementById('chatScreen').style.display = 'none';
   document.getElementById('tabNav').style.display = 'none';
   document.getElementById('mainSubtitle').style.display = 'none';
   const ss = document.getElementById('studyScreen');
@@ -912,10 +1086,12 @@ function goHome() {
   document.getElementById('studyScreen').style.display = 'none';
   document.getElementById('sectionScreen').style.display = 'block';
   document.getElementById('listeningScreen').style.display = 'none';
+  document.getElementById('chatScreen').style.display = 'none';
   document.getElementById('tabNav').style.display = 'flex';
   document.getElementById('mainSubtitle').style.display = 'block';
-  document.querySelectorAll('.tab-btn')[0].classList.add('active');
-  document.querySelectorAll('.tab-btn')[1].classList.remove('active');
+  document.querySelectorAll('.tab-btn').forEach(function(btn, i) {
+    btn.classList.toggle('active', i === 0);
+  });
   renderSectionList();
 }
 
@@ -1240,11 +1416,14 @@ function switchTab(tab) {
   tabs[0].classList.toggle('active', tab === 'flash');
   tabs[1].classList.toggle('active', tab === 'listen');
   tabs[2].classList.toggle('active', tab === 'help');
-  document.getElementById('sectionScreen').style.display   = tab === 'flash' ? 'block' : 'none';
+  if (tabs[3]) tabs[3].classList.toggle('active', tab === 'chat');
+  document.getElementById('sectionScreen').style.display   = tab === 'flash'  ? 'block' : 'none';
   document.getElementById('listeningScreen').style.display = tab === 'listen' ? 'block' : 'none';
-  document.getElementById('helpScreen').style.display      = tab === 'help' ? 'block' : 'none';
+  document.getElementById('helpScreen').style.display      = tab === 'help'   ? 'block' : 'none';
+  document.getElementById('chatScreen').style.display      = tab === 'chat'   ? 'block' : 'none';
   document.getElementById('mainSubtitle').style.display    = 'block';
   if (tab === 'listen') renderWordList();
+  if (tab === 'chat')   initChatTab();
   if (tab === 'flash' && isListening) stopListening();
   if (tab === 'listen' && isListening) stopListening();
 }
@@ -1530,6 +1709,7 @@ function addWord(secIdx) {
 function openEditMode() {
   document.getElementById('sectionScreen').style.display = 'none';
   document.getElementById('listeningScreen').style.display = 'none';
+  document.getElementById('chatScreen').style.display = 'none';
   document.getElementById('tabNav').style.display = 'none';
   document.getElementById('mainSubtitle').style.display = 'none';
   document.getElementById('editModeControls').style.display = 'none';
@@ -1755,10 +1935,417 @@ function showMoveWordView(secIdx, cardIdx) {
   overlay.addEventListener('touchend', function(e) { if (e.target === this) this.style.display = 'none'; }, { passive: true });
 })();
 
+// ===== AIチャット機能 =====
+var CHAT_STORAGE_KEY = 'flashcards_chat_v1';
+var CHAT_LEVEL_KEY   = 'flashcards_chat_level';
+var chatSessions     = [];
+var currentChatId    = null;
+var chatLevel        = 'A1';
+var isChatSending    = false;
+
+function loadChatSessions() {
+  try { var s = localStorage.getItem(CHAT_STORAGE_KEY); return s ? JSON.parse(s) : []; } catch(e) { return []; }
+}
+function saveChatSessions() {
+  try { localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(chatSessions)); } catch(e) {}
+}
+function loadChatLevel() { return localStorage.getItem(CHAT_LEVEL_KEY) || 'A1'; }
+function saveChatLevel(lv) { localStorage.setItem(CHAT_LEVEL_KEY, lv); }
+
+function initChatTab() {
+  chatSessions = loadChatSessions().map(function(s) {
+    if (!s.messages)    s.messages    = [];
+    if (!s.addedWords)  s.addedWords  = [];
+    return s;
+  });
+  chatLevel = loadChatLevel();
+
+  // レベルボタン更新
+  document.querySelectorAll('.chat-level-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-level') === chatLevel);
+  });
+
+  updateChatApiKeyUI();
+  renderChatHistorySelect();
+
+  // 最後のセッションをロード
+  if (!currentChatId && chatSessions.length > 0) {
+    currentChatId = chatSessions[chatSessions.length - 1].id;
+  }
+  if (currentChatId) {
+    var found = chatSessions.find(function(s) { return s.id === currentChatId; });
+    if (found) {
+      renderChatMessages(found.messages);
+      var sel = document.getElementById('chatHistorySelect');
+      if (sel) sel.value = currentChatId;
+    } else {
+      currentChatId = null;
+      renderChatMessages([]);
+    }
+  } else {
+    renderChatMessages([]);
+  }
+}
+
+function updateChatApiKeyUI() {
+  var key      = getGeminiKey();
+  var inputRow = document.getElementById('chatApiKeyRow');
+  var statusEl = document.getElementById('chatApiKeyStatus');
+  var inp      = document.getElementById('chatInput');
+  var sendBtn  = document.getElementById('chatSendBtn');
+  if (key) {
+    if (inputRow) inputRow.style.display = 'none';
+    if (statusEl) statusEl.style.display = 'flex';
+    if (inp)      inp.disabled    = false;
+    if (sendBtn)  sendBtn.disabled = false;
+  } else {
+    if (inputRow) inputRow.style.display = 'flex';
+    if (statusEl) statusEl.style.display = 'none';
+    if (inp)      inp.disabled    = true;
+    if (sendBtn)  sendBtn.disabled = true;
+  }
+}
+
+function saveChatApiKeyFromChat() {
+  var val = document.getElementById('chatApiKeyInput') ? document.getElementById('chatApiKeyInput').value.trim() : '';
+  if (!val) return;
+  saveGeminiKey(val);
+  updateChatApiKeyUI();
+}
+
+function setChatLevel(lv) {
+  chatLevel = lv;
+  saveChatLevel(lv);
+  document.querySelectorAll('.chat-level-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-level') === lv);
+  });
+}
+
+function newChatSession() {
+  var id = 'chat_' + Date.now();
+  var session = { id: id, title: null, baseSectionName: null, messages: [], addedWords: [] };
+  chatSessions.push(session);
+  saveChatSessions();
+  currentChatId = id;
+  renderChatHistorySelect();
+  renderChatMessages([]);
+}
+
+function switchChatSessionById(id) {
+  if (!id) return;
+  currentChatId = id;
+  var session = chatSessions.find(function(s) { return s.id === id; });
+  if (session) renderChatMessages(session.messages);
+}
+
+function renderChatHistorySelect() {
+  var sel = document.getElementById('chatHistorySelect');
+  if (!sel) return;
+  sel.innerHTML = '';
+  if (chatSessions.length === 0) {
+    var opt0 = document.createElement('option');
+    opt0.value = ''; opt0.textContent = 'チャット履歴なし';
+    sel.appendChild(opt0);
+    return;
+  }
+  var reversed = chatSessions.slice().reverse();
+  reversed.forEach(function(session) {
+    var opt = document.createElement('option');
+    opt.value = session.id;
+    opt.textContent = session.title || '（新しいチャット）';
+    sel.appendChild(opt);
+  });
+  if (currentChatId) sel.value = currentChatId;
+}
+
+function renderChatMessages(messages) {
+  var container = document.getElementById('chatMessages');
+  if (!container) return;
+  if (!messages || messages.length === 0) {
+    container.innerHTML = '<div class="chat-empty-msg">メッセージを入力して会話を始めましょう</div>';
+    return;
+  }
+  container.innerHTML = '';
+  messages.forEach(function(msg) {
+    var row = document.createElement('div');
+    row.className = 'chat-bubble-row ' + (msg.role === 'user' ? 'user' : 'ai');
+    var bubble = document.createElement('div');
+    bubble.className = 'chat-bubble ' + (msg.role === 'user' ? 'user' : 'ai');
+    if (msg.role === 'assistant') {
+      var parts = splitAiChatResponse(msg.content);
+      bubble.innerHTML = '<div class="chat-conv-text">' + escChatHtml(parts.conversation).replace(/\n/g, '<br>') + '</div>';
+      if (parts.wordList) {
+        bubble.innerHTML += '<div class="chat-word-list">' + escChatHtml(parts.wordList).replace(/\n/g, '<br>') + '</div>';
+      }
+    } else {
+      bubble.innerHTML = escChatHtml(msg.content).replace(/\n/g, '<br>');
+    }
+    row.appendChild(bubble);
+    container.appendChild(row);
+  });
+  container.scrollTop = container.scrollHeight;
+}
+
+function splitAiChatResponse(text) {
+  var idx = text.indexOf('📚');
+  if (idx === -1) return { conversation: text, wordList: null };
+  return { conversation: text.substring(0, idx).trim(), wordList: text.substring(idx).trim() };
+}
+
+function escChatHtml(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function addChatTypingIndicator() {
+  var container = document.getElementById('chatMessages');
+  if (!container) return;
+  var existing = document.getElementById('chatTypingIndicator');
+  if (existing) return;
+  var row = document.createElement('div');
+  row.className = 'chat-bubble-row ai';
+  row.id = 'chatTypingIndicator';
+  row.innerHTML = '<div class="chat-typing"><span></span><span></span><span></span></div>';
+  container.appendChild(row);
+  container.scrollTop = container.scrollHeight;
+}
+
+function removeChatTypingIndicator() {
+  var el = document.getElementById('chatTypingIndicator');
+  if (el) el.remove();
+}
+
+async function sendChatMessage() {
+  if (isChatSending) return;
+  var key = getGeminiKey();
+  if (!key) { updateChatApiKeyUI(); return; }
+  var inputEl = document.getElementById('chatInput');
+  var userText = inputEl ? inputEl.value.trim() : '';
+  if (!userText) return;
+
+  // セッションがなければ作成
+  if (!currentChatId) { newChatSession(); }
+  var session = chatSessions.find(function(s) { return s.id === currentChatId; });
+  if (!session) return;
+
+  // 最初のメッセージでタイトル・セクション名を決定
+  if (!session.title) {
+    var titleText = userText.substring(0, 10);
+    session.title           = 'AIチャット：' + titleText;
+    session.baseSectionName = 'AIチャット：' + titleText;
+    saveChatSessions();
+    renderChatHistorySelect();
+    var selEl = document.getElementById('chatHistorySelect');
+    if (selEl) selEl.value = currentChatId;
+  }
+
+  // ユーザーメッセージを追加
+  session.messages.push({ role: 'user', content: userText });
+  if (inputEl) inputEl.value = '';
+  renderChatMessages(session.messages);
+  addChatTypingIndicator();
+
+  isChatSending = true;
+  var sendBtn = document.getElementById('chatSendBtn');
+  if (sendBtn) sendBtn.disabled = true;
+
+  try {
+    var sysPrompt  = buildChatSystemPrompt(session);
+    // Gemini API: system prompt を最初のuser/model交換として埋め込む
+    var contents = [
+      { role: 'user',  parts: [{ text: sysPrompt }] },
+      { role: 'model', parts: [{ text: 'はい、英語学習サポートAIとして対応します。毎回📚英単語リストを5語提供します。' }] }
+    ].concat(
+      session.messages.map(function(m) {
+        return { role: m.role === 'user' ? 'user' : 'model', parts: [{ text: m.content }] };
+      })
+    );
+
+    var res = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + key,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: contents,
+          generationConfig: { temperature: 0.85, maxOutputTokens: 2048 }
+        })
+      }
+    );
+
+    if (!res.ok) {
+      var errData = await res.json().catch(function() { return {}; });
+      throw new Error((errData.error && errData.error.message) || 'HTTPエラー ' + res.status);
+    }
+
+    var data    = await res.json();
+    var aiText  = '';
+    try { aiText = data.candidates[0].content.parts[0].text.trim(); } catch(e) {}
+
+    removeChatTypingIndicator();
+    session.messages.push({ role: 'assistant', content: aiText });
+    saveChatSessions();
+    renderChatMessages(session.messages);
+
+    // 単語パース → セクションへ追加
+    var wordSection = extractChatWordList(aiText);
+    if (wordSection) {
+      var cards    = parseCards(wordSection);
+      var newCards = cards.filter(function(c) {
+        return c.word && !session.addedWords.includes(c.word);
+      });
+      if (newCards.length > 0) {
+        addWordsToChatSection(newCards, session);
+        newCards.forEach(function(c) { session.addedWords.push(c.word); });
+        saveChatSessions();
+        showChatToast('✅ 単語を' + newCards.length + '語追加しました');
+      }
+    }
+
+  } catch(err) {
+    removeChatTypingIndicator();
+    var errSession = chatSessions.find(function(s) { return s.id === currentChatId; });
+    if (errSession) {
+      errSession.messages.push({ role: 'assistant', content: 'エラーが発生しました：' + err.message });
+      saveChatSessions();
+      renderChatMessages(errSession.messages);
+    }
+  } finally {
+    isChatSending = false;
+    var sb = document.getElementById('chatSendBtn');
+    if (sb) sb.disabled = false;
+  }
+}
+
+function buildChatSystemPrompt(session) {
+  var noRepeat = (session.addedWords && session.addedWords.length > 0)
+    ? '\n【追加済み単語（重複禁止）】' + session.addedWords.join('、')
+    : '';
+  return 'あなたは英語学習サポート付きの会話AIです。\n'
+    + '【会話ルール】\n'
+    + '- ユーザーは日本語で話しかけます\n'
+    + '- まず日本語で自然に返答してください\n'
+    + '- 返答の後に、必ず以下のフォーマットで英語単語リストを出してください\n\n'
+    + '【単語リストのルール】\n'
+    + '- レベル' + chatLevel + 'の重要単語をちょうど5個ピックアップ\n'
+    + '- 今回の返答内容・話題に関連する語彙を選ぶ\n'
+    + '- 同じ単語は繰り返さない'
+    + noRepeat + '\n'
+    + '- フォーマットは以下を厳守：\n\n'
+    + '📚 英単語リスト\n\n'
+    + '単語（品詞）\n意味：〇〇\n例文：〇〇\n訳：〇〇\n'
+    + '単語（品詞）\n以下同文';
+}
+
+function extractChatWordList(text) {
+  var idx = text.indexOf('📚');
+  if (idx === -1) return null;
+  return text.substring(idx);
+}
+
+function addWordsToChatSection(cards, session) {
+  var baseName = session.baseSectionName;
+  if (!baseName) return;
+  cards.forEach(function(card) {
+    var suffix = 1;
+    while (true) {
+      var secName = suffix === 1 ? baseName : baseName + '-' + suffix;
+      var sec = sections.find(function(s) { return s.name === secName; });
+      if (!sec) {
+        sec = { name: secName, cards: [] };
+        sections.push(sec);
+      }
+      if (sec.cards.length < SECTION_MAX) {
+        sec.cards.push(card);
+        break;
+      }
+      suffix++;
+    }
+  });
+  saveSections();
+  renderSectionList();
+  updateListenSectionSelect();
+}
+
+function showChatToast(message) {
+  var toast = document.getElementById('chatToast');
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(function() { toast.classList.remove('show'); }, 2500);
+}
+
+// チャット画面のボタンイベント登録（iOS Safari対応）
+(function() {
+  // レベルボタン
+  document.querySelectorAll('.chat-level-btn').forEach(function(btn) {
+    var _t = false;
+    btn.addEventListener('touchend', function(e) {
+      e.preventDefault(); _t = true; setChatLevel(this.getAttribute('data-level'));
+      setTimeout(function() { _t = false; }, 300);
+    }, { passive: false });
+    btn.addEventListener('click', function() { if (_t) return; setChatLevel(this.getAttribute('data-level')); });
+  });
+
+  // APIキー保存ボタン
+  var saveBtn = document.getElementById('chatApiKeySaveBtn');
+  if (saveBtn) {
+    var _st = false;
+    saveBtn.addEventListener('touchend', function(e) {
+      e.preventDefault(); _st = true; saveChatApiKeyFromChat();
+      setTimeout(function() { _st = false; }, 300);
+    }, { passive: false });
+    saveBtn.addEventListener('click', function() { if (_st) return; saveChatApiKeyFromChat(); });
+  }
+
+  // 新しいチャットボタン
+  var newBtn = document.getElementById('chatNewBtn');
+  if (newBtn) {
+    var _nt = false;
+    newBtn.addEventListener('touchend', function(e) {
+      e.preventDefault(); _nt = true; newChatSession();
+      setTimeout(function() { _nt = false; }, 300);
+    }, { passive: false });
+    newBtn.addEventListener('click', function() { if (_nt) return; newChatSession(); });
+  }
+
+  // 送信ボタン（iOS対応）
+  var sendBtn = document.getElementById('chatSendBtn');
+  if (sendBtn) {
+    var _bt = false;
+    sendBtn.addEventListener('touchend', function(e) {
+      e.preventDefault(); _bt = true; sendChatMessage();
+      setTimeout(function() { _bt = false; }, 300);
+    }, { passive: false });
+    sendBtn.addEventListener('click', function() { if (_bt) return; sendChatMessage(); });
+  }
+
+  // テキストエリア：デスクトップでEnterキー送信
+  var chatInp = document.getElementById('chatInput');
+  if (chatInp) {
+    chatInp.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey && !('ontouchstart' in window)) {
+        e.preventDefault();
+        sendChatMessage();
+      }
+    });
+  }
+
+  // 履歴セレクト
+  var histSel = document.getElementById('chatHistorySelect');
+  if (histSel) {
+    histSel.addEventListener('change', function() {
+      switchChatSessionById(this.value);
+    });
+  }
+})();
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(() => {}); });
 }
 </script>
+
+<!-- トースト通知 -->
+<div id="chatToast"></div>
 
 <!-- AI設定モーダル -->
 <div id="aiModal" onclick="closeAIModal(event)">
