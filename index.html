@@ -1186,24 +1186,55 @@
     <div class="premium-lock-desc">特訓テストモードはプレミアムプランで利用できます。<br>四択テストや穴埋めタイピングで、実践的に単語力を高めましょう。</div>
     <button class="premium-lock-btn" onclick="startUpgradeFlow()">⭐ プレミアムに登録（月額800円）</button>
   </div>
-  <!-- プレミアム：テストコンテンツ -->
+  <!-- プレミアム：テストコンテンツ（3フェーズ） -->
   <div id="testContent" style="display:none;">
-    <div class="test-mode-select">
-      <button class="test-mode-btn active" id="testModeQuiz" onclick="switchTestMode('quiz')">🎯 四択テスト</button>
-      <button class="test-mode-btn" id="testModeFib" onclick="switchTestMode('fib')">✏️ 穴埋めタイピング</button>
+
+    <!-- フェーズ1: 設定 -->
+    <div id="testSetupPhase">
+      <div class="test-mode-select">
+        <button class="test-mode-btn active" id="testModeQuiz" onclick="switchTestMode('quiz')">🎯 四択テスト</button>
+        <button class="test-mode-btn" id="testModeFib" onclick="switchTestMode('fib')">✏️ 穴埋めタイピング</button>
+      </div>
+      <div style="margin-bottom:10px;">
+        <div style="font-size:0.7rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">出題範囲</div>
+        <select id="testSectionSelect" style="width:100%;border:1.5px solid var(--sep);border-radius:var(--r-sm);padding:10px 12px;font-size:0.85rem;color:var(--text);background:var(--surface);-webkit-appearance:none;appearance:none;font-family:inherit;cursor:pointer;">
+          <option value="all">全セクション</option>
+          <option value="weak">😓 苦手単語のみ</option>
+        </select>
+      </div>
+      <div style="background:var(--surface);border-radius:var(--r);padding:14px 16px;border:1px solid var(--sep);box-shadow:var(--sh-sm);margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">出題数</div>
+          <span id="testCountLabel" style="font-size:1.1rem;font-weight:800;color:var(--accent);">10問</span>
+        </div>
+        <input type="range" class="speed-slider" id="testCountSlider" min="1" max="50" value="10" oninput="updateTestCountLabel(this.value)">
+        <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:var(--text-muted);font-weight:500;margin-top:4px;">
+          <span>1問</span><span>50問</span>
+        </div>
+      </div>
+      <button onclick="startTest()" style="width:100%;background:var(--accent);color:#fff;border:none;border-radius:var(--r-lg);padding:17px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;touch-action:manipulation;-webkit-appearance:none;appearance:none;box-shadow:0 6px 24px rgba(88,86,214,0.30);transition:opacity 0.15s,transform 0.13s;letter-spacing:-0.01em;">🚀 テスト開始</button>
     </div>
-    <div style="margin-bottom:14px;">
-      <select id="testSectionSelect" style="width:100%;border:1.5px solid var(--sep);border-radius:var(--r-sm);padding:10px 12px;font-size:0.85rem;color:var(--text);background:var(--surface);-webkit-appearance:none;appearance:none;font-family:inherit;cursor:pointer;">
-        <option value="all">全セクション</option>
-      </select>
+
+    <!-- フェーズ2: 出題 -->
+    <div id="testQuizPhase" style="display:none;">
+      <div class="quiz-score-bar">
+        <span id="testProgress" style="font-size:0.88rem;font-weight:700;color:var(--text);">1 / 10問</span>
+        <div style="margin-left:auto;display:flex;gap:16px;">
+          <div class="quiz-score-item ok">✓ <span id="testOkCount">0</span></div>
+          <div class="quiz-score-item ng">✗ <span id="testNgCount">0</span></div>
+        </div>
+      </div>
+      <div id="quizArea"></div>
+      <div id="fibArea" style="display:none;"></div>
     </div>
-    <div class="quiz-score-bar" id="testScoreBar">
-      <div class="quiz-score-item ok">✓ <span id="testOkCount">0</span></div>
-      <div class="quiz-score-item ng">✗ <span id="testNgCount">0</span></div>
-      <button style="margin-left:auto;background:var(--surface2);border:1px solid var(--sep);border-radius:var(--r-xs);padding:6px 12px;font-size:0.75rem;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;-webkit-appearance:none;appearance:none;" onclick="resetTestScore()">リセット</button>
+
+    <!-- フェーズ3: 結果 -->
+    <div id="testResultPhase" style="display:none;">
+      <div id="testResultContent"></div>
+      <button onclick="startTest()" style="width:100%;background:var(--accent);color:#fff;border:none;border-radius:var(--r-lg);padding:15px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:inherit;touch-action:manipulation;-webkit-appearance:none;appearance:none;box-shadow:0 6px 24px rgba(88,86,214,0.30);margin-bottom:10px;">もう一度 🔄</button>
+      <button onclick="backToTestSetup()" style="width:100%;background:var(--surface);border:1.5px solid var(--sep);color:var(--accent);border-radius:var(--r-lg);padding:13px;font-size:0.9rem;font-weight:700;cursor:pointer;font-family:inherit;touch-action:manipulation;-webkit-appearance:none;appearance:none;box-shadow:var(--sh-xs);">← 設定に戻る</button>
     </div>
-    <div id="quizArea"></div>
-    <div id="fibArea" style="display:none;"></div>
+
   </div>
 </div>
 
@@ -1446,6 +1477,21 @@ function renderSectionList() {
     list.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:20px 0;">↓ 単語リストを追加してください</p>';
     return;
   }
+  // 苦手単語まとめカード（弱点単語が1語以上あれば先頭に表示）
+  const allWeakCards = sections.flatMap(s => s.cards).filter(c => getWeakScore(c.word) >= 0.5);
+  if (allWeakCards.length > 0) {
+    const weakDiv = document.createElement('div');
+    weakDiv.className = 'section-card';
+    weakDiv.style.cssText = 'background:var(--wrong-dim);border-color:rgba(255,59,48,0.25);';
+    weakDiv.innerHTML = `
+      <div>
+        <div class="section-name" style="color:var(--wrong-text);">😓 苦手単語まとめ</div>
+        <div class="section-meta">${allWeakCards.length}語 — 要復習</div>
+      </div>
+      <div class="section-arrow" style="color:var(--wrong-text);">›</div>`;
+    weakDiv.addEventListener('click', startWeakStudy);
+    list.appendChild(weakDiv);
+  }
   sections.forEach((sec, idx) => {
     const weakCount = sec.cards.filter(c => getWeakScore(c.word) >= 0.5).length;
     const div = document.createElement('div');
@@ -1457,7 +1503,7 @@ function renderSectionList() {
         ${weakCount > 0 ? `<div class="section-weak">😓 苦手 ${weakCount}語</div>` : ''}
       </div>
       <div class="section-arrow">›</div>`;
-    div.addEventListener('click', () => startSection(idx));    
+    div.addEventListener('click', () => startSection(idx));
     list.appendChild(div);
   });
 }
@@ -1472,6 +1518,13 @@ function startAll() {
   if (sections.length === 0) { alert('単語が登録されていません。'); return; }
   studyCards = sections.flatMap(s => s.cards);
   document.getElementById('studyTitle').textContent = '全セクション';
+  beginStudy();
+}
+function startWeakStudy() {
+  const weakCards = sections.flatMap(s => s.cards).filter(c => getWeakScore(c.word) >= 0.5);
+  if (weakCards.length === 0) { alert('現在、苦手単語はありません。\nフラッシュカードで「✗ もう一度」を押した単語が苦手リストに追加されます。'); return; }
+  studyCards = weakCards;
+  document.getElementById('studyTitle').textContent = '😓 苦手単語まとめ';
   beginStudy();
 }
 function beginStudy() {
@@ -3015,42 +3068,70 @@ function setPlaySpeed(val) {
 /* ════════════════════════════════════════════
    テストモード（プレミアム専用）
 ════════════════════════════════════════════ */
+/* ════════════════════════════════════════════
+   テストモード — キュー方式（重複なし）
+════════════════════════════════════════════ */
 var currentTestMode = 'quiz';
+var testQueue = [];        // シャッフル済みカード配列
+var testQueueIdx = 0;      // 現在の問題インデックス
+var testTotalQuestions = 10;
 var testOkCount = 0, testNgCount = 0;
-var currentQuizCard = null, quizAnswered = false;
-var currentFibCard = null;
+var testCurrentCard = null;
+var testAnswered = false;
 
 function initTestTab() {
   applyPremiumUI();
   if (!isPremium) return;
   updateTestSectionSelect();
-  if (currentTestMode === 'quiz') renderQuiz();
-  else renderFib();
+  showTestSetup();
+}
+
+function showTestSetup() {
+  var setup = document.getElementById('testSetupPhase');
+  var quiz  = document.getElementById('testQuizPhase');
+  var result = document.getElementById('testResultPhase');
+  if (setup)  setup.style.display  = '';
+  if (quiz)   quiz.style.display   = 'none';
+  if (result) result.style.display = 'none';
+}
+
+function backToTestSetup() {
+  showTestSetup();
+}
+
+function updateTestCountLabel(val) {
+  var label = document.getElementById('testCountLabel');
+  if (label) label.textContent = val + '問';
+  testTotalQuestions = parseInt(val);
 }
 
 function updateTestSectionSelect() {
   var sel = document.getElementById('testSectionSelect');
   if (!sel) return;
   var cur = sel.value;
-  sel.innerHTML = '<option value="all">全セクション</option>';
+  sel.innerHTML = '<option value="all">全セクション</option><option value="weak">😓 苦手単語のみ</option>';
   sections.forEach(function(sec, idx) {
     var opt = document.createElement('option');
     opt.value = String(idx);
     opt.textContent = sec.name;
     sel.appendChild(opt);
   });
-  sel.value = (cur && cur !== 'undefined') ? cur : 'all';
-  if (!sel.value) sel.value = 'all';
-  sel.onchange = function() {
-    if (currentTestMode === 'quiz') renderQuiz();
-    else renderFib();
-  };
+  if (cur && cur !== 'undefined' && sel.querySelector('option[value="' + cur + '"]')) {
+    sel.value = cur;
+  } else {
+    sel.value = 'all';
+  }
 }
 
 function getTestCards() {
   var sel = document.getElementById('testSectionSelect');
   var filter = sel ? sel.value : 'all';
-  if (filter === 'all') return sections.reduce(function(a, s) { return a.concat(s.cards); }, []);
+  if (filter === 'all') {
+    return sections.reduce(function(a, s) { return a.concat(s.cards); }, []);
+  }
+  if (filter === 'weak') {
+    return sections.flatMap(function(s) { return s.cards; }).filter(function(c) { return getWeakScore(c.word) >= 0.5; });
+  }
   var idx = parseInt(filter);
   return (sections[idx] && sections[idx].cards) ? sections[idx].cards : [];
 }
@@ -3061,118 +3142,167 @@ function switchTestMode(mode) {
   var fBtn = document.getElementById('testModeFib');
   if (qBtn) qBtn.classList.toggle('active', mode === 'quiz');
   if (fBtn) fBtn.classList.toggle('active', mode === 'fib');
-  var quizArea = document.getElementById('quizArea');
-  var fibArea = document.getElementById('fibArea');
-  if (quizArea) quizArea.style.display = mode === 'quiz' ? '' : 'none';
-  if (fibArea) fibArea.style.display = mode === 'fib' ? '' : 'none';
-  if (mode === 'quiz') renderQuiz();
-  else renderFib();
 }
 
-function resetTestScore() {
-  testOkCount = 0; testNgCount = 0;
-  var ok = document.getElementById('testOkCount');
-  var ng = document.getElementById('testNgCount');
-  if (ok) ok.textContent = '0';
-  if (ng) ng.textContent = '0';
-}
+function startTest() {
+  var slider = document.getElementById('testCountSlider');
+  testTotalQuestions = slider ? parseInt(slider.value) : 10;
 
-function renderQuiz() {
-  var quizArea = document.getElementById('quizArea');
-  if (!quizArea) return;
-  var cards = getTestCards();
-  if (cards.length < 4) {
-    quizArea.innerHTML = '<div class="quiz-card"><p style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">テストには4語以上の単語が必要です</p></div>';
+  var allCards = getTestCards();
+  if (currentTestMode === 'fib') {
+    allCards = allCards.filter(function(c) { return c.example && c.word; });
+  } else {
+    // 四択には4語以上必要（選択肢確保のため全体から引くが最低4語）
+    if (allCards.length < 4) {
+      alert('テストには4語以上の単語が必要です。\nセクションを変更するか単語を追加してください。');
+      return;
+    }
+  }
+  if (allCards.length === 0) {
+    alert('出題できる単語がありません。\nセクションを変更するか単語を追加してください。');
     return;
   }
-  currentQuizCard = cards[Math.floor(Math.random() * cards.length)];
-  quizAnswered = false;
-  var others = cards.filter(function(c) { return c.word !== currentQuizCard.word; });
+
+  // シャッフルして指定問数にトリム
+  testQueue = allCards.slice().sort(function() { return Math.random() - 0.5; });
+  if (testQueue.length > testTotalQuestions) testQueue = testQueue.slice(0, testTotalQuestions);
+  testQueueIdx = 0;
+  testOkCount = 0;
+  testNgCount = 0;
+
+  var setup  = document.getElementById('testSetupPhase');
+  var quiz   = document.getElementById('testQuizPhase');
+  var result = document.getElementById('testResultPhase');
+  if (setup)  setup.style.display  = 'none';
+  if (quiz)   quiz.style.display   = '';
+  if (result) result.style.display = 'none';
+
+  _updateTestProgressUI();
+  if (currentTestMode === 'quiz') renderCurrentQuiz();
+  else renderCurrentFib();
+}
+
+function _updateTestProgressUI() {
+  var prog = document.getElementById('testProgress');
+  var okEl = document.getElementById('testOkCount');
+  var ngEl = document.getElementById('testNgCount');
+  if (prog) prog.textContent = (testQueueIdx + 1) + ' / ' + testQueue.length + '問';
+  if (okEl) okEl.textContent = testOkCount;
+  if (ngEl) ngEl.textContent = testNgCount;
+}
+
+function nextTestQuestion() {
+  testQueueIdx++;
+  if (testQueueIdx >= testQueue.length) {
+    showTestResult();
+    return;
+  }
+  _updateTestProgressUI();
+  if (currentTestMode === 'quiz') renderCurrentQuiz();
+  else renderCurrentFib();
+}
+
+function renderCurrentQuiz() {
+  var quizArea = document.getElementById('quizArea');
+  var fibArea  = document.getElementById('fibArea');
+  if (quizArea) quizArea.style.display = '';
+  if (fibArea)  fibArea.style.display  = 'none';
+  if (!quizArea) return;
+
+  testCurrentCard = testQueue[testQueueIdx];
+  testAnswered = false;
+
+  // 全カード（重複含む全セクション）から誤答選択肢を選ぶ
+  var allCards = sections.reduce(function(a, s) { return a.concat(s.cards); }, []);
+  var others = allCards.filter(function(c) { return c.word !== testCurrentCard.word; });
   var wrongs = others.sort(function() { return Math.random() - 0.5; }).slice(0, 3);
-  var options = [currentQuizCard].concat(wrongs).sort(function() { return Math.random() - 0.5; });
+  var options = [testCurrentCard].concat(wrongs).sort(function() { return Math.random() - 0.5; });
+
   var optHtml = options.map(function(opt) {
-    return '<button class="quiz-opt-btn" data-correct="' + (opt.word === currentQuizCard.word ? '1' : '0') + '">'
+    return '<button class="quiz-opt-btn" data-correct="' + (opt.word === testCurrentCard.word ? '1' : '0') + '">'
       + escChatHtml(opt.meaning) + '</button>';
   }).join('');
+
   quizArea.innerHTML =
     '<div class="quiz-card">'
     + '<div class="quiz-question">次の英単語の意味を選んでください</div>'
-    + '<div class="quiz-word">' + escChatHtml(currentQuizCard.word) + '</div>'
-    + '<div style="margin-bottom:4px;"><span class="quiz-pos">' + escChatHtml(currentQuizCard.pos) + '</span></div>'
+    + '<div class="quiz-word">' + escChatHtml(testCurrentCard.word) + '</div>'
+    + '<div style="margin-bottom:4px;"><span class="quiz-pos">' + escChatHtml(testCurrentCard.pos) + '</span></div>'
     + '</div>'
     + '<div class="quiz-result-msg" id="quizResultMsg" style="display:none;"></div>'
     + '<div class="quiz-options" id="quizOptions">' + optHtml + '</div>'
-    + '<button class="quiz-next-btn" id="quizNextBtn" onclick="renderQuiz()" style="display:none;">次の問題 →</button>';
+    + '<button class="quiz-next-btn" id="quizNextBtn" onclick="nextTestQuestion()" style="display:none;">'
+    + (testQueueIdx + 1 < testQueue.length ? '次の問題 →' : '結果を見る 📊') + '</button>';
 
   quizArea.querySelectorAll('.quiz-opt-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      if (quizAnswered) return;
-      quizAnswered = true;
+      if (testAnswered) return;
+      testAnswered = true;
+      var card = testCurrentCard;
       var isCorrect = this.dataset.correct === '1';
       quizArea.querySelectorAll('.quiz-opt-btn').forEach(function(b) {
         if (b.dataset.correct === '1') b.classList.add('correct');
         else if (b === btn && !isCorrect) b.classList.add('wrong');
         b.disabled = true;
       });
-      var resultMsg = document.getElementById('quizResultMsg');
-      if (resultMsg) {
-        if (isCorrect) {
-          testOkCount++;
-          resultMsg.textContent = '✓ 正解！';
-          resultMsg.className = 'quiz-result-msg correct';
-        } else {
-          testNgCount++;
-          resultMsg.textContent = '✗ 不正解… 正解：' + (currentQuizCard.meaning || '');
-          resultMsg.className = 'quiz-result-msg wrong';
-        }
-        resultMsg.style.display = 'block';
+      recordAnswer(card.word, isCorrect);
+      if (isCorrect) {
+        testOkCount++;
+        var rm = document.getElementById('quizResultMsg');
+        if (rm) { rm.textContent = '✓ 正解！'; rm.className = 'quiz-result-msg correct'; rm.style.display = 'block'; }
+      } else {
+        testNgCount++;
+        var rm = document.getElementById('quizResultMsg');
+        if (rm) { rm.textContent = '✗ 不正解… 正解：' + (card.meaning || ''); rm.className = 'quiz-result-msg wrong'; rm.style.display = 'block'; }
       }
       var nextBtn = document.getElementById('quizNextBtn');
       if (nextBtn) nextBtn.style.display = 'block';
-      var okEl = document.getElementById('testOkCount');
-      var ngEl = document.getElementById('testNgCount');
-      if (okEl) okEl.textContent = testOkCount;
-      if (ngEl) ngEl.textContent = testNgCount;
+      _updateTestProgressUI();
     });
   });
 }
 
-function renderFib() {
-  var fibArea = document.getElementById('fibArea');
+function renderCurrentFib() {
+  var quizArea = document.getElementById('quizArea');
+  var fibArea  = document.getElementById('fibArea');
+  if (quizArea) quizArea.style.display = 'none';
+  if (fibArea)  fibArea.style.display  = '';
   if (!fibArea) return;
-  var cards = getTestCards().filter(function(c) { return c.example && c.word; });
-  if (cards.length === 0) {
-    fibArea.innerHTML = '<div class="fib-card"><p style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">例文のある単語が必要です</p></div>';
-    return;
-  }
-  currentFibCard = cards[Math.floor(Math.random() * cards.length)];
-  var word = currentFibCard.word;
+
+  testCurrentCard = testQueue[testQueueIdx];
+  testAnswered = false;
+
+  var word = testCurrentCard.word;
   var escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  var blanked = currentFibCard.example.replace(new RegExp(escaped, 'gi'), '［　　　　］');
+  var blanked = testCurrentCard.example.replace(new RegExp(escaped, 'gi'), '［　　　　］');
+
   fibArea.innerHTML =
     '<div class="fib-card">'
     + '<div class="fib-label">✏️ 穴埋めタイピング — 空欄の単語を入力</div>'
     + '<div class="fib-sentence">' + escChatHtml(blanked) + '</div>'
     + '<div style="font-size:0.74rem;color:var(--text-muted);margin-bottom:14px;line-height:1.6;">'
-    + escChatHtml(currentFibCard.trans) + '</div>'
+    + escChatHtml(testCurrentCard.trans) + '</div>'
     + '<div class="fib-input-row">'
     + '<input class="fib-input" id="fibInput" type="text" placeholder="スペルを入力..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">'
     + '<button class="fib-check-btn" id="fibCheckBtn">確認</button>'
     + '</div>'
     + '<div class="fib-hint" id="fibHint"></div>'
     + '</div>'
-    + '<button class="quiz-next-btn" id="fibNextBtn" onclick="renderFib()" style="display:none;">次の問題 →</button>';
+    + '<button class="quiz-next-btn" id="fibNextBtn" onclick="nextTestQuestion()" style="display:none;">'
+    + (testQueueIdx + 1 < testQueue.length ? '次の問題 →' : '結果を見る 📊') + '</button>';
 
   function checkFib() {
     var inp = document.getElementById('fibInput');
     var checkBtnEl = document.getElementById('fibCheckBtn');
-    if (!inp || !currentFibCard) return;
+    if (!inp || !testCurrentCard) return;
     if (inp.disabled) return;
+    var card = testCurrentCard;
     var val = inp.value.trim().toLowerCase();
-    var correct = currentFibCard.word.toLowerCase();
-    var isCorrect = val === correct;
+    var isCorrect = val === card.word.toLowerCase();
     inp.disabled = true;
     if (checkBtnEl) checkBtnEl.disabled = true;
+    testAnswered = true;
+    recordAnswer(card.word, isCorrect);
     if (isCorrect) {
       testOkCount++;
       inp.classList.add('correct-input');
@@ -3183,14 +3313,11 @@ function renderFib() {
       inp.classList.add('wrong-input');
       document.getElementById('fibHint').innerHTML =
         '<span style="color:var(--wrong-text);font-weight:600;">✗ 不正解</span> — 正解：<strong>'
-        + escChatHtml(currentFibCard.word) + '</strong>';
+        + escChatHtml(card.word) + '</strong>';
     }
     var nextBtn = document.getElementById('fibNextBtn');
     if (nextBtn) nextBtn.style.display = 'block';
-    var okEl = document.getElementById('testOkCount');
-    var ngEl = document.getElementById('testNgCount');
-    if (okEl) okEl.textContent = testOkCount;
-    if (ngEl) ngEl.textContent = testNgCount;
+    _updateTestProgressUI();
   }
 
   var fibCheckBtn = document.getElementById('fibCheckBtn');
@@ -3200,6 +3327,43 @@ function renderFib() {
     fibInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') checkFib(); });
     setTimeout(function() { fibInput.focus(); }, 100);
   }
+}
+
+function showTestResult() {
+  var setup  = document.getElementById('testSetupPhase');
+  var quiz   = document.getElementById('testQuizPhase');
+  var result = document.getElementById('testResultPhase');
+  if (setup)  setup.style.display  = 'none';
+  if (quiz)   quiz.style.display   = 'none';
+  if (result) result.style.display = '';
+
+  var total = testQueue.length;
+  var pct = total > 0 ? Math.round(testOkCount / total * 100) : 0;
+  var emoji = pct >= 90 ? '🏆' : pct >= 70 ? '😊' : pct >= 50 ? '😐' : '😓';
+  var content = document.getElementById('testResultContent');
+  if (content) {
+    content.innerHTML =
+      '<div style="text-align:center;padding:20px 0 10px;">'
+      + '<div style="font-size:3rem;margin-bottom:8px;">' + emoji + '</div>'
+      + '<div style="font-size:2rem;font-weight:800;color:var(--accent);">' + pct + '%</div>'
+      + '<div style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;">'
+      + testOkCount + ' / ' + total + '問 正解'
+      + '</div>'
+      + '<div style="display:flex;justify-content:center;gap:24px;margin-top:16px;">'
+      + '<div style="text-align:center;">'
+      + '<div style="font-size:1.5rem;font-weight:800;color:var(--correct-text);">' + testOkCount + '</div>'
+      + '<div style="font-size:0.72rem;color:var(--text-muted);">正解</div>'
+      + '</div>'
+      + '<div style="text-align:center;">'
+      + '<div style="font-size:1.5rem;font-weight:800;color:var(--wrong-text);">' + testNgCount + '</div>'
+      + '<div style="font-size:0.72rem;color:var(--text-muted);">不正解</div>'
+      + '</div>'
+      + '</div>'
+      + (testNgCount > 0 ? '<div style="font-size:0.78rem;color:var(--wrong-text);margin-top:14px;font-weight:600;">😓 不正解の単語は苦手リストに追加されました</div>' : '')
+      + '</div>';
+  }
+  // 苦手単語カードを最新の状態に更新
+  renderSectionList();
 }
 
 /* ════════════════════════════════════════════
