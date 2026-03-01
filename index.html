@@ -1015,18 +1015,155 @@
 
 <div id="helpScreen">
 
+  <!-- フラッシュカード -->
+  <div class="help-section">
+    <div class="help-section-title">📇 フラッシュカード学習</div>
+    <div class="help-item">
+      <div class="help-label">学習の始め方</div>
+      <div class="help-desc">ホーム画面のセクション一覧からセクションをタップすると学習スタート。「▶ 全セクションまとめて学習」で全単語を通しで学習できます。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">カードの操作</div>
+      <div class="help-desc">
+        カードをタップすると裏返して意味・例文・訳が表示されます。<br>
+        <span class="help-badge green">✓ 覚えた</span>正解記録。そのカードをキューから除外します<br>
+        <span class="help-badge red">✗ もう一度</span>不正解記録。セッション内で後ほど再出題されます
+      </div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">表示モード・音声</div>
+      <div class="help-desc">
+        <span class="help-badge">EN→JP</span>タップで「英語→日本語」モードに切替（もう一度タップで戻る）<br>
+        <span class="help-badge">🔊</span>タップで単語・例文を音声読み上げ<br>
+        学習が進むと正解率がカードに表示されます
+      </div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">😓 苦手単語バッジ</div>
+      <div class="help-desc">「✗ もう一度」を押した回数が多い単語には <strong style="color:var(--wrong-text);">😓 苦手</strong> バッジが表示されます。苦手単語が増えると、ホーム画面のセクション一覧の先頭に「😓 苦手単語まとめ」カードが表示されます（無料機能）。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">😓 苦手単語まとめ（無料）</div>
+      <div class="help-desc">ホーム画面の「😓 苦手単語まとめ」をタップすると、全セクションから苦手単語だけを集めたフラッシュカードセッションが始まります。苦手を集中的に復習するのに便利です。</div>
+    </div>
+  </div>
+
+  <!-- リスニング -->
+  <div class="help-section">
+    <div class="help-section-title">🎧 リスニング</div>
+    <div class="help-item">
+      <div class="help-label">自動連続再生</div>
+      <div class="help-desc">「▶ 再生開始」ボタンで全単語を自動で順番に読み上げます。再生中は現在の単語・例文・訳がリアルタイムで表示されます。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">任意の単語からスタート</div>
+      <div class="help-desc">単語リストの各単語をタップすると、その単語から再生をスタートできます。再生中に別の単語をタップするとそこから切り替わります。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">設定項目</div>
+      <div class="help-desc">
+        <span class="help-badge">モード</span>「単語のみ」か「単語＋例文」を選択<br>
+        <span class="help-badge">フィルター</span>全て / チェック済みのみ / チェックなしのみ で絞り込み<br>
+        <span class="help-badge">セクション</span>特定のセクションだけ再生可能<br>
+        <span class="help-badge">チェックボックス</span>各単語のチェックを個別にオン/オフ。「全チェック」「全外す」で一括操作
+      </div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">⭐ プレミアム音声設定</div>
+      <div class="help-desc">
+        <span class="help-badge">アクセント</span>🇺🇸 US（標準）/ 🇬🇧 UK / 🇦🇺 AU から選択<br>
+        <span class="help-badge">再生速度</span>スライダーで 0.5x〜2.0x に調整可能。リスニング練習や速読に活用できます
+      </div>
+    </div>
+  </div>
+
+  <!-- AIチャット -->
+  <div class="help-section">
+    <div class="help-section-title">🤖 AIチャット</div>
+    <div class="help-item">
+      <div class="help-label">AIチャットでできること</div>
+      <div class="help-desc">AIと日本語で会話しながら、話題に関連した英単語を自動で抽出してフラッシュカードに追加できます。自然な文脈で単語を増やしたいときに便利です。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">Groq APIキーの設定（必要）</div>
+      <div class="help-desc">AIチャットを使うには無料のGroq APIキーが必要です。<strong>console.groq.com</strong> で無料取得できます。取得したキーを「✨ AI設定」または、チャット画面の入力欄に貼り付けて保存してください。キーはこの端末のブラウザ内にのみ保存されます。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">レベル選択</div>
+      <div class="help-desc">
+        <span class="help-badge">A1</span>超基礎（中学レベル）<br>
+        <span class="help-badge">A2</span>基礎（高校入試レベル）<br>
+        <span class="help-badge">B1</span>中級（センター試験レベル）<br>
+        <span class="help-badge">B2 ⭐</span>上級（大学入試〜TOEIC 700点レベル）— プレミアム限定
+      </div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">単語の自動追加</div>
+      <div class="help-desc">AIが返答するたびに、会話内容に関連した単語がちょうど5語ピックアップされ、自動でフラッシュカードに追加されます。同じ単語は重複して追加されません。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">チャット履歴</div>
+      <div class="help-desc">複数のチャットセッションを保存・切替できます。「＋ 新規」で新しいセッションを作成、セレクトボックスで過去の会話に戻れます。🗑️ でセッションを削除できます。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">全画面表示</div>
+      <div class="help-desc">チャット画面右上の ⛶ ボタンで全画面表示に切替できます。長い会話がしやすくなります。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">アプリについて質問する</div>
+      <div class="help-desc">AIはこのアプリ（Flash Cards）の機能についても答えられます。使い方がわからないことがあればAIに聞いてみてください。</div>
+    </div>
+  </div>
+
+  <!-- テストモード -->
+  <div class="help-section">
+    <div class="help-section-title">🎯 テストモード <span style="font-size:0.72rem;font-weight:600;background:linear-gradient(135deg,#a78bfa,#818cf8);color:#fff;padding:2px 8px;border-radius:6px;vertical-align:middle;">⭐ プレミアム</span></div>
+    <div class="help-item">
+      <div class="help-label">テストの始め方</div>
+      <div class="help-desc">「テスト」タブを開き、テスト形式・出題範囲・出題数を設定して「🚀 テスト開始」をタップ。プレミアム登録が必要です。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">テスト形式</div>
+      <div class="help-desc">
+        <span class="help-badge">🎯 四択テスト</span>英単語を見て4つの選択肢から意味を選ぶ<br>
+        <span class="help-badge">✏️ 穴埋めタイピング</span>例文の空欄にスペルを入力する（例文がある単語のみ）
+      </div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">出題範囲</div>
+      <div class="help-desc">
+        <span class="help-badge">全セクション</span>登録済みの全単語から出題<br>
+        <span class="help-badge">😓 苦手単語のみ</span>苦手リストに入っている単語だけを出題<br>
+        <span class="help-badge">セクション指定</span>特定のセクションだけを出題
+      </div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">出題数</div>
+      <div class="help-desc">スライダーで 1問〜50問 の範囲で設定できます。シャッフルして重複なしで出題されます。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">苦手単語への自動記録</div>
+      <div class="help-desc">テストで間違えた単語は自動で苦手リストに追加されます。正解した単語は正解記録が積み上がります。テスト終了後、ホームの「😓 苦手単語まとめ」が最新状態に更新されます。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">結果画面</div>
+      <div class="help-desc">全問終了後に正解率・正解数・不正解数が表示されます。「もう一度 🔄」で同じ設定で再挑戦、「← 設定に戻る」で出題設定を変更できます。</div>
+    </div>
+  </div>
+
+  <!-- 単語登録 -->
   <div class="help-section">
     <div class="help-section-title">📋 単語の登録方法</div>
     <div class="help-item">
       <div class="help-label">テキストを貼り付けて一括登録</div>
-      <div class="help-desc">トップ画面の「単語リストを追加する」を開いて、下の形式で書いたテキストを貼り付けるだけで単語を登録できます。50語ごとに自動でセクションが分かれます。</div>
+      <div class="help-desc">ホーム画面の「単語リストを追加する」を開き、下のフォーマットで書いたテキストを貼り付けるだけで登録できます。50語ごとに自動でセクションが分かれます。</div>
     </div>
     <div class="help-label" style="margin-top:10px;font-size:0.75rem;">書き方のフォーマット</div>
     <div class="help-code">単語（品詞）
 意味：日本語の意味
 例文：English example sentence.
 訳：例文の日本語訳</div>
-    <div class="help-desc">番号付き（<code style="background:var(--surface2);padding:1px 5px;border-radius:4px;">1. word</code> の形）でも番号なしでもどちらでも読み取れます。</div>
+    <div class="help-desc" style="margin-top:6px;">番号付き（<code style="background:var(--surface2);padding:1px 5px;border-radius:4px;">1. word</code> の形）でも番号なしでもどちらでも読み取れます。</div>
     <div class="help-label" style="margin-top:12px;font-size:0.75rem;">記入例</div>
     <div class="help-code">1. balance（名詞）
 意味：バランス、均衡
@@ -1037,97 +1174,78 @@
 意味：効率的な
 例文：She is known for being highly efficient.
 訳：彼女は非常に効率的なことで知られています。</div>
-    <div class="help-item" style="margin-top:4px;">
+    <div class="help-item" style="margin-top:8px;">
       <div class="help-label">追記する vs 全て入れ替え</div>
       <div class="help-desc">
-        <span class="help-badge">＋ 追記する</span>すである単語に新しい単語を追加します。<br>
-        <span class="help-badge">全て入れ替え</span>登録済みの全単語を削除して新しく入れ替えます（注意！）
+        <span class="help-badge">＋ 追記する</span>既存の単語を残して新しい単語を追加します<br>
+        <span class="help-badge">全て入れ替え</span>登録済みの全単語を削除して入れ替えます（注意！）
       </div>
     </div>
   </div>
 
-  <div class="help-section">
-    <div class="help-section-title">📇 フラッシュカード学習</div>
-    <div class="help-item">
-      <div class="help-label">学習の始め方</div>
-      <div class="help-desc">セクション一覧からセクションをタップすると学習スタート。「全セクションまとめて学習」ボタンで全単語を一度に学習することもできます。</div>
-    </div>
-    <div class="help-item">
-      <div class="help-label">カードの操作</div>
-      <div class="help-desc">
-        カードをタップすると裏返して意味・例文・訳が表示されます。<br>
-        <span class="help-badge green">✓ 覚えた</span>正解したカードをキューから除外<br>
-        <span class="help-badge red">✗ もう一度</span>間違えたカードは後でもう一度出題
-      </div>
-    </div>
-    <div class="help-item">
-      <div class="help-label">便利な機能</div>
-      <div class="help-desc">
-        <span class="help-badge">EN→JP</span>ボタンで日本語→英語モードに切替<br>
-        <span class="help-badge">🔊</span>ボタンで単語・例文の音声を再生<br>
-        間違えた回数が多い単語には <strong style="color:var(--wrong-text);">😓 苦手</strong> バッジが表示されます
-      </div>
-    </div>
-  </div>
-
-  <div class="help-section">
-    <div class="help-section-title">🎧 リスニング機能</div>
-    <div class="help-item">
-      <div class="help-label">自動連続再生</div>
-      <div class="help-desc">「▶ 再生開始」ボタンで全単語を自動で読み上げます。再生中は現在の単語・例文・訳がリアルタイムで表示されます。</div>
-    </div>
-    <div class="help-item">
-      <div class="help-label">任意の単語から再生</div>
-      <div class="help-desc">単語リストの各単語をタップすると、その単語から再生をスタートできます。再生中に別の単語をタップすると、そこから切り替わります。</div>
-    </div>
-    <div class="help-item">
-      <div class="help-label">設定項目</div>
-      <div class="help-desc">
-        <span class="help-badge">モード</span>「単語のみ」か「単語＋例文」を選択<br>
-        <span class="help-badge">フィルター</span>全て / チェック済みのみ / チェックなしのみ、で絞り込み<br>
-        <span class="help-badge">セクション</span>特定のセクションだけを再生することもできます
-      </div>
-    </div>
-    <div class="help-item">
-      <div class="help-label">チェックボックス</div>
-      <div class="help-desc">各単語のチェックボックスをオン/オフして、再生する単語を選べます。「全てチェック」「全て外す」ボタンで一括操作も可能です。</div>
-    </div>
-  </div>
-
+  <!-- 編集機能 -->
   <div class="help-section">
     <div class="help-section-title">✏️ 編集機能</div>
     <div class="help-item">
       <div class="help-label">編集モードの開き方</div>
-      <div class="help-desc">画面右上の「✏️ 編集」ボタンをタップすると編集モードに入ります。</div>
+      <div class="help-desc">画面上部の「✏️ 編集」ボタンをタップすると編集モードに入ります。</div>
     </div>
     <div class="help-item">
       <div class="help-label">セクションの管理</div>
-      <div class="help-desc">セクションの追加・名前変更・削除ができます。セクション名横の ✏️ で名前変更、🗑️ で削除。</div>
+      <div class="help-desc">セクションの追加・名前変更・削除ができます。✏️ で名前変更、🗑️ で削除、「＋ セクションを追加」で新規作成。</div>
     </div>
     <div class="help-item">
       <div class="help-label">単語の管理</div>
-      <div class="help-desc">セクションをタップすると単語一覧が開きます。↕️ で別セクションへ移動、✏️ で編集、🗑️ で削除。「＋ 単語を追加」で新規追加もできます。</div>
+      <div class="help-desc">セクションをタップすると単語一覧が開きます。↕️ で別セクションへ移動、✏️ で編集、🗑️ で削除。「＋ 単語を追加」で手動追加もできます。</div>
     </div>
     <div class="help-item">
       <div class="help-label">読み（ひらがな）フィールド</div>
-      <div class="help-desc">単語の編集画面に「読み（ひらがな）」欄があります。漢字を含む意味の読み方が自動音声で間違って読まれる場合、ここにひらがなで正しい読みを入力してください。入力した読みがリスニング時のTTS音声に使われます。</div>
+      <div class="help-desc">単語の編集画面に「読み（ひらがな）」欄があります。意味の漢字が音声で誤読される場合、ここにひらがなで正しい読みを入力するとリスニング時に正しく読み上げられます。</div>
     </div>
-    <div class="help-tip"><strong>例：</strong>「均衡」がうまく読まれない場合 → 読み欄に <strong>きんこう</strong> と入力</div>
+    <div class="help-tip"><strong>例：</strong>「均衡」が誤読される → 読み欄に <strong>きんこう</strong> と入力</div>
+    <div class="help-item" style="margin-top:8px;">
+      <div class="help-label">🔍 重複チェック</div>
+      <div class="help-desc">「🔍 重複チェック」ボタンで全セクションの重複単語を一覧表示できます。重複しているものをまとめて確認・削除できます。</div>
+    </div>
   </div>
 
+  <!-- プレミアム -->
+  <div class="help-section">
+    <div class="help-section-title">⭐ プレミアム機能まとめ</div>
+    <div class="help-item">
+      <div class="help-label">プレミアム機能一覧</div>
+      <div class="help-desc">
+        <span class="help-badge">🎯 テストモード</span>四択テスト・穴埋めタイピング・苦手単語のみ出題<br>
+        <span class="help-badge">🇬🇧 英国/豪州アクセント</span>リスニングのアクセント選択（UK・AU）<br>
+        <span class="help-badge">⏩ 再生速度調整</span>0.5x〜2.0x のスライダー速度調整<br>
+        <span class="help-badge">B2 AIレベル</span>上級単語（大学入試〜TOEIC 700点相当）
+      </div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">プレミアム登録方法</div>
+      <div class="help-desc">画面上部の「⭐ プレミアム」ボタンをタップ → Stripeの安全な決済ページで月額800円のサブスクリプションを申し込む → 完了後アプリに戻るとプレミアムが有効になります。</div>
+    </div>
+    <div class="help-tip">iOSの方はStripeの決済ページが開いた後、支払い完了でアプリに戻ってください。自動でプレミアムが有効になります。</div>
+  </div>
+
+  <!-- その他 -->
   <div class="help-section">
     <div class="help-section-title">💡 その他のヒント</div>
     <div class="help-item">
-      <div class="help-label">データはこの端末に保存されます</div>
-      <div class="help-desc">登録した単語はブラウザのローカルストレージに保存されるため、同じ端末・ブラウザ上でのみ引き継がれます。別の端末やブラウザでは別々のデータになります。</div>
+      <div class="help-label">データの保存場所</div>
+      <div class="help-desc">登録した単語・学習履歴・チャット履歴はすべてブラウザのローカルストレージに保存されます。同じ端末・同じブラウザ上でのみ引き継がれます。別の端末やブラウザでは別々のデータになります。</div>
     </div>
     <div class="help-item">
-      <div class="help-label">オフラインでも使えます</div>
-      <div class="help-desc">一度読み込んだあとはインターネット接続がなくても使えます（PWA対応）。ホーム画面に追加するとアプリのように起動できます。</div>
+      <div class="help-label">オフラインでも使えます（PWA）</div>
+      <div class="help-desc">一度読み込んだ後はインターネット接続なしでも使えます。iOSの場合はSafariで開いて「ホーム画面に追加」するとアプリのように起動できます。</div>
     </div>
     <div class="help-item">
       <div class="help-label">音声が出ない場合</div>
-      <div class="help-desc">端末の音量を確認してください。iOSの場合、初回はサイレントモードをオフにする必要がある場合があります。ブラウザによってはTTS（テキスト読み上げ）非対応のことがあります。</div>
+      <div class="help-desc">端末の音量を確認してください。iOSは初回にサイレントモードをオフにする必要がある場合があります。ブラウザ版のChromeやSafariではTTS（テキスト読み上げ）が使えます。</div>
+    </div>
+    <div class="help-item">
+      <div class="help-label">使い方をAIに聞く</div>
+      <div class="help-desc">Groq APIキーを設定した後、AIチャットタブで「このアプリの使い方を教えて」「苦手単語の使い方は？」などと聞くとAIが説明してくれます。</div>
     </div>
   </div>
 
@@ -2772,11 +2890,29 @@ function buildChatSystemPrompt(session) {
   var noRepeat = (session.addedWords && session.addedWords.length > 0)
     ? '\n【追加済み単語（重複禁止）】' + session.addedWords.join('、')
     : '';
+  var appKnowledge = '\n\n【このアプリ（Flash Cards）の機能説明】\n'
+    + 'あなたはFlash Cardsという英単語学習PWAアプリの中で動いています。ユーザーからアプリの使い方を聞かれたら、以下の情報をもとに日本語で答えてください。\n\n'
+    + '■ 無料機能\n'
+    + '・フラッシュカード学習：セクション別または全まとめで単語カードを学習。カードをタップして裏返し、「✓ 覚えた」「✗ もう一度」で仕分け。EN→JPボタンで日→英モードに切替可能。\n'
+    + '・😓 苦手単語まとめ：「✗ もう一度」を多く押した単語が苦手リストに入る。ホーム画面に「😓 苦手単語まとめ」カードが表示され、苦手単語だけのフラッシュカードセッションができる。\n'
+    + '・リスニング：全単語を自動連続再生。「単語のみ」か「単語＋例文」モードを選択可能。セクション・チェックボックスで再生範囲を絞り込める。単語タップでその単語から再生開始。\n'
+    + '・AIチャット：Groq APIキー（console.groq.comで無料取得）を設定するとAIと日本語で会話でき、話題に関連した英単語5語が自動でフラッシュカードに追加される。A1〜B1レベルが無料。チャット履歴の保存・切替・削除も可能。全画面ボタン（⛶）あり。\n'
+    + '・単語の一括登録：「単語リストを追加する」に所定フォーマットでテキストを貼り付けると自動で登録。50語ごとにセクションが自動分割される。\n'
+    + '・編集機能：セクション・単語の追加・編集・削除・移動。読み（ひらがな）欄で漢字の誤読を修正可能。🔍 重複チェックで重複単語を一覧確認できる。\n\n'
+    + '■ プレミアム機能（月額800円、⭐ プレミアムボタンから登録）\n'
+    + '・テストモード：四択テスト（単語→意味を4択から選ぶ）と穴埋めタイピング（例文の空欄に単語を入力）。出題範囲は全セクション・特定セクション・苦手単語のみから選択。出題数は1〜50問のスライダーで設定。重複なしシャッフル出題。間違えた単語は自動で苦手リストに追加。終了後に正解率・スコアを表示。\n'
+    + '・プレミアム音声：リスニングのアクセントを🇺🇸 US・🇬🇧 UK・🇦🇺 AUから選択可能。再生速度を0.5x〜2.0xで調整可能。\n'
+    + '・AIチャットB2レベル：上級単語（大学入試〜TOEIC 700点相当）の抽出が可能。\n\n'
+    + '■ データ・その他\n'
+    + '・データはブラウザのローカルストレージに保存。同じ端末・ブラウザのみで引き継がれる。\n'
+    + '・PWA対応でオフラインでも使用可能。iOSはSafariで「ホーム画面に追加」でアプリ起動できる。\n'
+    + '・音声はWeb Speech API（TTS）を使用。サイレントモードをオフにすると音が出る。';
   return 'あなたは英語学習サポート付きの会話AIです。\n'
     + '【会話ルール】\n'
     + '- ユーザーは日本語で話しかけます\n'
     + '- まず日本語で自然に返答してください\n'
-    + '- 返答の後に、必ず以下のフォーマットで英語単語リストを出してください\n\n'
+    + '- 返答の後に、必ず以下のフォーマットで英語単語リストを出してください\n'
+    + '- ただしアプリの使い方や機能についての質問の場合は、単語リストは省略して構いません\n\n'
     + '【単語リストのルール】\n'
     + '- レベル' + chatLevel + 'の重要単語をちょうど5個ピックアップ\n'
     + '- 今回の返答内容・話題に関連する語彙を選ぶ\n'
@@ -2785,7 +2921,8 @@ function buildChatSystemPrompt(session) {
     + '- フォーマットは以下を厳守：\n\n'
     + '📚 英単語リスト\n\n'
     + '単語（品詞）\n意味：〇〇\n例文：〇〇\n訳：〇〇\n'
-    + '単語（品詞）\n以下同文';
+    + '単語（品詞）\n以下同文'
+    + appKnowledge;
 }
 
 function extractChatWordList(text) {
@@ -3011,13 +3148,20 @@ async function startUpgradeFlow() {
     const res = await fetch('/api/checkout', { method: 'POST' });
     if (!res.ok) throw new Error('サーバーエラー ' + res.status);
     const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
+    if (!data.url) throw new Error(data.error || '決済URLが取得できませんでした');
+    // iOS PWAではasync後のwindow.location変更がブロックされるため
+    // モーダルで直接タップリンクを提示する
+    const link = document.getElementById('paymentLink');
+    const modal = document.getElementById('paymentModal');
+    if (link && modal) {
+      link.href = data.url;
+      modal.style.display = 'flex';
     } else {
-      throw new Error(data.error || '決済URLが取得できませんでした');
+      window.location.href = data.url;
     }
   } catch (e) {
-    alert('決済処理に失敗しました:\n' + e.message);
+    alert('決済URLの取得に失敗しました:\n' + e.message);
+  } finally {
     if (upgradeBtn) { upgradeBtn.textContent = origText; upgradeBtn.disabled = false; }
   }
 }
@@ -3372,6 +3516,17 @@ function showTestResult() {
 loadPremium();
 applyPremiumUI();
 </script>
+
+<!-- 決済モーダル（iOS対応：直接タップでStripeへ） -->
+<div id="paymentModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.72);align-items:center;justify-content:center;padding:20px;box-sizing:border-box;">
+  <div style="background:var(--surface);border-radius:20px;padding:28px 24px;max-width:340px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.3);">
+    <div style="font-size:2rem;margin-bottom:10px;">⭐</div>
+    <div style="font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:8px;">プレミアムに登録</div>
+    <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:22px;line-height:1.6;">下のボタンをタップしてStripeの安全な決済画面に進んでください。支払い完了後、このアプリに戻るとプレミアム機能が有効になります。</div>
+    <a id="paymentLink" href="#" target="_blank" rel="noopener noreferrer" style="display:block;background:var(--accent);color:#fff;text-decoration:none;border-radius:14px;padding:16px;font-weight:700;font-size:1rem;margin-bottom:12px;box-shadow:0 6px 24px rgba(88,86,214,0.35);">💳 決済ページを開く</a>
+    <button type="button" onclick="document.getElementById('paymentModal').style.display='none'" style="width:100%;background:transparent;border:1.5px solid var(--sep);border-radius:12px;padding:12px;color:var(--text-muted);font-size:0.85rem;cursor:pointer;font-family:inherit;">キャンセル</button>
+  </div>
+</div>
 
 <!-- AI設定モーダル -->
 <div id="aiModal" onclick="closeAIModal(event)">
