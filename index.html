@@ -702,13 +702,174 @@
   .dup-item-info { flex: 1; min-width: 0; }
   .dup-item-section { font-size: 0.72rem; color: var(--accent); font-weight: 600; margin-bottom: 2px; }
   .dup-item-meaning { font-size: 0.82rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* ════════════════════════════════════════════
+     Premium Badge / Upgrade
+  ════════════════════════════════════════════ */
+  .btn-premium-upgrade {
+    background: linear-gradient(135deg, #f59e0b, #f97316); color: #fff; border: none;
+    border-radius: var(--r-sm); padding: 8px 13px; font-size: 0.78rem;
+    font-weight: 700; cursor: pointer; touch-action: manipulation;
+    -webkit-appearance: none; appearance: none; font-family: inherit;
+    margin-bottom: 0; box-shadow: 0 4px 14px rgba(249,115,22,0.32);
+    transition: opacity 0.15s, transform 0.13s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-premium-upgrade:active { opacity: 0.7; transform: scale(0.96); }
+  .premium-lock {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 40px 20px; text-align: center; gap: 12px;
+  }
+  .premium-lock-icon { font-size: 2.5rem; margin-bottom: 4px; }
+  .premium-lock-title { font-size: 1rem; font-weight: 700; color: var(--text); }
+  .premium-lock-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; }
+  .premium-lock-btn {
+    background: linear-gradient(135deg, #f59e0b, #f97316); color: #fff; border: none;
+    border-radius: var(--r-lg); padding: 13px 28px; font-size: 0.9rem; font-weight: 700;
+    cursor: pointer; touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: inherit; box-shadow: 0 4px 16px rgba(249,115,22,0.32);
+    transition: opacity 0.15s, transform 0.13s;
+  }
+  .premium-lock-btn:active { opacity: 0.85; transform: scale(0.98); }
+  /* ════════════════════════════════════════════
+     Chat Fullscreen
+  ════════════════════════════════════════════ */
+  .chat-topbar {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+  }
+  .chat-topbar-title { font-size: 0.88rem; font-weight: 700; color: var(--text); flex: 1; }
+  .chat-maximize-btn {
+    background: var(--surface2); border: 1px solid var(--sep);
+    border-radius: var(--r-xs); width: 32px; height: 32px; padding: 0;
+    font-size: 0.9rem; cursor: pointer; touch-action: manipulation;
+    -webkit-appearance: none; appearance: none; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+    transition: opacity 0.15s;
+  }
+  .chat-maximize-btn:active { opacity: 0.7; }
+  #chatScreen.chat-fullscreen {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 600; max-width: 100%;
+    padding: 16px 16px calc(20px + env(safe-area-inset-bottom));
+    background: var(--bg); overflow-y: auto; -webkit-overflow-scrolling: touch;
+    display: flex !important; flex-direction: column;
+  }
+  #chatScreen.chat-fullscreen .chat-messages { flex: 1; max-height: none; }
+  /* ════════════════════════════════════════════
+     Premium Voice Controls (Listening)
+  ════════════════════════════════════════════ */
+  .premium-ctrl-section {
+    background: var(--surface); border-radius: var(--r); padding: 14px 16px;
+    border: 1px solid var(--sep); box-shadow: var(--sh-sm); margin-bottom: 14px;
+  }
+  .premium-ctrl-header {
+    display: flex; align-items: center; gap: 6px; margin-bottom: 12px;
+    font-size: 0.72rem; font-weight: 700; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .speed-slider-row { display: flex; align-items: center; gap: 10px; flex: 1; }
+  .speed-slider {
+    flex: 1; -webkit-appearance: none; appearance: none; height: 4px;
+    border-radius: 99px; background: var(--surface3); outline: none; cursor: pointer;
+  }
+  .speed-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 20px; height: 20px;
+    border-radius: 50%; background: var(--accent); cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .speed-label {
+    font-size: 0.78rem; font-weight: 700; color: var(--accent);
+    width: 38px; text-align: right; flex-shrink: 0;
+  }
+  /* ════════════════════════════════════════════
+     Test Screen (Premium)
+  ════════════════════════════════════════════ */
+  #testScreen { display: none; width: 100%; max-width: 420px; position: relative; z-index: 1; padding-bottom: 20px; }
+  .test-mode-select {
+    display: flex; gap: 3px; width: 100%; background: var(--surface2);
+    border-radius: 12px; padding: 3px; margin-bottom: 14px;
+    border: 1px solid var(--sep);
+  }
+  .test-mode-btn {
+    flex: 1; padding: 8px 4px; border: none; border-radius: 9px;
+    font-size: 0.7rem; font-weight: 600; cursor: pointer; touch-action: manipulation;
+    -webkit-appearance: none; appearance: none; font-family: inherit;
+    transition: all 0.2s ease; background: transparent; color: var(--text-muted); white-space: nowrap;
+  }
+  .test-mode-btn.active { background: var(--surface); color: var(--accent); box-shadow: var(--sh-sm); font-weight: 700; }
+  .quiz-score-bar {
+    background: var(--surface); border-radius: var(--r); padding: 10px 16px;
+    border: 1px solid var(--sep); display: flex; align-items: center; gap: 16px;
+    margin-bottom: 14px; box-shadow: var(--sh-sm);
+  }
+  .quiz-score-item { display: flex; align-items: center; gap: 5px; font-size: 0.82rem; font-weight: 700; }
+  .quiz-score-item.ok { color: var(--correct-text); }
+  .quiz-score-item.ng { color: var(--wrong-text); }
+  .quiz-card {
+    background: var(--surface); border-radius: var(--r-lg); padding: 24px;
+    border: 1px solid var(--sep); box-shadow: var(--sh-card); margin-bottom: 16px;
+    animation: fadeUp 0.3s ease;
+  }
+  .quiz-question { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .quiz-word { font-size: clamp(1.6rem, 7vw, 2.4rem); font-weight: 800; color: var(--text); letter-spacing: -0.03em; margin-bottom: 6px; }
+  .quiz-pos { display: inline-block; background: var(--accent-dim); color: var(--accent); border-radius: 99px; padding: 3px 12px; font-size: 0.7rem; font-weight: 700; }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+  .quiz-opt-btn {
+    width: 100%; text-align: left; padding: 13px 16px; border: 1.5px solid var(--sep);
+    border-radius: var(--r-sm); background: var(--surface2); color: var(--text);
+    font-size: 0.88rem; font-weight: 600; cursor: pointer; touch-action: manipulation;
+    -webkit-appearance: none; appearance: none; font-family: inherit;
+    transition: all 0.15s; line-height: 1.4;
+  }
+  .quiz-opt-btn:active { opacity: 0.8; }
+  .quiz-opt-btn.correct { background: var(--correct-dim); border-color: var(--correct); color: var(--correct-text); }
+  .quiz-opt-btn.wrong { background: var(--wrong-dim); border-color: var(--wrong); color: var(--wrong-text); }
+  .quiz-next-btn {
+    width: 100%; padding: 14px; border: none; border-radius: var(--r-lg);
+    background: var(--accent); color: #fff; font-size: 0.9rem; font-weight: 700;
+    cursor: pointer; touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: inherit; box-shadow: 0 4px 16px rgba(88,86,214,0.28);
+    transition: opacity 0.15s, transform 0.13s; display: none; margin-top: 14px;
+  }
+  .quiz-next-btn:active { opacity: 0.85; transform: scale(0.98); }
+  .quiz-result-msg {
+    padding: 10px 14px; border-radius: var(--r-sm); text-align: center;
+    font-size: 0.85rem; font-weight: 600; margin-bottom: 14px; display: none;
+  }
+  .quiz-result-msg.correct { background: var(--correct-dim); color: var(--correct-text); }
+  .quiz-result-msg.wrong   { background: var(--wrong-dim);   color: var(--wrong-text);   }
+  .fib-card {
+    background: var(--surface); border-radius: var(--r-lg); padding: 22px;
+    border: 1px solid var(--sep); box-shadow: var(--sh-card); margin-bottom: 16px;
+    animation: fadeUp 0.3s ease;
+  }
+  .fib-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .fib-sentence { font-size: 0.92rem; color: var(--text); line-height: 1.9; margin-bottom: 14px; font-weight: 500; }
+  .fib-input-row { display: flex; gap: 10px; align-items: center; }
+  .fib-input {
+    flex: 1; border: 1.5px solid var(--sep); border-radius: var(--r-sm);
+    padding: 12px 14px; font-size: 16px; color: var(--text); background: var(--surface2);
+    -webkit-appearance: none; appearance: none; outline: none; font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  .fib-input:focus { border-color: var(--accent); }
+  .fib-input.correct-input { border-color: var(--correct); background: var(--correct-dim); }
+  .fib-input.wrong-input   { border-color: var(--wrong);   background: var(--wrong-dim);   }
+  .fib-check-btn {
+    background: var(--accent); color: #fff; border: none; border-radius: var(--r-sm);
+    padding: 12px 16px; font-size: 0.88rem; font-weight: 700; cursor: pointer;
+    touch-action: manipulation; -webkit-appearance: none; appearance: none;
+    font-family: inherit; white-space: nowrap; transition: opacity 0.15s;
+  }
+  .fib-check-btn:disabled { opacity: 0.35; cursor: default; }
+  .fib-hint { font-size: 0.8rem; margin-top: 10px; line-height: 1.6; min-height: 1.2em; }
 </style>
 </head>
 <body>
 <div class="bg-glow"></div>
 <h1>📚 Flash Cards</h1>
 <p class="subtitle" id="mainSubtitle">セクションを選んで学習しよう</p>
-<div id="editModeControls" style="display:flex;gap:8px;justify-content:flex-end;width:100%;max-width:420px;position:relative;z-index:1;margin-bottom:20px;">
+<div id="editModeControls" style="display:flex;gap:8px;justify-content:flex-end;width:100%;max-width:420px;position:relative;z-index:1;margin-bottom:20px;flex-wrap:wrap;">
+  <button class="btn-premium-upgrade" id="btnPremiumUpgrade" type="button" onclick="startUpgradeFlow()">⭐ プレミアム</button>
   <button class="btn-edit-mode btn-ai-setting" id="btnAISetting" onclick="openAIModal()" style="margin-bottom:0;">✨ AI設定</button>
   <button class="btn-edit-mode" type="button" onclick="openDuplicateCheck()" style="margin-bottom:0;">🔍 重複チェック</button>
   <button class="btn-edit-mode" id="btnEditMode" onclick="openEditMode()" data-action="editmode" style="margin-bottom:0;">✏️ 編集</button>
@@ -720,6 +881,7 @@
   <button class="tab-btn" onclick="switchTab('listen')">🎧 リスニング</button>
   <button class="tab-btn" onclick="switchTab('help')">❓ ガイド</button>
   <button class="tab-btn" onclick="switchTab('chat')">🤖 AIチャット</button>
+  <button class="tab-btn" onclick="switchTab('test')">📝 テスト</button>
 </div>
 
 <div id="sectionScreen">
@@ -816,6 +978,25 @@
       <select id="listenSectionSelect" onchange="setListenSection(this.value)">
         <option value="all">全セクション</option>
       </select>
+    </div>
+  </div>
+  <!-- プレミアム音声設定（isPremium時のみ表示） -->
+  <div id="premiumVoiceCtrl" class="premium-ctrl-section" style="display:none;">
+    <div class="premium-ctrl-header">⭐ プレミアム音声設定</div>
+    <div class="ctrl-row">
+      <div class="ctrl-label">アクセント</div>
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="btnAccentUS" onclick="setVoiceAccent('en-US')">🇺🇸 US</button>
+        <button class="toggle-btn" id="btnAccentGB" onclick="setVoiceAccent('en-GB')">🇬🇧 UK</button>
+        <button class="toggle-btn" id="btnAccentAU" onclick="setVoiceAccent('en-AU')">🇦🇺 AU</button>
+      </div>
+    </div>
+    <div class="ctrl-row">
+      <div class="ctrl-label">速度</div>
+      <div class="speed-slider-row">
+        <input type="range" class="speed-slider" id="speedSlider" min="0.5" max="2.0" step="0.1" value="1.0" oninput="setPlaySpeed(this.value)">
+        <span class="speed-label" id="speedLabel">1.0x</span>
+      </div>
     </div>
   </div>
   <button class="listening-play-btn" id="btnListenPlay" onclick="toggleListening()">▶ 再生開始</button>
@@ -954,12 +1135,18 @@
 
 <!-- AIチャット画面 -->
 <div id="chatScreen">
+  <!-- トップバー（最大化ボタン） -->
+  <div class="chat-topbar">
+    <span class="chat-topbar-title">🤖 AIチャット</span>
+    <button class="chat-maximize-btn" id="chatMaximizeBtn" type="button" title="全画面表示">⛶</button>
+  </div>
   <!-- レベル選択 -->
   <div class="chat-level-row">
     <span class="chat-level-label">レベル</span>
     <button class="chat-level-btn active" data-level="A1" type="button">A1</button>
     <button class="chat-level-btn" data-level="A2" type="button">A2</button>
     <button class="chat-level-btn" data-level="B1" type="button">B1</button>
+    <button class="chat-level-btn" data-level="B2" type="button" id="chatLevelB2" style="display:none;">B2 ⭐</button>
   </div>
   <!-- APIキー未設定時 -->
   <div class="chat-apikey-row" id="chatApiKeyRow">
@@ -987,6 +1174,36 @@
     <textarea class="chat-input" id="chatInput"
               placeholder="メッセージを入力... (Shift+Enterで改行)" rows="2" disabled></textarea>
     <button class="chat-send-btn" type="button" id="chatSendBtn" disabled>送信</button>
+  </div>
+</div>
+
+<!-- テストスクリーン（プレミアム専用） -->
+<div id="testScreen">
+  <!-- 非プレミアム：ロック画面 -->
+  <div id="testPremiumLock" class="premium-lock">
+    <div class="premium-lock-icon">🔒</div>
+    <div class="premium-lock-title">プレミアム専用機能</div>
+    <div class="premium-lock-desc">特訓テストモードはプレミアムプランで利用できます。<br>四択テストや穴埋めタイピングで、実践的に単語力を高めましょう。</div>
+    <button class="premium-lock-btn" onclick="startUpgradeFlow()">⭐ プレミアムに登録（月額800円）</button>
+  </div>
+  <!-- プレミアム：テストコンテンツ -->
+  <div id="testContent" style="display:none;">
+    <div class="test-mode-select">
+      <button class="test-mode-btn active" id="testModeQuiz" onclick="switchTestMode('quiz')">🎯 四択テスト</button>
+      <button class="test-mode-btn" id="testModeFib" onclick="switchTestMode('fib')">✏️ 穴埋めタイピング</button>
+    </div>
+    <div style="margin-bottom:14px;">
+      <select id="testSectionSelect" style="width:100%;border:1.5px solid var(--sep);border-radius:var(--r-sm);padding:10px 12px;font-size:0.85rem;color:var(--text);background:var(--surface);-webkit-appearance:none;appearance:none;font-family:inherit;cursor:pointer;">
+        <option value="all">全セクション</option>
+      </select>
+    </div>
+    <div class="quiz-score-bar" id="testScoreBar">
+      <div class="quiz-score-item ok">✓ <span id="testOkCount">0</span></div>
+      <div class="quiz-score-item ng">✗ <span id="testNgCount">0</span></div>
+      <button style="margin-left:auto;background:var(--surface2);border:1px solid var(--sep);border-radius:var(--r-xs);padding:6px 12px;font-size:0.75rem;font-weight:600;color:var(--text2);cursor:pointer;font-family:inherit;-webkit-appearance:none;appearance:none;" onclick="resetTestScore()">リセット</button>
+    </div>
+    <div id="quizArea"></div>
+    <div id="fibArea" style="display:none;"></div>
   </div>
 </div>
 
@@ -1046,6 +1263,11 @@ let queue = [];
 let current = 0, okCount = 0, ngCount = 0;
 let isFlipped = false, isTouching = false;
 let reverseMode = false;
+// プレミアム・音声・UI 状態（premium スクリプトブロックで初期化）
+var isPremium = false;
+var voiceAccent = 'en-US';
+var playSpeed = 1.0;
+var isChatFullscreen = false;
 
 // ===== Groq AI =====
 function getGeminiKey() { return localStorage.getItem(AI_KEY_STORAGE) || ''; }
@@ -1258,6 +1480,8 @@ function beginStudy() {
   document.getElementById('sectionScreen').style.display = 'none';
   document.getElementById('listeningScreen').style.display = 'none';
   document.getElementById('chatScreen').style.display = 'none';
+  document.getElementById('helpScreen').style.display = 'none';
+  document.getElementById('testScreen').style.display = 'none';
   document.getElementById('tabNav').style.display = 'none';
   document.getElementById('mainSubtitle').style.display = 'none';
   const ss = document.getElementById('studyScreen');
@@ -1275,6 +1499,16 @@ function goHome() {
   document.getElementById('sectionScreen').style.display = 'block';
   document.getElementById('listeningScreen').style.display = 'none';
   document.getElementById('chatScreen').style.display = 'none';
+  document.getElementById('helpScreen').style.display = 'none';
+  document.getElementById('testScreen').style.display = 'none';
+  // チャット全画面を解除
+  if (isChatFullscreen) {
+    isChatFullscreen = false;
+    const cs = document.getElementById('chatScreen');
+    if (cs) cs.classList.remove('chat-fullscreen');
+    const mb = document.getElementById('chatMaximizeBtn');
+    if (mb) { mb.textContent = '⛶'; mb.title = '全画面表示'; }
+  }
   document.getElementById('tabNav').style.display = 'flex';
   document.getElementById('mainSubtitle').style.display = 'block';
   document.querySelectorAll('.tab-btn').forEach(function(btn, i) {
@@ -1298,8 +1532,10 @@ function speak(text, lang, rate) {
   window.speechSynthesis.cancel();
   if (_utter) { _utter.onend = null; _utter.onerror = null; _utter = null; }
   _utter = new SpeechSynthesisUtterance(text);
-  _utter.lang = lang || 'en-US';
-  _utter.rate = rate || 0.9;
+  const effLang = (lang && lang.startsWith('en') && isPremium) ? voiceAccent : (lang || 'en-US');
+  const effRate = isPremium ? (rate || 0.9) * playSpeed : (rate || 0.9);
+  _utter.lang = effLang;
+  _utter.rate = Math.min(Math.max(effRate, 0.1), 10);
   _utter.volume = 1;
   const u = _utter;
   setTimeout(() => { if (u === _utter) window.speechSynthesis.speak(u); }, 100);
@@ -1592,7 +1828,9 @@ function playSequence(seq, idx, session, onDone) {
   const item = seq[idx];
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(item.text);
-  u.lang = item.lang; u.rate = item.rate;
+  u.lang = (item.lang && item.lang.startsWith('en') && isPremium) ? voiceAccent : item.lang;
+  const rawRate = isPremium ? item.rate * playSpeed : item.rate;
+  u.rate = Math.min(Math.max(rawRate, 0.1), 10);
   u.onend  = () => { setTimeout(() => { if (playSession === session) playSequence(seq, idx + 1, session, onDone); }, 200); };
   u.onerror = () => { setTimeout(() => { if (playSession === session) playSequence(seq, idx + 1, session, onDone); }, 200); };
   setTimeout(() => { if (isListening && playSession === session) window.speechSynthesis.speak(u); }, 50);
@@ -1600,18 +1838,29 @@ function playSequence(seq, idx, session, onDone) {
 
 // タブ切替
 function switchTab(tab) {
+  // チャット全画面を離れる時に解除
+  if (tab !== 'chat' && isChatFullscreen) {
+    isChatFullscreen = false;
+    const cs = document.getElementById('chatScreen');
+    if (cs) cs.classList.remove('chat-fullscreen');
+    const mb = document.getElementById('chatMaximizeBtn');
+    if (mb) { mb.textContent = '⛶'; mb.title = '全画面表示'; }
+  }
   const tabs = document.querySelectorAll('.tab-btn');
   tabs[0].classList.toggle('active', tab === 'flash');
   tabs[1].classList.toggle('active', tab === 'listen');
   tabs[2].classList.toggle('active', tab === 'help');
   if (tabs[3]) tabs[3].classList.toggle('active', tab === 'chat');
+  if (tabs[4]) tabs[4].classList.toggle('active', tab === 'test');
   document.getElementById('sectionScreen').style.display   = tab === 'flash'  ? 'block' : 'none';
   document.getElementById('listeningScreen').style.display = tab === 'listen' ? 'block' : 'none';
   document.getElementById('helpScreen').style.display      = tab === 'help'   ? 'block' : 'none';
   document.getElementById('chatScreen').style.display      = tab === 'chat'   ? 'block' : 'none';
+  document.getElementById('testScreen').style.display      = tab === 'test'   ? 'block' : 'none';
   document.getElementById('mainSubtitle').style.display    = 'block';
-  if (tab === 'listen') renderWordList();
+  if (tab === 'listen') { renderWordList(); applyPremiumUI(); }
   if (tab === 'chat')   initChatTab();
+  if (tab === 'test')   initTestTab();
   if (tab === 'flash' && isListening) stopListening();
   if (tab === 'listen' && isListening) stopListening();
 }
@@ -1898,6 +2147,8 @@ function openEditMode() {
   document.getElementById('sectionScreen').style.display = 'none';
   document.getElementById('listeningScreen').style.display = 'none';
   document.getElementById('chatScreen').style.display = 'none';
+  document.getElementById('helpScreen').style.display = 'none';
+  document.getElementById('testScreen').style.display = 'none';
   document.getElementById('tabNav').style.display = 'none';
   document.getElementById('mainSubtitle').style.display = 'none';
   document.getElementById('editModeControls').style.display = 'none';
@@ -2653,6 +2904,310 @@ if ('serviceWorker' in navigator) {
 
 <!-- トースト通知 -->
 <div id="chatToast"></div>
+
+<script>
+/* ════════════════════════════════════════════
+   プレミアムシステム
+════════════════════════════════════════════ */
+const PREMIUM_KEY = 'flashcards_premium_v1';
+
+function loadPremium() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('premium') === '1') {
+    localStorage.setItem(PREMIUM_KEY, '1');
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+  isPremium = !!localStorage.getItem(PREMIUM_KEY);
+}
+
+function applyPremiumUI() {
+  // B2 レベルボタン表示制御
+  const b2Btn = document.getElementById('chatLevelB2');
+  if (b2Btn) b2Btn.style.display = isPremium ? '' : 'none';
+
+  // プレミアムアップグレードボタン
+  const upgradeBtn = document.getElementById('btnPremiumUpgrade');
+  if (upgradeBtn) {
+    if (isPremium) {
+      upgradeBtn.textContent = '✓ プレミアム済み';
+      upgradeBtn.style.background = 'var(--correct-dim)';
+      upgradeBtn.style.color = 'var(--correct-text)';
+      upgradeBtn.style.boxShadow = 'none';
+      upgradeBtn.style.cursor = 'default';
+      upgradeBtn.disabled = true;
+    }
+  }
+
+  // プレミアム音声コントロール
+  const voiceCtrl = document.getElementById('premiumVoiceCtrl');
+  if (voiceCtrl) voiceCtrl.style.display = isPremium ? '' : 'none';
+
+  // テストスクリーン：ロック画面 or コンテンツ
+  const testLock = document.getElementById('testPremiumLock');
+  const testContent = document.getElementById('testContent');
+  if (testLock) testLock.style.display = isPremium ? 'none' : 'flex';
+  if (testContent) testContent.style.display = isPremium ? '' : 'none';
+}
+
+async function startUpgradeFlow() {
+  if (isPremium) return;
+  const upgradeBtn = document.getElementById('btnPremiumUpgrade');
+  const origText = upgradeBtn ? upgradeBtn.textContent : '⭐ プレミアム';
+  if (upgradeBtn) { upgradeBtn.textContent = '処理中...'; upgradeBtn.disabled = true; }
+  try {
+    const res = await fetch('/api/checkout', { method: 'POST' });
+    if (!res.ok) throw new Error('サーバーエラー ' + res.status);
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      throw new Error(data.error || '決済URLが取得できませんでした');
+    }
+  } catch (e) {
+    alert('決済処理に失敗しました:\n' + e.message);
+    if (upgradeBtn) { upgradeBtn.textContent = origText; upgradeBtn.disabled = false; }
+  }
+}
+
+/* ════════════════════════════════════════════
+   チャット全画面切替
+════════════════════════════════════════════ */
+(function() {
+  const maxBtn = document.getElementById('chatMaximizeBtn');
+  if (!maxBtn) return;
+  function toggleChatFullscreen() {
+    isChatFullscreen = !isChatFullscreen;
+    const chatScreen = document.getElementById('chatScreen');
+    chatScreen.classList.toggle('chat-fullscreen', isChatFullscreen);
+    maxBtn.textContent = isChatFullscreen ? '✕' : '⛶';
+    maxBtn.title = isChatFullscreen ? '元のサイズに戻す' : '全画面表示';
+    if (isChatFullscreen) {
+      const msgs = document.getElementById('chatMessages');
+      if (msgs) setTimeout(function() { msgs.scrollTop = msgs.scrollHeight; }, 50);
+    }
+  }
+  var _mt = false;
+  maxBtn.addEventListener('touchend', function(e) {
+    e.preventDefault(); _mt = true; toggleChatFullscreen();
+    setTimeout(function() { _mt = false; }, 300);
+  }, { passive: false });
+  maxBtn.addEventListener('click', function() { if (_mt) return; toggleChatFullscreen(); });
+})();
+
+/* ════════════════════════════════════════════
+   プレミアム音声設定
+════════════════════════════════════════════ */
+function setVoiceAccent(accent) {
+  voiceAccent = accent;
+  const map = { US: 'en-US', GB: 'en-GB', AU: 'en-AU' };
+  Object.keys(map).forEach(function(code) {
+    const btn = document.getElementById('btnAccent' + code);
+    if (btn) btn.classList.toggle('active', map[code] === accent);
+  });
+}
+
+function setPlaySpeed(val) {
+  playSpeed = parseFloat(val);
+  const label = document.getElementById('speedLabel');
+  if (label) label.textContent = playSpeed.toFixed(1) + 'x';
+}
+
+/* ════════════════════════════════════════════
+   テストモード（プレミアム専用）
+════════════════════════════════════════════ */
+var currentTestMode = 'quiz';
+var testOkCount = 0, testNgCount = 0;
+var currentQuizCard = null, quizAnswered = false;
+var currentFibCard = null;
+
+function initTestTab() {
+  applyPremiumUI();
+  if (!isPremium) return;
+  updateTestSectionSelect();
+  if (currentTestMode === 'quiz') renderQuiz();
+  else renderFib();
+}
+
+function updateTestSectionSelect() {
+  var sel = document.getElementById('testSectionSelect');
+  if (!sel) return;
+  var cur = sel.value;
+  sel.innerHTML = '<option value="all">全セクション</option>';
+  sections.forEach(function(sec, idx) {
+    var opt = document.createElement('option');
+    opt.value = String(idx);
+    opt.textContent = sec.name;
+    sel.appendChild(opt);
+  });
+  sel.value = (cur && cur !== 'undefined') ? cur : 'all';
+  if (!sel.value) sel.value = 'all';
+  sel.onchange = function() {
+    if (currentTestMode === 'quiz') renderQuiz();
+    else renderFib();
+  };
+}
+
+function getTestCards() {
+  var sel = document.getElementById('testSectionSelect');
+  var filter = sel ? sel.value : 'all';
+  if (filter === 'all') return sections.reduce(function(a, s) { return a.concat(s.cards); }, []);
+  var idx = parseInt(filter);
+  return (sections[idx] && sections[idx].cards) ? sections[idx].cards : [];
+}
+
+function switchTestMode(mode) {
+  currentTestMode = mode;
+  var qBtn = document.getElementById('testModeQuiz');
+  var fBtn = document.getElementById('testModeFib');
+  if (qBtn) qBtn.classList.toggle('active', mode === 'quiz');
+  if (fBtn) fBtn.classList.toggle('active', mode === 'fib');
+  var quizArea = document.getElementById('quizArea');
+  var fibArea = document.getElementById('fibArea');
+  if (quizArea) quizArea.style.display = mode === 'quiz' ? '' : 'none';
+  if (fibArea) fibArea.style.display = mode === 'fib' ? '' : 'none';
+  if (mode === 'quiz') renderQuiz();
+  else renderFib();
+}
+
+function resetTestScore() {
+  testOkCount = 0; testNgCount = 0;
+  var ok = document.getElementById('testOkCount');
+  var ng = document.getElementById('testNgCount');
+  if (ok) ok.textContent = '0';
+  if (ng) ng.textContent = '0';
+}
+
+function renderQuiz() {
+  var quizArea = document.getElementById('quizArea');
+  if (!quizArea) return;
+  var cards = getTestCards();
+  if (cards.length < 4) {
+    quizArea.innerHTML = '<div class="quiz-card"><p style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">テストには4語以上の単語が必要です</p></div>';
+    return;
+  }
+  currentQuizCard = cards[Math.floor(Math.random() * cards.length)];
+  quizAnswered = false;
+  var others = cards.filter(function(c) { return c.word !== currentQuizCard.word; });
+  var wrongs = others.sort(function() { return Math.random() - 0.5; }).slice(0, 3);
+  var options = [currentQuizCard].concat(wrongs).sort(function() { return Math.random() - 0.5; });
+  var optHtml = options.map(function(opt) {
+    return '<button class="quiz-opt-btn" data-correct="' + (opt.word === currentQuizCard.word ? '1' : '0') + '">'
+      + escChatHtml(opt.meaning) + '</button>';
+  }).join('');
+  quizArea.innerHTML =
+    '<div class="quiz-card">'
+    + '<div class="quiz-question">次の英単語の意味を選んでください</div>'
+    + '<div class="quiz-word">' + escChatHtml(currentQuizCard.word) + '</div>'
+    + '<div style="margin-bottom:4px;"><span class="quiz-pos">' + escChatHtml(currentQuizCard.pos) + '</span></div>'
+    + '</div>'
+    + '<div class="quiz-result-msg" id="quizResultMsg" style="display:none;"></div>'
+    + '<div class="quiz-options" id="quizOptions">' + optHtml + '</div>'
+    + '<button class="quiz-next-btn" id="quizNextBtn" onclick="renderQuiz()" style="display:none;">次の問題 →</button>';
+
+  quizArea.querySelectorAll('.quiz-opt-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (quizAnswered) return;
+      quizAnswered = true;
+      var isCorrect = this.dataset.correct === '1';
+      quizArea.querySelectorAll('.quiz-opt-btn').forEach(function(b) {
+        if (b.dataset.correct === '1') b.classList.add('correct');
+        else if (b === btn && !isCorrect) b.classList.add('wrong');
+        b.disabled = true;
+      });
+      var resultMsg = document.getElementById('quizResultMsg');
+      if (resultMsg) {
+        if (isCorrect) {
+          testOkCount++;
+          resultMsg.textContent = '✓ 正解！';
+          resultMsg.className = 'quiz-result-msg correct';
+        } else {
+          testNgCount++;
+          resultMsg.textContent = '✗ 不正解… 正解：' + (currentQuizCard.meaning || '');
+          resultMsg.className = 'quiz-result-msg wrong';
+        }
+        resultMsg.style.display = 'block';
+      }
+      var nextBtn = document.getElementById('quizNextBtn');
+      if (nextBtn) nextBtn.style.display = 'block';
+      var okEl = document.getElementById('testOkCount');
+      var ngEl = document.getElementById('testNgCount');
+      if (okEl) okEl.textContent = testOkCount;
+      if (ngEl) ngEl.textContent = testNgCount;
+    });
+  });
+}
+
+function renderFib() {
+  var fibArea = document.getElementById('fibArea');
+  if (!fibArea) return;
+  var cards = getTestCards().filter(function(c) { return c.example && c.word; });
+  if (cards.length === 0) {
+    fibArea.innerHTML = '<div class="fib-card"><p style="text-align:center;color:var(--text-muted);padding:20px 0;font-size:0.85rem;">例文のある単語が必要です</p></div>';
+    return;
+  }
+  currentFibCard = cards[Math.floor(Math.random() * cards.length)];
+  var word = currentFibCard.word;
+  var escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  var blanked = currentFibCard.example.replace(new RegExp(escaped, 'gi'), '［　　　　］');
+  fibArea.innerHTML =
+    '<div class="fib-card">'
+    + '<div class="fib-label">✏️ 穴埋めタイピング — 空欄の単語を入力</div>'
+    + '<div class="fib-sentence">' + escChatHtml(blanked) + '</div>'
+    + '<div style="font-size:0.74rem;color:var(--text-muted);margin-bottom:14px;line-height:1.6;">'
+    + escChatHtml(currentFibCard.trans) + '</div>'
+    + '<div class="fib-input-row">'
+    + '<input class="fib-input" id="fibInput" type="text" placeholder="スペルを入力..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">'
+    + '<button class="fib-check-btn" id="fibCheckBtn">確認</button>'
+    + '</div>'
+    + '<div class="fib-hint" id="fibHint"></div>'
+    + '</div>'
+    + '<button class="quiz-next-btn" id="fibNextBtn" onclick="renderFib()" style="display:none;">次の問題 →</button>';
+
+  function checkFib() {
+    var inp = document.getElementById('fibInput');
+    var checkBtnEl = document.getElementById('fibCheckBtn');
+    if (!inp || !currentFibCard) return;
+    if (inp.disabled) return;
+    var val = inp.value.trim().toLowerCase();
+    var correct = currentFibCard.word.toLowerCase();
+    var isCorrect = val === correct;
+    inp.disabled = true;
+    if (checkBtnEl) checkBtnEl.disabled = true;
+    if (isCorrect) {
+      testOkCount++;
+      inp.classList.add('correct-input');
+      document.getElementById('fibHint').innerHTML =
+        '<span style="color:var(--correct-text);font-weight:600;">✓ 正解！</span>';
+    } else {
+      testNgCount++;
+      inp.classList.add('wrong-input');
+      document.getElementById('fibHint').innerHTML =
+        '<span style="color:var(--wrong-text);font-weight:600;">✗ 不正解</span> — 正解：<strong>'
+        + escChatHtml(currentFibCard.word) + '</strong>';
+    }
+    var nextBtn = document.getElementById('fibNextBtn');
+    if (nextBtn) nextBtn.style.display = 'block';
+    var okEl = document.getElementById('testOkCount');
+    var ngEl = document.getElementById('testNgCount');
+    if (okEl) okEl.textContent = testOkCount;
+    if (ngEl) ngEl.textContent = testNgCount;
+  }
+
+  var fibCheckBtn = document.getElementById('fibCheckBtn');
+  if (fibCheckBtn) fibCheckBtn.addEventListener('click', checkFib);
+  var fibInput = document.getElementById('fibInput');
+  if (fibInput) {
+    fibInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') checkFib(); });
+    setTimeout(function() { fibInput.focus(); }, 100);
+  }
+}
+
+/* ════════════════════════════════════════════
+   初期化
+════════════════════════════════════════════ */
+loadPremium();
+applyPremiumUI();
+</script>
 
 <!-- AI設定モーダル -->
 <div id="aiModal" onclick="closeAIModal(event)">
